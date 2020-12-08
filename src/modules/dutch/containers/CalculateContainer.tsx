@@ -145,7 +145,6 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
             <StyledDesc>* 한 명이 다 송금받아서 정산한다면?</StyledDesc>
           </StyledTitle>
           <StyledGiveMe>
-            [민형]에게 보내주세요!
             <StyledTossUl>
               {Object.keys(calculateList).map((payer, index) => {
                 const { paymentTotal, tossList } = calculateList[payer];
