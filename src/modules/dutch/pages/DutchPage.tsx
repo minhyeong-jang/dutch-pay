@@ -1,33 +1,38 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
-import { PaymentListContainer, UserListContainer } from "../containers";
+import {
+  CalculateContainer,
+  PaymentListContainer,
+  UserListContainer,
+} from "../containers";
 
-export interface UserList {
+export interface UserItem {
   userName: string;
   paymentPrice: number;
+  getTossList: { [key: string]: number };
 }
-export interface PaymentList {
+export interface PaymentItem {
   title: string;
-  paymentPrice: string;
-  userName: string;
-  Participants: string[];
+  paymentPrice: number;
+  payerName: string;
+  participants: string[];
 }
-const initialUser: UserList = {
-  userName: "",
-  paymentPrice: 0,
-};
+
 export const DutchPage: FC = () => {
-  const [userList, setUserList] = useState<UserList[]>([]);
-  const [paymentList, setPaymentList] = useState<PaymentList[]>([]);
+  const [userList, setUserList] = useState([]);
+  const [paymentList, setPaymentList] = useState<PaymentItem[]>([]);
 
   return (
-    <div>
+    <StyledContainer>
       <UserListContainer />
-      <PaymentListContainer />
-    </div>
+      <PaymentListContainer paymentList={paymentList} />
+      <CalculateContainer userList={userList} paymentList={paymentList} />
+    </StyledContainer>
   );
 };
 
 const StyledContainer = styled.div`
   padding: 10px;
+  max-width: 1000px;
+  margin: 0 auto;
 `;
