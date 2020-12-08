@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import { routes } from "./modules/shared/routes";
+import "antd/dist/antd.css";
 
 function App() {
   return (
