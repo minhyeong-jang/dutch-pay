@@ -1,47 +1,27 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { PaymentItem } from "../pages";
+
 import { Select, Tag } from "antd";
 import { StepHeader } from "../components/Layout";
 import { PaymentTable } from "../components/Payment";
+import { PaymentItem, initialPaymentItem } from "../hooks";
 
 interface Props {
   paymentList: PaymentItem[];
 }
-const colors = [
-  "magenta",
-  "red",
-  "volcano",
-  "orange",
-  "gold",
-  "lime",
-  "green",
-  "cyan",
-  "blue",
-  "geekblue",
-  "purple",
-];
-
-function tagRender(props: any) {
-  const { label, value, closable, onClose } = props;
-
-  return (
-    <Tag
-      color={colors[label]}
-      closable={closable}
-      onClose={onClose}
-      style={{ marginRight: 3 }}
-    >
-      {value}
-    </Tag>
-  );
-}
 
 export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
+  const [localPaymentList, setLocalPaymentList] = useState(paymentList);
+
+  const addPayment = () => {
+    setLocalPaymentList([...localPaymentList, initialPaymentItem]);
+  };
+  const updatePayment = () => {};
+
   return (
     <StyledSection>
       <StepHeader title='Step2' description='결제내역 입력' />
-      <PaymentTable />
+      <PaymentTable paymentList={localPaymentList} addPayment={addPayment} />
       <StyledPaymentUl>
         {paymentList.map((payment, index) => (
           <StyledPaymentLi key={index}>
@@ -51,7 +31,7 @@ export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
               {payment.paymentPrice.toLocaleString()}원
             </StyledPaymentPrice>
             <StyledPaymentParticipants>
-              <Select
+              {/* <Select
                 mode='multiple'
                 showArrow
                 tagRender={tagRender}
@@ -61,7 +41,7 @@ export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
                   value: participant,
                   label: index,
                 }))}
-              />
+              /> */}
             </StyledPaymentParticipants>
           </StyledPaymentLi>
         ))}

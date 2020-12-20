@@ -5,7 +5,16 @@ export interface PaymentItem {
   paymentPrice: number;
   payerName: string;
   participants: string[];
+  status: "new" | "update" | "complete";
 }
+
+export const initialPaymentItem: PaymentItem = {
+  title: "",
+  paymentPrice: 0,
+  payerName: "",
+  participants: [],
+  status: "new",
+};
 
 export const usePaymentList = () => {
   const [paymentList, setPaymentList] = useState<PaymentItem[]>([]);

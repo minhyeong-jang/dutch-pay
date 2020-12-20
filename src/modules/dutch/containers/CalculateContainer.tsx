@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { PaymentItem, UserItem } from "../pages";
+import { PaymentItem } from "../hooks";
 
 interface Props {
   userList: string[];

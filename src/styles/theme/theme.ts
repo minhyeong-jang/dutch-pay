@@ -35,8 +35,10 @@ const mediaQuery = {
 
 const color = {
   point: "#743BE0",
+  borderColor: "#d9d9d9",
 };
 const layout = {
+  borderRadius: "5px",
   section: `
     margin: 20px 0px;
     border: 1px solid #d1cad8;
