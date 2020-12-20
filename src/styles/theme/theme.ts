@@ -36,8 +36,17 @@ const mediaQuery = {
 const color = {
   point: "#743BE0",
 };
-
+const layout = {
+  section: `
+    margin: 20px 0px;
+    border: 1px solid #d1cad8;
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+  `,
+};
 export const theme = {
   mediaQuery,
   color,
+  layout,
 };

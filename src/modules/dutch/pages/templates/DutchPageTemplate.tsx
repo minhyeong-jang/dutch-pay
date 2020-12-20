@@ -27,12 +27,7 @@ const StyledWrap = styled.div`
   flex-direction: row;
   max-width: 1600px;
   margin: 0 auto;
-  background: white;
 `;
 const StyledSection = styled.section`
   flex: 1 1 auto;
-  margin: 20px;
-  border: 1px solid #d1cad8;
-  padding: 20px;
-  border-radius: 10px;
 `;

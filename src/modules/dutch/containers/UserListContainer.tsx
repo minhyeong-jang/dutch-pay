@@ -16,28 +16,28 @@ export const UserListContainer: FC<Props> = ({
   addUser,
   removeUser,
 }) => {
-  return (
-    <StyledContainer>
-      <StepHeader title='Step1' description='참가자 입력' />
+  const changeSelect = (value: string[]) => {
+    if (value.length > userList.length) {
+      addUser({
+        userName: value[value.length - 1],
+        tagColor: tagColors[Math.floor(Math.random() * tagColors.length)],
+      });
+    } else {
+      const filteredUser = userList.filter(
+        (user) => !value.includes(user.userName)
+      );
+      removeUser(filteredUser[0].userName);
+    }
+  };
 
+  return (
+    <StyledSection>
+      <StepHeader title='Step1' description='참가자 입력' />
       <Select
         mode='tags'
-        placeholder='Please Select User'
+        placeholder='Please Input User'
         value={userList.map((user) => user.userName)}
-        onChange={(value) => {
-          console.log(value);
-          if (value.length > userList.length) {
-            addUser({
-              userName: value[value.length - 1],
-              tagColor: tagColors[Math.floor(Math.random() * tagColors.length)],
-            });
-          } else {
-            const filteredUser = userList.filter(
-              (user) => !value.includes(user.userName)
-            );
-            removeUser(filteredUser[0].userName);
-          }
-        }}
+        onChange={changeSelect}
         tagRender={(customTag) =>
           Tag({
             ...customTag,
@@ -46,18 +46,35 @@ export const UserListContainer: FC<Props> = ({
             ),
           })
         }
-        style={{
-          width: "100%",
-        }}
-        // labelInValue={true}
-        options={userList.map((user, index) => ({
+        options={userList.map((user) => ({
           value: user.userName,
           label: user.userName,
         }))}
       />
-    </StyledContainer>
+    </StyledSection>
   );
 };
-const StyledContainer = styled.div`
-  margin: 20px 0px;
+const StyledSection = styled.section`
+  ${({ theme }) => theme.layout.section};
+  .ant-select {
+    width: 100%;
+    font-size: 15px;
+
+    .ant-select-selection-placeholder {
+      left: 22px;
+    }
+    .ant-select-selector {
+      padding: 10px 15px;
+    }
+    .ant-tag {
+      margin-right: 6px;
+      font-size: 15px;
+      padding: 5px 10px;
+    }
+    .ant-tag-close-icon {
+      font-size: 12px;
+      vertical-align: middle;
+      margin: -3px 0 0 9px;
+    }
+  }
 `;

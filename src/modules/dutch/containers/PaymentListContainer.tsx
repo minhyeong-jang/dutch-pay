@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import styled, { keyframes } from "styled-components";
 import { PaymentItem } from "../pages";
 import { Select, Tag } from "antd";
+import { StepHeader } from "../components/Layout";
+import { PaymentTable } from "../components/Payment";
 
 interface Props {
   paymentList: PaymentItem[];
@@ -37,8 +39,9 @@ function tagRender(props: any) {
 
 export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
   return (
-    <StyledContainer>
-      <StyledTitle>결제 내역</StyledTitle>
+    <StyledSection>
+      <StepHeader title='Step2' description='결제내역 입력' />
+      <PaymentTable />
       <StyledPaymentUl>
         {paymentList.map((payment, index) => (
           <StyledPaymentLi key={index}>
@@ -63,11 +66,11 @@ export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
           </StyledPaymentLi>
         ))}
       </StyledPaymentUl>
-    </StyledContainer>
+    </StyledSection>
   );
 };
-const StyledContainer = styled.div`
-  margin-bottom: 40px;
+const StyledSection = styled.section`
+  ${({ theme }) => theme.layout.section};
 `;
 
 const StyledTitle = styled.div`

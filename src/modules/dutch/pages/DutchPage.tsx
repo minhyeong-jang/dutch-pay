@@ -26,8 +26,7 @@ export const DutchPage: FC = () => {
   return (
     <DutchPageTemplate>
       <DutchContainer />
-      <PaymentListContainer paymentList={paymentList} />
-      <CalculateContainer userList={userList} paymentList={paymentList} />
+      {/* <CalculateContainer userList={userList} paymentList={paymentList} /> */}
     </DutchPageTemplate>
   );
 };

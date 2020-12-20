@@ -27,12 +27,7 @@ export const Tag = ({ tagColor, label, value, closable, onClose }: any) => {
     return <></>;
   }
   return (
-    <AntdTag
-      color={tagColor[0].tagColor}
-      closable={closable}
-      onClose={onClose}
-      style={{ marginRight: 3 }}
-    >
+    <AntdTag color={tagColor[0].tagColor} closable={closable} onClose={onClose}>
       {value}
     </AntdTag>
   );
