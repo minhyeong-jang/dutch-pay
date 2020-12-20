@@ -1,6 +1,5 @@
-export const breakpoint = [375, 414, 768, 960, 1280];
-export const mediaQuery = {
-  /* eslint-disable sort-keys-fix/sort-keys-fix */
+const breakpoint = [375, 414, 768, 960, 1280];
+const mediaQuery = {
   /**
    * Extra small
    * \>= 375px
@@ -34,6 +33,11 @@ export const mediaQuery = {
   /* eslint-enable */
 };
 
+const color = {
+  point: "#743BE0",
+};
+
 export const theme = {
   mediaQuery,
+  color,
 };

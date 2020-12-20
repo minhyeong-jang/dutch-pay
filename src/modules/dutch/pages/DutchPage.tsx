@@ -2,9 +2,11 @@ import React, { FC, useState } from "react";
 import styled from "styled-components";
 import {
   CalculateContainer,
+  DutchContainer,
   PaymentListContainer,
   UserListContainer,
 } from "../containers";
+import { DutchPageTemplate } from "./templates";
 
 export interface UserItem {
   userName: string;
@@ -23,16 +25,11 @@ export const DutchPage: FC = () => {
   const [paymentList, setPaymentList] = useState<PaymentItem[]>([]);
 
   return (
-    <StyledContainer>
+    <DutchPageTemplate>
+      <DutchContainer />
       <UserListContainer />
       <PaymentListContainer paymentList={paymentList} />
       <CalculateContainer userList={userList} paymentList={paymentList} />
-    </StyledContainer>
+    </DutchPageTemplate>
   );
 };
-
-const StyledContainer = styled.div`
-  padding: 10px;
-  max-width: 1000px;
-  margin: 0 auto;
-`;
