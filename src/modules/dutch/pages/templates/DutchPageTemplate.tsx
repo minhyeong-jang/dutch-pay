@@ -21,9 +21,7 @@ export const DutchPageTemplate: FC = ({ children }) => {
   );
 };
 
-const StyledTemplate = styled.div`
-  background: #fbfbfc;
-`;
+const StyledTemplate = styled.div``;
 const StyledWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -31,7 +29,6 @@ const StyledWrap = styled.div`
   margin: 0 auto;
   background: white;
 `;
-
 const StyledSection = styled.section`
   flex: 1 1 auto;
   margin: 20px;

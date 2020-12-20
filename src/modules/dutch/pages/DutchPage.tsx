@@ -4,7 +4,6 @@ import {
   CalculateContainer,
   DutchContainer,
   PaymentListContainer,
-  UserListContainer,
 } from "../containers";
 import { DutchPageTemplate } from "./templates";
 
@@ -27,7 +26,6 @@ export const DutchPage: FC = () => {
   return (
     <DutchPageTemplate>
       <DutchContainer />
-      <UserListContainer />
       <PaymentListContainer paymentList={paymentList} />
       <CalculateContainer userList={userList} paymentList={paymentList} />
     </DutchPageTemplate>

@@ -1,59 +1,58 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
-import { Select, Radio, Tag } from "antd";
+import { Select } from "antd";
+import { Tag, tagColors } from "../../shared/components/Select";
+import { UserItem, AddUser, useUserList } from "../hooks";
+import { StepHeader } from "../components/Layout";
 
-const { Option } = Select;
+interface Props {
+  userList: UserItem[];
+  addUser(obj: AddUser): void;
+  removeUser(userName: string): void;
+}
 
-const colors = [
-  "magenta",
-  "red",
-  "volcano",
-  "orange",
-  "gold",
-  "lime",
-  "green",
-  "cyan",
-  "blue",
-  "geekblue",
-  "purple",
-];
-
-const tagRender = (props: any) => {
-  const { label, value, closable, onClose } = props;
-
-  return (
-    <Tag
-      color={colors[label]}
-      closable={closable}
-      onClose={onClose}
-      style={{ marginRight: 3 }}
-    >
-      {value}
-    </Tag>
-  );
-};
-
-export const UserListContainer: FC = () => {
-  const [userList, setUserList] = React.useState(["a10", "c12"]);
-
-  const handleChange = (value: any) => {
-    setUserList(value);
-  };
-
+export const UserListContainer: FC<Props> = ({
+  userList,
+  addUser,
+  removeUser,
+}) => {
   return (
     <StyledContainer>
-      <StyledHeader>Step1 참가자 입력</StyledHeader>
+      <StepHeader title='Step1' description='참가자 입력' />
 
       <Select
         mode='tags'
-        placeholder='Please select'
-        defaultValue={userList}
-        onChange={handleChange}
-        tagRender={tagRender}
-        style={{ width: "100%" }}
-        options={userList.map((participant, index) => ({
-          value: participant,
-          label: index,
+        placeholder='Please Select User'
+        value={userList.map((user) => user.userName)}
+        onChange={(value) => {
+          console.log(value);
+          if (value.length > userList.length) {
+            addUser({
+              userName: value[value.length - 1],
+              tagColor: tagColors[Math.floor(Math.random() * tagColors.length)],
+            });
+          } else {
+            const filteredUser = userList.filter(
+              (user) => !value.includes(user.userName)
+            );
+            removeUser(filteredUser[0].userName);
+          }
+        }}
+        tagRender={(customTag) =>
+          Tag({
+            ...customTag,
+            tagColor: userList.filter(
+              (user) => user.userName === customTag.value
+            ),
+          })
+        }
+        style={{
+          width: "100%",
+        }}
+        // labelInValue={true}
+        options={userList.map((user, index) => ({
+          value: user.userName,
+          label: user.userName,
         }))}
       />
     </StyledContainer>
@@ -61,9 +60,4 @@ export const UserListContainer: FC = () => {
 };
 const StyledContainer = styled.div`
   margin: 20px 0px;
-`;
-const StyledHeader = styled.div`
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 10px;
 `;
