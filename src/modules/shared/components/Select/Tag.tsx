@@ -1,33 +1,36 @@
-import React from "react";
-import { CustomTagProps } from "rc-select/lib/interface/generator";
-import { Tag as AntdTag } from "antd";
+import { Tag as AntdTag } from 'antd';
+import { CustomTagProps } from 'rc-select/lib/interface/generator';
+import React from 'react';
 
 export const tagColors = [
-  "pink",
-  "red",
-  "orange",
-  "cyan",
-  "green",
-  "blue",
-  "purple",
-  "geekblue",
-  "magenta",
-  "volcano",
-  "gold",
-  "lime",
-  "success",
-  "processing",
-  "error",
-  "default",
-  "warning",
+  'pink',
+  'red',
+  'orange',
+  'cyan',
+  'green',
+  'blue',
+  'purple',
+  'geekblue',
+  'magenta',
+  'volcano',
+  'gold',
+  'lime',
+  'success',
+  'processing',
+  'error',
+  'default',
+  'warning',
 ];
 
-export const Tag = ({ tagColor, label, value, closable, onClose }: any) => {
-  if (!tagColor.length) {
+interface Props extends CustomTagProps {
+  tagColor: string | null;
+}
+export const Tag = ({ tagColor, label, value, closable, onClose }: Props) => {
+  if (!tagColor) {
     return <></>;
   }
   return (
-    <AntdTag color={tagColor[0].tagColor} closable={closable} onClose={onClose}>
+    <AntdTag closable={closable} color={tagColor} onClose={onClose}>
       {value}
     </AntdTag>
   );

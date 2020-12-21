@@ -1,9 +1,10 @@
-import React, { FC, useState } from "react";
-import styled from "styled-components";
-import { TemplateHeader, TemplateOptions } from "../components/Layout";
-import { usePaymentList, useUserList } from "../hooks";
-import { PaymentListContainer } from "./PaymentListContainer";
-import { UserListContainer } from "./UserListContainer";
+import React, { FC, useState } from 'react';
+import styled from 'styled-components';
+
+import { TemplateHeader, TemplateOptions } from '../components/Layout';
+import { usePaymentList, useUserList } from '../hooks';
+import { PaymentListContainer } from './PaymentListContainer';
+import { UserListContainer } from './UserListContainer';
 
 export const DutchContainer: FC = () => {
   const { userList, addUser, removeUser } = useUserList();
@@ -18,9 +19,9 @@ export const DutchContainer: FC = () => {
     <StyledContainer>
       <TemplateOptions />
       <UserListContainer
-        userList={userList}
-        removeUser={removeUser}
         addUser={addUser}
+        removeUser={removeUser}
+        userList={userList}
       />
       <PaymentListContainer paymentList={paymentList} />
     </StyledContainer>

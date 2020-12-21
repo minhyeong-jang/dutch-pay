@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export interface PaymentItem {
   title: string;
   paymentPrice: number;
   payerName: string;
   participants: string[];
-  status: "new" | "update" | "complete";
+  status: 'new' | 'update' | 'complete';
 }
 
 export const initialPaymentItem: PaymentItem = {
-  title: "",
-  paymentPrice: 0,
-  payerName: "",
   participants: [],
-  status: "new",
+  payerName: '',
+  paymentPrice: 0,
+  status: 'new',
+  title: '',
 };
 
 export const usePaymentList = () => {
@@ -24,10 +24,10 @@ export const usePaymentList = () => {
   const editPayment = () => {};
 
   return {
-    paymentList,
-    setPaymentList,
     addPayment,
-    removePayment,
     editPayment,
+    paymentList,
+    removePayment,
+    setPaymentList,
   };
 };

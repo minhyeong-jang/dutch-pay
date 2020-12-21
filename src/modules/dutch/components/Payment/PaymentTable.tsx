@@ -1,8 +1,9 @@
-import { Space, Table, Tag } from "antd";
-import React, { FC } from "react";
-import styled from "styled-components";
-import { PlusCircleOutlined } from "@ant-design/icons";
-import { PaymentItem } from "../../hooks";
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { Table } from 'antd';
+import React, { FC } from 'react';
+import styled from 'styled-components';
+
+import { PaymentItem } from '../../hooks';
 
 interface Props {
   paymentList: PaymentItem[];
@@ -11,42 +12,49 @@ interface Props {
 export const PaymentTable: FC<Props> = ({ paymentList, addPayment }) => {
   const columns = [
     {
-      title: "결제 항목",
-      dataIndex: "title",
-      align: "center" as const,
-      width: 200,
+      dataIndex: 'title',
       render: (record: PaymentItem) =>
-        record.status !== "complete" ? (
-          <StyledInput value={record.title} onChange={(e) => {}} />
+        record.status !== 'complete' ? (
+          <StyledInput value={record.title} onChange={() => {}} />
         ) : (
           record.title
         ),
+
+      title: '결제 항목',
+      width: 200,
     },
     {
-      title: "지출 금액",
-      dataIndex: "paymentPrice",
-      key: "paymentPrice",
-      render: (paymentPrice: number) => paymentPrice.toLocaleString(),
+      dataIndex: 'paymentPrice',
+      render: (record: PaymentItem) =>
+        record.status !== 'complete' ? (
+          <StyledInput value={record.paymentPrice} onChange={() => {}} />
+        ) : (
+          record.paymentPrice.toLocaleString()
+        ),
+
+      title: '지출 금액',
+      width: 150,
     },
     {
-      title: "결제자",
-      dataIndex: "payerName",
-      key: "payerName",
+      dataIndex: 'payerName',
+      key: 'payerName',
+      title: '결제자',
     },
     {
-      title: "참여자",
-      dataIndex: "participants",
-      key: "participants",
+      dataIndex: 'participants',
+      key: 'participants',
+      title: '참여자',
     },
     {
-      title: "Action",
-      key: "action",
-      render: (text: any, record: any) => (
-        <Space size='middle'>
-          <a>Invite {record.payerName}</a>
-          <a>Delete</a>
-        </Space>
+      key: 'action',
+      render: () => (
+        <></>
+        // <Space size="middle">
+        //   <a>Invite {record.payerName}</a>
+        //   <a>Delete</a>
+        // </Space>
       ),
+      title: 'Action',
     },
   ];
 
@@ -58,7 +66,7 @@ export const PaymentTable: FC<Props> = ({ paymentList, addPayment }) => {
 
   return (
     <StyledContainer>
-      <Table columns={columns} footer={Footer} dataSource={paymentList} />
+      <Table columns={columns} dataSource={paymentList} footer={Footer} />
     </StyledContainer>
   );
 };

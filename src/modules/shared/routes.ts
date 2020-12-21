@@ -1,7 +1,8 @@
-import { RouteProps } from "react-router-dom";
-import { DutchPage } from "../dutch/pages";
+import { RouteProps } from 'react-router-dom';
 
-const prefix = "/";
+import { DutchPage } from '../dutch/pages';
+
+const prefix = '/';
 
 export const routes: RouteProps[] = [
   {

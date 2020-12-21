@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import { Select, Tag } from 'antd';
+import React, { FC, useEffect, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 
-import { Select, Tag } from "antd";
-import { StepHeader } from "../components/Layout";
-import { PaymentTable } from "../components/Payment";
-import { PaymentItem, initialPaymentItem } from "../hooks";
+import { StepHeader } from '../components/Layout';
+import { PaymentTable } from '../components/Payment';
+import { initialPaymentItem, PaymentItem } from '../hooks';
 
 interface Props {
   paymentList: PaymentItem[];
@@ -20,8 +20,8 @@ export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
 
   return (
     <StyledSection>
-      <StepHeader title='Step2' description='결제내역 입력' />
-      <PaymentTable paymentList={localPaymentList} addPayment={addPayment} />
+      <StepHeader description='결제내역 입력' title='Step2' />
+      <PaymentTable addPayment={addPayment} paymentList={localPaymentList} />
       <StyledPaymentUl>
         {paymentList.map((payment, index) => (
           <StyledPaymentLi key={index}>

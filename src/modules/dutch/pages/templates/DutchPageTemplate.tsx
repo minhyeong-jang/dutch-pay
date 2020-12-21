@@ -1,11 +1,12 @@
+import React, { FC } from 'react';
+import styled from 'styled-components';
+
 import {
   Aside,
+  Footer,
   Header,
   Sidebar,
-  Footer,
-} from "../../../shared/components/layout";
-import React, { FC } from "react";
-import styled from "styled-components";
+} from '../../../shared/components/layout';
 
 export const DutchPageTemplate: FC = ({ children }) => {
   return (

@@ -1,6 +1,7 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
-import styled from "styled-components";
-import { PaymentItem } from "../hooks";
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import styled from 'styled-components';
+
+import { PaymentItem } from '../hooks';
 
 interface Props {
   userList: string[];
@@ -31,23 +32,23 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
               paymentTotal: 0,
               tossList: userList.reduce(
                 (o, key) => Object.assign(o, { [key]: 0 }),
-                {}
+                {},
               ),
             },
           }),
-        {}
+        {},
       ),
-    []
+    [],
   );
 
   useEffect(() => {
-    let userPayment: CalculateObj = initialList;
+    const userPayment: CalculateObj = initialList;
     let allPaymentTotal = 0;
 
     paymentList.map((payment) => {
       const { paymentPrice, participants, payerName } = payment;
       const perPersonPayment = paymentPrice / participants.length;
-      let payerInfo = userPayment[payerName];
+      const payerInfo = userPayment[payerName];
       allPaymentTotal += paymentPrice;
 
       payerInfo.paymentTotal += paymentPrice;
@@ -56,7 +57,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
         if (participant === payerName) {
           return;
         }
-        let participantInfo = userPayment[participant];
+        const participantInfo = userPayment[participant];
 
         const differencePrice =
           payerInfo.tossList[participant] - perPersonPayment;
@@ -73,12 +74,12 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
   }, []);
 
   useEffect(() => {
-    let allTossList: TossObj = { totalPrice: 0 };
+    const allTossList: TossObj = { totalPrice: 0 };
 
     userList.map((user) => {
       Object.keys(calculateList).map((payer) => {
         const floorToss = Math.floor(calculateList[payer].tossList[user]);
-        allTossList["totalPrice"] += floorToss;
+        allTossList['totalPrice'] += floorToss;
         allTossList[user] = allTossList[user]
           ? allTossList[user] + floorToss
           : floorToss;
@@ -105,7 +106,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
           const { paymentTotal, tossList } = calculateList[payer];
           const tossTotal = Object.keys(tossList).reduce(
             (sum, key) => sum + Math.floor(tossList[key] || 0),
-            0
+            0,
           );
 
           return (
@@ -113,8 +114,8 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
               <StyledPayerInfo>
                 <StyledPlayer>{payer}</StyledPlayer>
                 <StyledPayment>
-                  결제 금액 : {paymentTotal.toLocaleString()}원 / 송금 금액 :{" "}
-                  {tossTotal.toLocaleString()}원 / 총 여행 경비 :{" "}
+                  결제 금액 : {paymentTotal.toLocaleString()}원 / 송금 금액 :{' '}
+                  {tossTotal.toLocaleString()}원 / 총 여행 경비 :{' '}
                   {(
                     paymentTotal +
                     tossTotal -
@@ -131,7 +132,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
                       {payer} -&gt; {participant} :&nbsp;
                       {Math.floor(tossList[participant]).toLocaleString()}원
                     </StyledTossLi>
-                  ) : null
+                  ) : null,
                 )}
               </StyledTossUl>
             </StyledLi>
@@ -150,7 +151,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
                 const { paymentTotal, tossList } = calculateList[payer];
                 const tossTotal = Object.keys(tossList).reduce(
                   (sum, key) => sum + Math.floor(tossList[key] || 0),
-                  0
+                  0,
                 );
                 return (
                   <StyledTossLi>
@@ -164,7 +165,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
               <StyledTossLi>
                 <StyledTossPayer>Total :</StyledTossPayer>
                 <StyledTossPrice>
-                  {allTossList["totalPrice"].toLocaleString()}원
+                  {allTossList['totalPrice'].toLocaleString()}원
                 </StyledTossPrice>
               </StyledTossLi>
             </StyledTossUl>
@@ -172,7 +173,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
           <div>
             <StyledTossUl>
               {Object.keys(allTossList).map((payer, index) =>
-                payer !== "totalPrice" && allTossList[payer] !== 0 ? (
+                payer !== 'totalPrice' && allTossList[payer] !== 0 ? (
                   <StyledTossLi key={index}>
                     {payer}(이)가
                     <StyledTotalPrice>
@@ -180,7 +181,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
                     </StyledTotalPrice>
                     &nbsp;원을 요청해요!
                   </StyledTossLi>
-                ) : null
+                ) : null,
               )}
             </StyledTossUl>
           </div>

@@ -1,44 +1,48 @@
 const breakpoint = [375, 414, 768, 960, 1280];
 const mediaQuery = {
   /**
-   * Extra small
-   * \>= 375px
-   * @example 일반 모바일 기기, iPhone X
+   * Large
+   * \>= 960px
+   * @example 데스크탑
    */
-  xs: `@media screen and (min-width: ${breakpoint[0]})`,
-  /**
-   * Small
-   * \>= 414px
-   * @example 큰 모바일 기기, iPhone 8 Plus, iPhone 11 XS Max
-   */
-  sm: `@media screen and (min-width: ${breakpoint[1]})`,
+  lg: `@media screen and (min-width: ${breakpoint[3]})`,
+
   /**
    * Medium
    * \>= 768px
    * @example 태블릿
    */
   md: `@media screen and (min-width: ${breakpoint[2]})`,
+
   /**
-   * Large
-   * \>= 960px
-   * @example 데스크탑
+   * Small
+   * \>= 414px
+   * @example 큰 모바일 기기, iPhone 8 Plus, iPhone 11 XS Max
    */
-  lg: `@media screen and (min-width: ${breakpoint[3]})`,
+  sm: `@media screen and (min-width: ${breakpoint[1]})`,
+
   /**
    * Extra large
    * \>= 1280px
    * @example 고해상도 데스크탑
    */
   xl: `@media screen and (min-width: ${breakpoint[4]})`,
+
+  /**
+   * Extra small
+   * \>= 375px
+   * @example 일반 모바일 기기, iPhone X
+   */
+  xs: `@media screen and (min-width: ${breakpoint[0]})`,
   /* eslint-enable */
 };
 
 const color = {
-  point: "#743BE0",
-  borderColor: "#d9d9d9",
+  borderColor: '#d9d9d9',
+  point: '#743BE0',
 };
 const layout = {
-  borderRadius: "5px",
+  borderRadius: '5px',
   section: `
     margin: 20px 0px;
     border: 1px solid #d1cad8;
@@ -47,8 +51,13 @@ const layout = {
     background: white;
   `,
 };
+
 export const theme = {
-  mediaQuery,
   color,
   layout,
+  mediaQuery,
 };
+
+export type Theme = typeof theme;
+
+export default theme;

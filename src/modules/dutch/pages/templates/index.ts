@@ -1,1 +1,1 @@
-export * from "./DutchPageTemplate";
+export * from './DutchPageTemplate';

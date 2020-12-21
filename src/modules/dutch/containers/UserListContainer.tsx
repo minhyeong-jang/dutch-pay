@@ -1,9 +1,11 @@
-import React, { FC } from "react";
-import styled from "styled-components";
-import { Select } from "antd";
-import { Tag, tagColors } from "../../shared/components/Select";
-import { UserItem, AddUser, useUserList } from "../hooks";
-import { StepHeader } from "../components/Layout";
+import { Select } from 'antd';
+import { CustomTagProps } from 'rc-select/lib/interface/generator';
+import React, { FC } from 'react';
+import styled from 'styled-components';
+
+import { Tag, tagColors } from '../../shared/components/Select';
+import { StepHeader } from '../components/Layout';
+import { AddUser, UserItem, useUserList } from '../hooks';
 
 interface Props {
   userList: UserItem[];
@@ -16,15 +18,25 @@ export const UserListContainer: FC<Props> = ({
   addUser,
   removeUser,
 }) => {
+  const getTagColor = (customTag: CustomTagProps) => {
+    const filteredUser = userList.filter(
+      (user) => user.userName === customTag.value,
+    );
+    if (filteredUser.length) {
+      return filteredUser[0].tagColor;
+    }
+    return null;
+  };
+
   const changeSelect = (value: string[]) => {
     if (value.length > userList.length) {
       addUser({
-        userName: value[value.length - 1],
         tagColor: tagColors[Math.floor(Math.random() * tagColors.length)],
+        userName: value[value.length - 1],
       });
     } else {
       const filteredUser = userList.filter(
-        (user) => !value.includes(user.userName)
+        (user) => !value.includes(user.userName),
       );
       removeUser(filteredUser[0].userName);
     }
@@ -32,30 +44,29 @@ export const UserListContainer: FC<Props> = ({
 
   return (
     <StyledSection>
-      <StepHeader title='Step1' description='참가자 입력' />
+      <StepHeader description="참가자 입력" title="Step1" />
       <Select
-        mode='tags'
-        placeholder='Please Input User'
-        value={userList.map((user) => user.userName)}
-        onChange={changeSelect}
+        mode="tags"
+        options={userList.map((user) => ({
+          label: user.userName,
+          value: user.userName,
+        }))}
+        placeholder="Please Input User"
         tagRender={(customTag) =>
           Tag({
             ...customTag,
-            tagColor: userList.filter(
-              (user) => user.userName === customTag.value
-            ),
+            tagColor: getTagColor(customTag),
           })
         }
-        options={userList.map((user) => ({
-          value: user.userName,
-          label: user.userName,
-        }))}
+        value={userList.map((user) => user.userName)}
+        onChange={changeSelect}
       />
     </StyledSection>
   );
 };
 const StyledSection = styled.section`
   ${({ theme }) => theme.layout.section};
+
   .ant-select {
     width: 100%;
     font-size: 15px;

@@ -1,10 +1,12 @@
+import 'antd/dist/antd.css';
+
 import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { routes } from './modules/shared/routes';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './styles/theme';
-import 'antd/dist/antd.css';
+
+import { routes } from './modules/shared/routes';
 import GlobalStyle from './styles/GlobalStyle';
+import { theme } from './styles/theme';
 
 function App() {
   return (
