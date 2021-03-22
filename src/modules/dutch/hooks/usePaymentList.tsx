@@ -1,14 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { uuidv4 } from '../../../utils';
-
+import { formatNumber, uuidv4 } from '../../../utils';
 export interface PaymentItem {
   key: string;
   title: string;
   paymentPrice: number;
   payerName: string;
   participants: string[];
-  status: 'new' | 'update' | 'complete';
 }
 
 export const initialPaymentItem = (): PaymentItem => ({
@@ -16,28 +14,48 @@ export const initialPaymentItem = (): PaymentItem => ({
   participants: [],
   payerName: '',
   paymentPrice: 0,
-  status: 'new',
   title: '',
 });
 
 export const usePaymentList = () => {
   const [paymentList, setPaymentList] = useState<PaymentItem[]>([]);
 
+  useEffect(() => {
+    if (!paymentList.length) {
+      setPaymentList([initialPaymentItem()]);
+    }
+  }, []);
+
   const addPayment = () => {
-    console.log('test');
+    setPaymentList([...paymentList, initialPaymentItem()]);
   };
-  const removePayment = () => {
-    console.log('test');
+  const updateTitle = (value: string, index: number) => {
+    const items = [...paymentList];
+    items[index]['title'] = value;
+    setPaymentList(items);
   };
-  const editPayment = () => {
-    console.log('test');
+  const updatePaymentPrice = (value: string, index: number) => {
+    const items = [...paymentList];
+    items[index]['paymentPrice'] = formatNumber(value);
+    setPaymentList(items);
+  };
+  const updatePayerName = (selectedUser: string, index: number) => {
+    const items = [...paymentList];
+    items[index]['payerName'] = selectedUser;
+    setPaymentList(items);
+  };
+  const updateParticipants = (value: string[], index: number) => {
+    const items = [...paymentList];
+    items[index]['participants'] = value;
+    setPaymentList(items);
   };
 
   return {
     addPayment,
-    editPayment,
     paymentList,
-    removePayment,
-    setPaymentList,
+    updateParticipants,
+    updatePayerName,
+    updatePaymentPrice,
+    updateTitle,
   };
 };

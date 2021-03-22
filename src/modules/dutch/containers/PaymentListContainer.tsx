@@ -1,73 +1,44 @@
-import React, { FC, useEffect, useState } from 'react';
+import { Select } from 'antd';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { formatNumber } from '../../../utils';
 import { StepHeader } from '../components/Layout';
 import { PaymentTable } from '../components/Payment';
-import { initialPaymentItem, PaymentItem, UserItem } from '../hooks';
+import { PaymentItem, UserItem } from '../hooks';
 
 interface Props {
   userList: UserItem[];
   paymentList: PaymentItem[];
+  addPayment(): void;
+  updateTitle(value: string, index: number): void;
+  updatePaymentPrice(value: string, index: number): void;
+  updatePayerName(selectedUser: string, index: number): void;
+  updateParticipants(participants: string[], index: number): void;
 }
 
-export const PaymentListContainer: FC<Props> = ({ userList, paymentList }) => {
-  const [localPaymentList, setLocalPaymentList] = useState(paymentList);
-
-  useEffect(() => {
-    if (!localPaymentList.length) {
-      setLocalPaymentList([initialPaymentItem()]);
-    }
-  }, []);
-
-  const addPayment = () => {
-    setLocalPaymentList([...localPaymentList, initialPaymentItem()]);
-  };
-  const updateTitle = (value: string, index: number) => {
-    const items = [...localPaymentList];
-    items[index]['title'] = value;
-    setLocalPaymentList(items);
-  };
-  const updatePaymentPrice = (value: string, index: number) => {
-    const items = [...localPaymentList];
-    items[index]['paymentPrice'] = formatNumber(value);
-    setLocalPaymentList(items);
-  };
-  const updatePayerName = (selectedUser: string, index: number) => {
-    const items = [...localPaymentList];
-    items[index]['payerName'] = selectedUser;
-    setLocalPaymentList(items);
-  };
-  const updateParticipants = (value: string[], index: number) => {
-    const items = [...localPaymentList];
-    console.log(value);
-    items[index]['participants'] = value;
-    setLocalPaymentList(items);
-  };
-
-  // const updatePayment = (
-  //   key: keyof PaymentItem,
-  //   value: keyof typeof PaymentItem,
-  //   index: number,
-  // ) => {
-  //   const items = [...localPaymentList];
-  //   items[index][key] = value;
-  //   setLocalPaymentList(items);
-  // };
-
+export const PaymentListContainer: FC<Props> = ({
+  userList,
+  paymentList,
+  addPayment,
+  updateTitle,
+  updatePaymentPrice,
+  updatePayerName,
+  updateParticipants,
+}) => {
   return (
     <StyledSection>
       <StepHeader description="결제내역 입력" title="Step2" />
       <PaymentTable
         addPayment={addPayment}
-        paymentList={localPaymentList}
+        paymentList={paymentList}
         updateParticipants={updateParticipants}
         updatePayerName={updatePayerName}
         updatePaymentPrice={updatePaymentPrice}
         updateTitle={updateTitle}
         userList={userList}
       />
-      {/* <StyledPaymentUl>
+
+      <StyledPaymentUl>
         {paymentList.map((payment, index) => (
           <StyledPaymentLi key={index}>
             <StyledPaymentTitle>{payment.title}</StyledPaymentTitle>
@@ -77,20 +48,20 @@ export const PaymentListContainer: FC<Props> = ({ userList, paymentList }) => {
             </StyledPaymentPrice>
             <StyledPaymentParticipants>
               <Select
-                mode='multiple'
-                showArrow
-                tagRender={tagRender}
-                value={payment.participants}
-                style={{ width: "100%" }}
+                mode="multiple"
                 options={payment.participants.map((participant, index) => ({
-                  value: participant,
                   label: index,
+                  value: participant,
                 }))}
+                style={{ width: '100%' }}
+                // tagRender={tagRender}
+                value={payment.participants}
+                showArrow
               />
             </StyledPaymentParticipants>
           </StyledPaymentLi>
         ))}
-      </StyledPaymentUl> */}
+      </StyledPaymentUl>
     </StyledSection>
   );
 };

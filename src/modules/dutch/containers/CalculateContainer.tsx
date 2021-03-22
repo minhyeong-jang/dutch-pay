@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
-import { PaymentItem } from '../hooks';
+import { PaymentItem, UserItem } from '../hooks';
 
 interface Props {
-  userList: string[];
+  userList: UserItem[];
   paymentList: PaymentItem[];
 }
 interface CalculateObj {
@@ -25,28 +25,35 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
   const [calculateList, setCalculateList] = useState<CalculateObj>({});
   const initialList = useMemo(
     () =>
-      userList.reduce(
-        (o, key) =>
-          Object.assign(o, {
-            [key]: {
-              paymentTotal: 0,
-              tossList: userList.reduce(
-                (o, key) => Object.assign(o, { [key]: 0 }),
-                {},
-              ),
-            },
-          }),
-        {},
-      ),
-    [],
+      userList
+        .map((item) => item.userName)
+        .reduce(
+          (o, key: string) =>
+            Object.assign(o, {
+              [key]: {
+                paymentTotal: 0,
+                tossList: userList.reduce(
+                  (o, key: any) => Object.assign(o, { [key]: 0 }),
+                  {},
+                ),
+              },
+            }),
+          {},
+        ),
+    [userList],
   );
 
   useEffect(() => {
+    if (!Object.keys(initialList).length) return;
+
     const userPayment: CalculateObj = initialList;
     let allPaymentTotal = 0;
 
+    console.log(userPayment);
+
     paymentList.map((payment) => {
       const { paymentPrice, participants, payerName } = payment;
+      if (!paymentPrice || !payerName || !participants.length) return;
       const perPersonPayment = paymentPrice / participants.length;
       const payerInfo = userPayment[payerName];
       allPaymentTotal += paymentPrice;
@@ -71,17 +78,19 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
     });
     setCalculateList(userPayment);
     setAllPaymentTotal(allPaymentTotal);
-  }, []);
+  }, [paymentList, initialList]);
 
   useEffect(() => {
     const allTossList: TossObj = { totalPrice: 0 };
 
     userList.map((user) => {
       Object.keys(calculateList).map((payer) => {
-        const floorToss = Math.floor(calculateList[payer].tossList[user]);
+        const floorToss = Math.floor(
+          calculateList[payer].tossList[user.userName],
+        );
         allTossList['totalPrice'] += floorToss;
-        allTossList[user] = allTossList[user]
-          ? allTossList[user] + floorToss
+        allTossList[user.userName] = allTossList[user.userName]
+          ? allTossList[user.userName] + floorToss
           : floorToss;
       });
     });

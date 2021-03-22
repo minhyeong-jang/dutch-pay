@@ -1,8 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { TemplateHeader, TemplateOptions } from '../components/Layout';
+import { TemplateOptions } from '../components/Layout';
 import { usePaymentList, useUserList } from '../hooks';
+import { CalculateContainer } from './CalculateContainer';
 import { PaymentListContainer } from './PaymentListContainer';
 import { UserListContainer } from './UserListContainer';
 
@@ -11,8 +12,10 @@ export const DutchContainer: FC = () => {
   const {
     paymentList,
     addPayment,
-    removePayment,
-    editPayment,
+    updateParticipants,
+    updatePayerName,
+    updatePaymentPrice,
+    updateTitle,
   } = usePaymentList();
 
   return (
@@ -23,7 +26,16 @@ export const DutchContainer: FC = () => {
         removeUser={removeUser}
         userList={userList}
       />
-      <PaymentListContainer paymentList={paymentList} userList={userList} />
+      <PaymentListContainer
+        addPayment={addPayment}
+        paymentList={paymentList}
+        updateParticipants={updateParticipants}
+        updatePayerName={updatePayerName}
+        updatePaymentPrice={updatePaymentPrice}
+        updateTitle={updateTitle}
+        userList={userList}
+      />
+      <CalculateContainer paymentList={paymentList} userList={userList} />
     </StyledContainer>
   );
 };
