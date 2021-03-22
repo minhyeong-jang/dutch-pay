@@ -1,3 +1,3 @@
 /** @format */
 
-export * from "./DutchPage";
+export * from './DutchPage';

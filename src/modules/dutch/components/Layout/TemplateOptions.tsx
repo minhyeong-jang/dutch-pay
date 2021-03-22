@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import styled from "styled-components";
+import React, { FC } from 'react';
+import styled from 'styled-components';
 
 export const TemplateOptions: FC = () => {
   return (
@@ -9,6 +9,7 @@ export const TemplateOptions: FC = () => {
   );
 };
 const StyledContainer = styled.div`
+  ${({ theme }) => theme.layout.section};
   display: flex;
   flex-direction: row;
   text-align: right;
@@ -16,5 +17,6 @@ const StyledContainer = styled.div`
 const StyledButton = styled.button`
   padding: 10px 20px;
   background: none;
+  margin-left: auto;
   border: 1px solid ${({ theme }) => theme.color.point};
 `;

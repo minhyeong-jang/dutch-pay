@@ -1,44 +1,43 @@
-import React, { FC } from "react";
-import styled, { keyframes } from "styled-components";
-import { PaymentItem } from "../pages";
-import { Select, Tag } from "antd";
+import { Select } from 'antd';
+import React, { FC } from 'react';
+import styled from 'styled-components';
+
+import { StepHeader } from '../components/Layout';
+import { PaymentTable } from '../components/Payment';
+import { PaymentItem, UserItem } from '../hooks';
 
 interface Props {
+  userList: UserItem[];
   paymentList: PaymentItem[];
-}
-const colors = [
-  "magenta",
-  "red",
-  "volcano",
-  "orange",
-  "gold",
-  "lime",
-  "green",
-  "cyan",
-  "blue",
-  "geekblue",
-  "purple",
-];
-
-function tagRender(props: any) {
-  const { label, value, closable, onClose } = props;
-
-  return (
-    <Tag
-      color={colors[label]}
-      closable={closable}
-      onClose={onClose}
-      style={{ marginRight: 3 }}
-    >
-      {value}
-    </Tag>
-  );
+  addPayment(): void;
+  updateTitle(value: string, index: number): void;
+  updatePaymentPrice(value: string, index: number): void;
+  updatePayerName(selectedUser: string, index: number): void;
+  updateParticipants(participants: string[], index: number): void;
 }
 
-export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
+export const PaymentListContainer: FC<Props> = ({
+  userList,
+  paymentList,
+  addPayment,
+  updateTitle,
+  updatePaymentPrice,
+  updatePayerName,
+  updateParticipants,
+}) => {
   return (
-    <StyledContainer>
-      <StyledTitle>결제 내역</StyledTitle>
+    <StyledSection>
+      <StepHeader description="결제내역 입력" title="Step2" />
+      <PaymentTable
+        addPayment={addPayment}
+        paymentList={paymentList}
+        updateParticipants={updateParticipants}
+        updatePayerName={updatePayerName}
+        updatePaymentPrice={updatePaymentPrice}
+        updateTitle={updateTitle}
+        userList={userList}
+      />
+
       <StyledPaymentUl>
         {paymentList.map((payment, index) => (
           <StyledPaymentLi key={index}>
@@ -49,32 +48,28 @@ export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
             </StyledPaymentPrice>
             <StyledPaymentParticipants>
               <Select
-                mode='multiple'
-                showArrow
-                tagRender={tagRender}
-                value={payment.participants}
-                style={{ width: "100%" }}
+                mode="multiple"
                 options={payment.participants.map((participant, index) => ({
-                  value: participant,
                   label: index,
+                  value: participant,
                 }))}
+                style={{ width: '100%' }}
+                // tagRender={tagRender}
+                value={payment.participants}
+                showArrow
               />
             </StyledPaymentParticipants>
           </StyledPaymentLi>
         ))}
       </StyledPaymentUl>
-    </StyledContainer>
+    </StyledSection>
   );
 };
-const StyledContainer = styled.div`
-  margin-bottom: 40px;
+
+const StyledSection = styled.section`
+  ${({ theme }) => theme.layout.section};
 `;
 
-const StyledTitle = styled.div`
-  font-size: 22px;
-  color: #222;
-  font-weight: bold;
-`;
 const StyledPaymentUl = styled.ul`
   padding: 0;
 `;

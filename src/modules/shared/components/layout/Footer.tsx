@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export const Footer: React.FC = () => {
   return <StyledFooter>public.doriri@gmail.com</StyledFooter>;
