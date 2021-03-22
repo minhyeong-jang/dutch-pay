@@ -154,7 +154,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
                   0,
                 );
                 return (
-                  <StyledTossLi>
+                  <StyledTossLi key={index}>
                     <StyledTossPayer>{payer} :</StyledTossPayer>
                     <StyledTossPrice>
                       {tossTotal.toLocaleString()}원

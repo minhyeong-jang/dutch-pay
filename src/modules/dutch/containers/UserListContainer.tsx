@@ -1,11 +1,9 @@
-import { Select } from 'antd';
-import { CustomTagProps } from 'rc-select/lib/interface/generator';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { Tag, tagColors } from '../../shared/components/Select';
 import { StepHeader } from '../components/Layout';
-import { AddUser, UserItem, useUserList } from '../hooks';
+import { SelectUserList, tagColors } from '../components/User';
+import { AddUser, UserItem } from '../hooks';
 
 interface Props {
   userList: UserItem[];
@@ -18,16 +16,6 @@ export const UserListContainer: FC<Props> = ({
   addUser,
   removeUser,
 }) => {
-  const getTagColor = (customTag: CustomTagProps) => {
-    const filteredUser = userList.filter(
-      (user) => user.userName === customTag.value,
-    );
-    if (filteredUser.length) {
-      return filteredUser[0].tagColor;
-    }
-    return null;
-  };
-
   const changeSelect = (value: string[]) => {
     if (value.length > userList.length) {
       addUser({
@@ -45,21 +33,11 @@ export const UserListContainer: FC<Props> = ({
   return (
     <StyledSection>
       <StepHeader description="참가자 입력" title="Step1" />
-      <Select
-        mode="tags"
-        options={userList.map((user) => ({
-          label: user.userName,
-          value: user.userName,
-        }))}
-        placeholder="Please Input User"
-        tagRender={(customTag) =>
-          Tag({
-            ...customTag,
-            tagColor: getTagColor(customTag),
-          })
-        }
+      <SelectUserList
+        changeSelect={changeSelect}
+        placeholder="Please Select User"
+        userList={userList}
         value={userList.map((user) => user.userName)}
-        onChange={changeSelect}
       />
     </StyledSection>
   );

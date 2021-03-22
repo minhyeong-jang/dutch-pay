@@ -1,28 +1,73 @@
-import { Select, Tag } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
+import { formatNumber } from '../../../utils';
 import { StepHeader } from '../components/Layout';
 import { PaymentTable } from '../components/Payment';
-import { initialPaymentItem, PaymentItem } from '../hooks';
+import { initialPaymentItem, PaymentItem, UserItem } from '../hooks';
 
 interface Props {
+  userList: UserItem[];
   paymentList: PaymentItem[];
 }
 
-export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
+export const PaymentListContainer: FC<Props> = ({ userList, paymentList }) => {
   const [localPaymentList, setLocalPaymentList] = useState(paymentList);
 
+  useEffect(() => {
+    if (!localPaymentList.length) {
+      setLocalPaymentList([initialPaymentItem()]);
+    }
+  }, []);
+
   const addPayment = () => {
-    setLocalPaymentList([...localPaymentList, initialPaymentItem]);
+    setLocalPaymentList([...localPaymentList, initialPaymentItem()]);
   };
-  const updatePayment = () => {};
+  const updateTitle = (value: string, index: number) => {
+    const items = [...localPaymentList];
+    items[index]['title'] = value;
+    setLocalPaymentList(items);
+  };
+  const updatePaymentPrice = (value: string, index: number) => {
+    const items = [...localPaymentList];
+    items[index]['paymentPrice'] = formatNumber(value);
+    setLocalPaymentList(items);
+  };
+  const updatePayerName = (selectedUser: string, index: number) => {
+    const items = [...localPaymentList];
+    items[index]['payerName'] = selectedUser;
+    setLocalPaymentList(items);
+  };
+  const updateParticipants = (value: string[], index: number) => {
+    const items = [...localPaymentList];
+    console.log(value);
+    items[index]['participants'] = value;
+    setLocalPaymentList(items);
+  };
+
+  // const updatePayment = (
+  //   key: keyof PaymentItem,
+  //   value: keyof typeof PaymentItem,
+  //   index: number,
+  // ) => {
+  //   const items = [...localPaymentList];
+  //   items[index][key] = value;
+  //   setLocalPaymentList(items);
+  // };
 
   return (
     <StyledSection>
-      <StepHeader description='결제내역 입력' title='Step2' />
-      <PaymentTable addPayment={addPayment} paymentList={localPaymentList} />
-      <StyledPaymentUl>
+      <StepHeader description="결제내역 입력" title="Step2" />
+      <PaymentTable
+        addPayment={addPayment}
+        paymentList={localPaymentList}
+        updateParticipants={updateParticipants}
+        updatePayerName={updatePayerName}
+        updatePaymentPrice={updatePaymentPrice}
+        updateTitle={updateTitle}
+        userList={userList}
+      />
+      {/* <StyledPaymentUl>
         {paymentList.map((payment, index) => (
           <StyledPaymentLi key={index}>
             <StyledPaymentTitle>{payment.title}</StyledPaymentTitle>
@@ -31,7 +76,7 @@ export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
               {payment.paymentPrice.toLocaleString()}원
             </StyledPaymentPrice>
             <StyledPaymentParticipants>
-              {/* <Select
+              <Select
                 mode='multiple'
                 showArrow
                 tagRender={tagRender}
@@ -41,23 +86,19 @@ export const PaymentListContainer: FC<Props> = ({ paymentList }) => {
                   value: participant,
                   label: index,
                 }))}
-              /> */}
+              />
             </StyledPaymentParticipants>
           </StyledPaymentLi>
         ))}
-      </StyledPaymentUl>
+      </StyledPaymentUl> */}
     </StyledSection>
   );
 };
+
 const StyledSection = styled.section`
   ${({ theme }) => theme.layout.section};
 `;
 
-const StyledTitle = styled.div`
-  font-size: 22px;
-  color: #222;
-  font-weight: bold;
-`;
 const StyledPaymentUl = styled.ul`
   padding: 0;
 `;

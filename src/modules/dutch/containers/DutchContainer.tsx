@@ -23,7 +23,7 @@ export const DutchContainer: FC = () => {
         removeUser={removeUser}
         userList={userList}
       />
-      <PaymentListContainer paymentList={paymentList} />
+      <PaymentListContainer paymentList={paymentList} userList={userList} />
     </StyledContainer>
   );
 };
