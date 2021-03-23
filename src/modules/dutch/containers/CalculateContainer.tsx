@@ -20,65 +20,58 @@ interface TossObj {
 }
 
 export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
+  const [calculateList, setCalculateList] = useState<CalculateObj>({});
   const [allPaymentTotal, setAllPaymentTotal] = useState(0);
   const [allTossList, setAllTossList] = useState<TossObj>({});
-  const [calculateList, setCalculateList] = useState<CalculateObj>({});
-  const initialList = useMemo(
-    () =>
-      userList
-        .map((item) => item.userName)
-        .reduce(
-          (o, key: string) =>
-            Object.assign(o, {
-              [key]: {
-                paymentTotal: 0,
-                tossList: userList.reduce(
-                  (o, key: any) => Object.assign(o, { [key]: 0 }),
-                  {},
-                ),
-              },
-            }),
-          {},
-        ),
-    [userList],
-  );
 
   useEffect(() => {
-    if (!Object.keys(initialList).length) return;
+    if (!userList.length || !paymentList.length) return;
 
-    const userPayment: CalculateObj = initialList;
-    let allPaymentTotal = 0;
+    const calculateList: CalculateObj = {};
+    const tossList = userList.reduce(
+      (prev, curr) => ({ ...prev, [curr.userName]: 0 }),
+      {},
+    );
+    userList.map((user) => {
+      calculateList[user.userName] = {
+        paymentTotal: 0,
+        tossList: { ...tossList },
+      };
+    });
 
-    console.log(userPayment);
+    if (!Object.keys(calculateList).length) return;
 
     paymentList.map((payment) => {
       const { paymentPrice, participants, payerName } = payment;
       if (!paymentPrice || !payerName || !participants.length) return;
       const perPersonPayment = paymentPrice / participants.length;
-      const payerInfo = userPayment[payerName];
-      allPaymentTotal += paymentPrice;
+      const payerInfo = calculateList[payerName];
 
       payerInfo.paymentTotal += paymentPrice;
 
-      participants.map((participant) => {
-        if (participant === payerName) {
-          return;
-        }
-        const participantInfo = userPayment[participant];
+      participants.map((partName) => {
+        if (partName === payerName) return;
+        const participantInfo = calculateList[partName];
 
-        const differencePrice =
-          payerInfo.tossList[participant] - perPersonPayment;
+        const differencePrice = payerInfo.tossList[partName] - perPersonPayment;
         if (differencePrice >= 0) {
-          payerInfo.tossList[participant] = differencePrice;
+          payerInfo.tossList[partName] = differencePrice;
         } else {
-          payerInfo.tossList[participant] = 0;
+          payerInfo.tossList[partName] = 0;
           participantInfo.tossList[payerName] += -differencePrice;
         }
       });
     });
-    setCalculateList(userPayment);
+    setCalculateList(calculateList);
+  }, [userList, paymentList]);
+
+  useEffect(() => {
+    const allPaymentTotal = paymentList.reduce(
+      (prev, curr) => prev + curr.paymentPrice,
+      0,
+    );
     setAllPaymentTotal(allPaymentTotal);
-  }, [paymentList, initialList]);
+  }, [paymentList]);
 
   useEffect(() => {
     const allTossList: TossObj = { totalPrice: 0 };
@@ -99,7 +92,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
   }, [calculateList]);
 
   return (
-    <>
+    <StyledSection>
       <StyledTitle>
         결제 정보&nbsp;
         <StyledPayment>
@@ -196,9 +189,13 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
           </div>
         </>
       ) : null}
-    </>
+    </StyledSection>
   );
 };
+
+const StyledSection = styled.section`
+  ${({ theme }) => theme.layout.section};
+`;
 
 const StyledGiveMe = styled.div`
   color: #222;
