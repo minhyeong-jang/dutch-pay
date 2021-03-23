@@ -5,26 +5,30 @@ import {
   Aside,
   Footer,
   Header,
-  Sidebar,
+  Navibar,
 } from '../../../shared/components/layout';
 
 export const DutchPageTemplate: FC = ({ children }) => {
   return (
     <StyledTemplate>
-      <Header />
+      <Navibar />
+      {/* <Header /> */}
       <StyledWrap>
-        <Sidebar />
         <StyledSection>{children}</StyledSection>
         <Aside />
       </StyledWrap>
-      <Footer />
+      {/* <Footer /> */}
     </StyledTemplate>
   );
 };
 
-const StyledTemplate = styled.div``;
+const StyledTemplate = styled.div`
+  min-height: 100vh;
+  display: flex;
+`;
 const StyledWrap = styled.div`
   display: flex;
+  flex: 1 1 auto;
   flex-direction: row;
   max-width: 1600px;
   margin: 0 auto;

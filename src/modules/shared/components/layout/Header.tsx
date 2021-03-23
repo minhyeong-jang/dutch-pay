@@ -10,5 +10,4 @@ const StyledHeader = styled.header`
   font-size: 20px;
   color: white;
   background: ${({ theme }) => theme.color.point};
-  /* background: #333; */
 `;
