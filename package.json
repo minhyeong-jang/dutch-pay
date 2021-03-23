@@ -2,6 +2,7 @@
   "name": "dutch-treat",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "antd": "^4.8.4",
