@@ -39,7 +39,8 @@ const mediaQuery = {
 
 const color = {
   borderColor: '#d9d9d9',
-  point: '#743BE0',
+  githubColor: '#252525',
+  point: '#5e22e8',
 };
 const layout = {
   borderRadius: '5px',

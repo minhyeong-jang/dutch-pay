@@ -29,6 +29,11 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
   }
+  button {
+    &:active, &:hover {
+      opacity: 0.8;
+    }
+  }
 `;
 
 export default GlobalStyle;

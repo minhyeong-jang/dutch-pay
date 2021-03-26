@@ -1,14 +1,19 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { TemplateOptions } from '../components/Layout';
-import { usePaymentList, useUserList } from '../hooks';
+import { PaymentItem, usePaymentList, UserItem, useUserList } from '../hooks';
 import { CalculateContainer } from './CalculateContainer';
 import { PaymentListContainer } from './PaymentListContainer';
+import { TemplateContainer } from './TemplateContainer';
 import { UserListContainer } from './UserListContainer';
 
+interface TemplateItem {
+  templateName: string;
+  userList: UserItem[];
+  paymentList: PaymentItem[];
+}
 export const DutchContainer: FC = () => {
-  const { userList, addUser, removeUser } = useUserList();
+  const { userList, addUser, removeUser, setUserList } = useUserList();
   const {
     paymentList,
     addPayment,
@@ -16,11 +21,34 @@ export const DutchContainer: FC = () => {
     updatePayerName,
     updatePaymentPrice,
     updateTitle,
+    setPaymentList,
   } = usePaymentList();
+
+  useEffect(() => {
+    const storageTemplate = localStorage.getItem('templateList');
+    if (storageTemplate) {
+      const templateList = JSON.parse(storageTemplate) as TemplateItem[];
+
+      if (templateList.length) {
+        setUserList(templateList[0].userList);
+        setPaymentList(templateList[0].paymentList);
+      }
+    }
+  }, []);
+  useEffect(() => {
+    const templateList: TemplateItem[] = [
+      {
+        paymentList,
+        templateName: 'Template 5',
+        userList,
+      },
+    ];
+    localStorage.setItem('templateList', JSON.stringify(templateList));
+  }, [userList, paymentList]);
 
   return (
     <StyledContainer>
-      <TemplateOptions />
+      <TemplateContainer />
       <UserListContainer
         addUser={addUser}
         removeUser={removeUser}
