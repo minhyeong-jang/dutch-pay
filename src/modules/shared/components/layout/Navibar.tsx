@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Navibar: React.FC = () => {
@@ -6,7 +7,7 @@ export const Navibar: React.FC = () => {
     <StyledNavibar>
       <StyledFixed>
         <StyledInfo>
-          <StyledPageName href="/">Dutch Pay</StyledPageName>
+          <StyledPageName to="/">Dutch Pay</StyledPageName>
           <StyledAuthorName
             href="https://minhyeong-jang.github.io/"
             target="_blank"
@@ -16,8 +17,12 @@ export const Navibar: React.FC = () => {
         </StyledInfo>
         <StyledMenu>
           <StyledLi>
-            <a>Hello Dutch Pay?</a>
-            <a>Calculate Payment</a>
+            <StyledNavLink activeClassName="active" to="/" exact>
+              Hello Dutch Pay
+            </StyledNavLink>
+            <StyledNavLink activeClassName="active" to="/calc" exact>
+              Let&#39;s Start Dutch Pay!
+            </StyledNavLink>
           </StyledLi>
         </StyledMenu>
       </StyledFixed>
@@ -41,7 +46,7 @@ const StyledInfo = styled.div`
   display: block;
   padding: 20px;
 `;
-const StyledPageName = styled.a`
+const StyledPageName = styled(Link)`
   display: block;
   font-weight: bold;
   font-size: 17px;
@@ -59,27 +64,21 @@ const StyledMenu = styled.ul`
   margin-top: 35px;
   padding: 0px 20px;
 `;
-const StyledLi = styled.li`
-  a {
-    display: block;
-    color: rgb(166, 155, 178);
-    font-size: 14px;
-    font-weight: 500;
-    padding: 10px 0px;
-    margin-bottom: 10px;
-    transition: color 0.2s linear;
-  }
-
-  &.active {
-    & > a {
-      color: white !important;
-      font-weight: bold !important;
-    }
-  }
+const StyledLi = styled.li``;
+const StyledNavLink = styled(NavLink)`
+  display: block;
+  color: rgb(166, 155, 178);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 0px;
+  margin-bottom: 10px;
+  transition: color 0.2s linear;
 
   &:hover {
-    & > a {
-      color: rgb(220, 220, 220);
-    }
+    color: rgb(220, 220, 220);
+  }
+  &.active {
+    color: white !important;
+    font-weight: bold !important;
   }
 `;
