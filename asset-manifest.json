@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "./static/js/main.3abde650.chunk.js",
-    "main.js.map": "./static/js/main.3abde650.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.e3fe0427.js",
-    "runtime-main.js.map": "./static/js/runtime-main.e3fe0427.js.map",
-    "static/css/2.ea9b1cc9.chunk.css": "./static/css/2.ea9b1cc9.chunk.css",
-    "static/js/2.806ebc95.chunk.js": "./static/js/2.806ebc95.chunk.js",
-    "static/js/2.806ebc95.chunk.js.map": "./static/js/2.806ebc95.chunk.js.map",
-    "index.html": "./index.html",
-    "static/css/2.ea9b1cc9.chunk.css.map": "./static/css/2.ea9b1cc9.chunk.css.map",
-    "static/js/2.806ebc95.chunk.js.LICENSE.txt": "./static/js/2.806ebc95.chunk.js.LICENSE.txt"
+    "main.js": "/dutch-pay/static/js/main.3abde650.chunk.js",
+    "main.js.map": "/dutch-pay/static/js/main.3abde650.chunk.js.map",
+    "runtime-main.js": "/dutch-pay/static/js/runtime-main.f9fe2835.js",
+    "runtime-main.js.map": "/dutch-pay/static/js/runtime-main.f9fe2835.js.map",
+    "static/css/2.ea9b1cc9.chunk.css": "/dutch-pay/static/css/2.ea9b1cc9.chunk.css",
+    "static/js/2.dd036711.chunk.js": "/dutch-pay/static/js/2.dd036711.chunk.js",
+    "static/js/2.dd036711.chunk.js.map": "/dutch-pay/static/js/2.dd036711.chunk.js.map",
+    "index.html": "/dutch-pay/index.html",
+    "static/css/2.ea9b1cc9.chunk.css.map": "/dutch-pay/static/css/2.ea9b1cc9.chunk.css.map",
+    "static/js/2.dd036711.chunk.js.LICENSE.txt": "/dutch-pay/static/js/2.dd036711.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e3fe0427.js",
+    "static/js/runtime-main.f9fe2835.js",
     "static/css/2.ea9b1cc9.chunk.css",
-    "static/js/2.806ebc95.chunk.js",
+    "static/js/2.dd036711.chunk.js",
     "static/js/main.3abde650.chunk.js"
   ]
 }
