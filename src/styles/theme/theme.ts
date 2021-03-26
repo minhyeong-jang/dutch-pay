@@ -39,12 +39,13 @@ const mediaQuery = {
 
 const color = {
   borderColor: '#d9d9d9',
-  point: '#743BE0',
+  githubColor: '#252525',
+  point: '#5e22e8',
 };
 const layout = {
   borderRadius: '5px',
   section: `
-    margin: 20px 0px;
+    margin-bottom: 20px;
     border: 1px solid #d1cad8;
     padding: 20px;
     border-radius: 10px;

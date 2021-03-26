@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export interface UserItem {
   userName: string;
@@ -11,17 +11,6 @@ export interface AddUser {
 
 export const useUserList = () => {
   const [userList, setUserList] = useState<UserItem[]>([]);
-
-  useEffect(() => {
-    const localUserList = localStorage.getItem('userList');
-    if (localUserList) {
-      setUserList(JSON.parse(localUserList));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('userList', JSON.stringify(userList));
-  }, [userList]);
 
   const addUser = ({ userName, tagColor }: AddUser) => {
     setUserList((prevState) => [
@@ -41,6 +30,7 @@ export const useUserList = () => {
   return {
     addUser,
     removeUser,
+    setUserList,
     userList,
   };
 };

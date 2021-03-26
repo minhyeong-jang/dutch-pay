@@ -1,23 +1,13 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import {
-  Aside,
-  Footer,
-  Header,
-  Navibar,
-} from '../../../shared/components/layout';
+import { Navibar } from '../../../shared/components/layout';
 
 export const DutchPageTemplate: FC = ({ children }) => {
   return (
     <StyledTemplate>
       <Navibar />
-      {/* <Header /> */}
-      <StyledWrap>
-        <StyledSection>{children}</StyledSection>
-        <Aside />
-      </StyledWrap>
-      {/* <Footer /> */}
+      <StyledWrap>{children}</StyledWrap>
     </StyledTemplate>
   );
 };
@@ -27,12 +17,9 @@ const StyledTemplate = styled.div`
   display: flex;
 `;
 const StyledWrap = styled.div`
-  display: flex;
   flex: 1 1 auto;
-  flex-direction: row;
-  max-width: 1600px;
-  margin: 0 auto;
-`;
-const StyledSection = styled.section`
-  flex: 1 1 auto;
+  padding: 16px 30px 20px;
+  border-radius: 10px;
+  border: 1px;
+  overflow: hidden;
 `;

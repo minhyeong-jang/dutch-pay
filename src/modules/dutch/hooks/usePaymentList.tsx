@@ -53,6 +53,7 @@ export const usePaymentList = () => {
   return {
     addPayment,
     paymentList,
+    setPaymentList,
     updateParticipants,
     updatePayerName,
     updatePaymentPrice,
