@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css';
 
 import React, { Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { routes } from './modules/shared/routes';
@@ -13,13 +13,15 @@ function App() {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
-          <Switch>
-            {routes.map((route, index) => (
-              <Route key={index} {...route} />
-            ))}
-          </Switch>
-        </Suspense>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
+            <Switch>
+              {routes.map((route, index) => (
+                <Route key={index} {...route} />
+              ))}
+            </Switch>
+          </Suspense>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   );
