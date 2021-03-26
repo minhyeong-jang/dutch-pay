@@ -1,19 +1,16 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
+import { ContentHeader } from '../../../shared/components/content';
+
 export const TemplateOptions: FC = () => {
   return (
-    <StyledContainer>
+    <ContentHeader>
+      Template Name
       <StyledButton>저장하기</StyledButton>
-    </StyledContainer>
+    </ContentHeader>
   );
 };
-const StyledContainer = styled.div`
-  ${({ theme }) => theme.layout.section};
-  display: flex;
-  flex-direction: row;
-  text-align: right;
-`;
 const StyledButton = styled.button`
   padding: 10px 20px;
   background: none;
