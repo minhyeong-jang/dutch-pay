@@ -1,6 +1,6 @@
 {
-  "name": "dutch-treat",
-  "version": "0.1.0",
+  "name": "dutch-pay",
+  "version": "1.0.0",
   "private": true,
   "homepage": ".",
   "dependencies": {
