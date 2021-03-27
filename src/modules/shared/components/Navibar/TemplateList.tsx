@@ -1,26 +1,19 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-export const TemplateList: FC = () => {
+import { TemplateItem } from '../../types';
+
+interface Props {
+  templateList: TemplateItem[];
+}
+export const TemplateList: FC<Props> = ({ templateList }) => {
   return (
-    <StyledUl>
-      <StyledLi>
-        <a href="#">템플릿 1</a>
-      </StyledLi>
-      <StyledLi>
-        <a href="#">템플릿 2</a>
-      </StyledLi>
-      <StyledLi>
-        <a href="#">템플릿 3</a>
-      </StyledLi>
-      <StyledLi>
-        <a href="#">템플릿 4</a>
-      </StyledLi>
-    </StyledUl>
+    <ul>
+      {templateList.map((template, index) => (
+        <li key={index}>
+          <a href="#">{template.templateName}</a>
+        </li>
+      ))}
+    </ul>
   );
 };
-const StyledUl = styled.ul``;
-const StyledLi = styled.li`
-  display: block;
-  padding: 10px;
-`;

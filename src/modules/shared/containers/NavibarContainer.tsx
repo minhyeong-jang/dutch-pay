@@ -29,6 +29,7 @@ export const NavibarContainer: FC = () => {
       },
     ];
     localStorage.setItem('templateList', JSON.stringify(templateList));
+    setTemplateList(templateList);
   };
 
   return <Navibar templateList={templateList} onAddTemplate={addTemplate} />;
