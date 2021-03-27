@@ -30,7 +30,10 @@ export const Navibar: React.FC<Props> = ({ templateList, onAddTemplate }) => {
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassName="active" to="/calc">
+            <NavLink
+              activeClassName="active"
+              to={`/calc/${templateList[0].id || 'null'}`}
+            >
               Let&#39;s Start Dutch Pay!
             </NavLink>
             <TemplateList templateList={templateList} />
