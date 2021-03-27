@@ -24,7 +24,13 @@ const StyledContainer = styled.div`
       line-height: 1.5;
     }
   }
-  b {
+  a {
+    color: ${({ theme }) => theme.color.linkColor};
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  b,
+  strong {
     font-weight: bold;
   }
   h1 {
@@ -38,7 +44,10 @@ const StyledContainer = styled.div`
     border-left: 3px solid #5fad80;
     font-weight: bold;
   }
-
+  code {
+    font-weight: bold;
+    color: ${({ theme }) => theme.color.point} !important;
+  }
   p {
     font-size: 1.125rem;
     line-height: 1.8;
@@ -47,6 +56,21 @@ const StyledContainer = styled.div`
     letter-spacing: -0.004em;
     word-break: keep-all;
     overflow-wrap: break-word;
+  }
+
+  block {
+    display: block;
+    padding: 20px;
+  }
+
+  blockquote {
+    margin: 28px 0;
+    padding: 15px 28px;
+    border-left: 3px solid #f3cf00;
+
+    p {
+      margin: 0px;
+    }
   }
 `;
 const StyledReponsiveContent = styled.div`

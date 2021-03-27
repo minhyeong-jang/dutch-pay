@@ -40,6 +40,7 @@ const mediaQuery = {
 const color = {
   borderColor: '#d9d9d9',
   githubColor: '#252525',
+  linkColor: '#c84b3a',
   point: '#5e22e8',
 };
 const layout = {
