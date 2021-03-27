@@ -35,6 +35,7 @@ export const DutchContainer: FC = () => {
       }
     }
   }, []);
+
   useEffect(() => {
     const templateList: TemplateItem[] = [
       {

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { ContentHeader } from '../../../shared/components/content';
+import { ContentHeader } from '../../../shared/components/Content';
 
 export const TemplateOptions: FC = () => {
   return (

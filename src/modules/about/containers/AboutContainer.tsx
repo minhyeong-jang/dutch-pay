@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { ContentHeader, ContentWrap } from '../../shared/components/content';
+import { ContentHeader, ContentWrap } from '../../shared/components/Content';
 
 export const AboutContainer: FC = () => {
   return (

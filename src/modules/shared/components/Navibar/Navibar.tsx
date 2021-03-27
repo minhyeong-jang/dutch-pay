@@ -2,7 +2,14 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Navibar: React.FC = () => {
+import { TemplateItem } from '../../types';
+import { TemplateList } from './TemplateList';
+
+interface Props {
+  templateList: TemplateItem[];
+  onAddTemplate(): void;
+}
+export const Navibar: React.FC<Props> = ({ templateList, onAddTemplate }) => {
   return (
     <StyledNavibar>
       <StyledFixed>
@@ -16,14 +23,19 @@ export const Navibar: React.FC = () => {
           </StyledAuthorName>
         </StyledInfo>
         <StyledMenu>
-          <StyledLi>
+          <li>
             <StyledNavLink activeClassName="active" to="/" exact>
               Hello Dutch Pay
             </StyledNavLink>
+          </li>
+          <li>
             <StyledNavLink activeClassName="active" to="/calc" exact>
               Let&#39;s Start Dutch Pay!
             </StyledNavLink>
-          </StyledLi>
+          </li>
+          <li>
+            <TemplateList />
+          </li>
         </StyledMenu>
       </StyledFixed>
     </StyledNavibar>
@@ -63,8 +75,35 @@ const StyledAuthorName = styled.a`
 const StyledMenu = styled.ul`
   margin-top: 35px;
   padding: 0px 20px;
+
+  & > li {
+    margin-bottom: 10px;
+  }
+
+  li {
+    a {
+      display: block;
+      color: rgb(166, 155, 178);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 0px;
+      transition: color 0.2s linear;
+    }
+
+    &.active {
+      & > a {
+        color: white !important;
+        font-weight: bold !important;
+      }
+    }
+
+    &:hover {
+      & > a {
+        color: rgb(220, 220, 220);
+      }
+    }
+  }
 `;
-const StyledLi = styled.li``;
 const StyledNavLink = styled(NavLink)`
   display: block;
   color: rgb(166, 155, 178);
