@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { Navibar } from '../../../shared/components/layout';
+import { NavibarContainer } from '../../../shared/containers';
 
 export const AboutPageTemplate: FC = ({ children }) => {
   return (
     <StyledTemplate>
-      <Navibar />
+      <NavibarContainer />
       <StyledWrap>{children}</StyledWrap>
     </StyledTemplate>
   );

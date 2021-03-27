@@ -1,76 +1,66 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import ReactMarkdown from 'react-markdown';
 
-import { ContentHeader, ContentWrap } from '../../shared/components/content';
+import { ContentHeader, ContentWrap } from '../../shared/components/Content';
+
+const markdown = `
+# 우리 더치페이 하자!
+
+간단한 술자리부터 여행까지! 모임을 편하게 정산해 봅시다~
+
+여러분들은 아래 사항 중 하나라도 겪으셨나요??
+
+> "나중에 계산하기 복잡해! \`한 명이 다 계산하자.\`"  
+> "1차하고 2차 \`참여한 사람 다르니까\` 따로따로 보내줘!"  
+> "카드 안 챙겨서 둘리가 내꺼 결제해 줬는데, \`별도로 반영해 줄 수 있어?\`"  
+> "길동이는 \`둘리한테 2,000원\` 보내고, 둘리는 \`또치 2,000원 / 도우너 3,000원\` 보내고..."  
+
+이 외에도 다양하겠지만, 재미있게 놀고 왔는데 머리 아프다니.. 너무 슬프지 않나요?  
+
+그렇다면 여기서 한번 해보세요!  
+\`빠르고 쉽게 정산\`하고 \`송금하는 사람도 편하도록\` 모든 정산 방법을 넣었습니다.
+
+아직도 \`"내가 원하는 기능이 없어!"\`라고 생각하면, [Contact](https://minhyeong-jang.github.io/contact)로 문의해 주세요. 확인 후 추가해드릴게요!
+
+## 사용방법
+
+**1. 참가자 입력**
+
+- 참가자를 입력해 주세요.
+
+**2. 결제정보 입력**
+
+- 사용처, 금액을 입력해 주세요.
+- 결제자, 참가자를 선택해 주세요.
+- 나눠서 결제 한 경우, 항목을 추가해서 결제 정보를 결제한 만큼 입력해 주세요.
+- 사용처, 금액, 결제자, 참가자 중 하나라도 정보가 없다면 정산 리스트에 포함되지 않습니다.
+
+**3. 송금 정보 확인**
+
+- 참가자의 결제/송금 금액이 출력되며, 각 참가자 정보에는 송금해야 하는 리스트가 출력됩니다.
+- 한 명이 송금 받아서 정산하는 방식으로 전송해도 무관합니다.
+
+## Developer
+
+- Author : [Minhyeong Jang](https://minhyeong-jang.github.io/about)  
+- Email : [public.doriri@gmail.com](mailto:public.doriri@gmail.com)
+
+## Release Note
+
+- March 27, 2021
+  - 템플릿 리스트 적용
+- March 26, 2021
+  - 로컬스토리지 저장 기능 추가
+- March 25, 2021
+  - 단순 정보 확인이 가능하도록 수정, UI 개편
+`;
 
 export const AboutContainer: FC = () => {
   return (
     <>
       <ContentHeader>Hello Dutch Pay</ContentHeader>
       <ContentWrap>
-        <h1>더치페이</h1>
-        <p>
-          여러분들은 간단한 술자리부터 여행처럼 지인과의 모임 후 정산을 하기
-          위해 오셨을 겁니다.
-          <br /> 총무는 사용된 비용을 정산하는데, 회비 형태가 아니라면 시간도
-          소요되고 여러 사람들이 각자 결제하면 더 복잡해집니다.
-        </p>
-        <p>
-          열심히 찾은 더치페이 앱들은 단순하게 금액을 인원 수로 나누거나,
-          <br />
-          조금 더 발전해서 결제자/참여자를 선택하지만, 복잡하게 여러번
-          송금해야하는 정보가 노출됩니다.
-        </p>
-        <p>그렇게 제가 불편함을 느끼고 더치페이 홈페이지를 만들었습니다.</p>
-        <p>
-          정산을 누구보다 빠르고 쉽게하고 송금하는 사람도 귀찮지 않도록 모든
-          정산 방법을 넣었습니다.
-        </p>
-        <h2>Guide</h2>
-        <p>
-          <b>1. 참가자 입력</b>
-        </p>
-        <ul>
-          <li>참가자를 입력해주세요.</li>
-        </ul>
-        <p>
-          <b>2. 결제정보 입력</b>
-        </p>
-        <ul>
-          <li>사용처, 금액를 입력해주세요.</li>
-          <li>결제자, 참가자를 선택해주세요.</li>
-          <li>
-            만약 나눠서 결제 한 경우, 항목을 추가해서 결제 정보를 결제한 만큼
-            입력해주세요.
-          </li>
-          <li>
-            사용처, 금액, 결제자, 참가자 중 하나라도 정보가 없다면 정산 리스트에
-            포함되지 않습니다.
-          </li>
-        </ul>
-        <p>
-          <b>3. 송금정보 확인</b>
-        </p>
-        <ul>
-          <li>
-            상단 총 금액 / 인원 수는 평균 금액입니다. 각자 사용한 금액이
-            아닙니다.
-          </li>
-          <li>
-            참가자의 결제/송금 금액이 출력되며, 참가자 정보 아래 송금해야하는
-            리스트가 출력됩니다.
-          </li>
-          <li>한 명이 송금받아서 정산하는 방식을 선택합니다.</li>
-        </ul>
-        <h2>제작자</h2>
-        <p>Minhyeong Jang</p>
-        <p>문의사항 : public.doriri@gmail.com</p>
-        <h2>Release Note</h2>
-        <ul>
-          <li>
-            <span>March 25, 2021</span>
-          </li>
-        </ul>
+        <ReactMarkdown>{markdown}</ReactMarkdown>
       </ContentWrap>
     </>
   );

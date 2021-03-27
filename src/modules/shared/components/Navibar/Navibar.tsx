@@ -2,7 +2,15 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Navibar: React.FC = () => {
+import { TemplateItem } from '../../../../types';
+import { TemplateAddButton } from './TemplateAddButton';
+import { TemplateList } from './TemplateList';
+
+interface Props {
+  templateList: TemplateItem[];
+  onAddTemplate(): void;
+}
+export const Navibar: React.FC<Props> = ({ templateList, onAddTemplate }) => {
   return (
     <StyledNavibar>
       <StyledFixed>
@@ -16,14 +24,18 @@ export const Navibar: React.FC = () => {
           </StyledAuthorName>
         </StyledInfo>
         <StyledMenu>
-          <StyledLi>
-            <StyledNavLink activeClassName="active" to="/" exact>
+          <li>
+            <NavLink activeClassName="active" to="/" exact>
               Hello Dutch Pay
-            </StyledNavLink>
-            <StyledNavLink activeClassName="active" to="/calc" exact>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink activeClassName="active" to="/calc">
               Let&#39;s Start Dutch Pay!
-            </StyledNavLink>
-          </StyledLi>
+            </NavLink>
+            <TemplateList templateList={templateList} />
+          </li>
+          <TemplateAddButton onClick={onAddTemplate} />
         </StyledMenu>
       </StyledFixed>
     </StyledNavibar>
@@ -63,22 +75,34 @@ const StyledAuthorName = styled.a`
 const StyledMenu = styled.ul`
   margin-top: 35px;
   padding: 0px 20px;
-`;
-const StyledLi = styled.li``;
-const StyledNavLink = styled(NavLink)`
-  display: block;
-  color: rgb(166, 155, 178);
-  font-size: 14px;
-  font-weight: 500;
-  padding: 10px 0px;
-  margin-bottom: 10px;
-  transition: color 0.2s linear;
+  line-height: normal;
 
-  &:hover {
-    color: rgb(220, 220, 220);
+  & > li {
+    margin-bottom: 10px;
   }
-  &.active {
+
+  ul {
+    padding-left: 13px;
+  }
+  .active {
     color: white !important;
     font-weight: bold !important;
+  }
+
+  li {
+    a {
+      display: block;
+      color: rgb(166, 155, 178);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 0px;
+      transition: color 0.2s linear;
+    }
+
+    &:hover {
+      & > a {
+        color: rgb(220, 220, 220);
+      }
+    }
   }
 `;

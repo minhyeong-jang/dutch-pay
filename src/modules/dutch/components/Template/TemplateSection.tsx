@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { ContentHeader } from '../../../shared/components/content';
+import { ContentHeader } from '../../../shared/components/Content';
 
 interface Props {
   templateName: string;
