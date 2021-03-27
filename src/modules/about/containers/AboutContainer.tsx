@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import ReactMarkdown from 'react-markdown';
 
 import { ContentHeader, ContentWrap } from '../../shared/components/Content';
+import AboutMd from '../components/about.md';
 
 export const AboutContainer: FC = () => {
   return (
