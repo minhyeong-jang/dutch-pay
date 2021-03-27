@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { TemplateItem } from '../../types';
+import { TemplateItem } from '../../../../types';
 import { TemplateAddButton } from './TemplateAddButton';
 import { TemplateList } from './TemplateList';
 
@@ -30,7 +30,7 @@ export const Navibar: React.FC<Props> = ({ templateList, onAddTemplate }) => {
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassName="active" to="/calc" exact>
+            <NavLink activeClassName="active" to="/calc">
               Let&#39;s Start Dutch Pay!
             </NavLink>
             <TemplateList templateList={templateList} />
@@ -84,6 +84,10 @@ const StyledMenu = styled.ul`
   ul {
     padding-left: 13px;
   }
+  .active {
+    color: white !important;
+    font-weight: bold !important;
+  }
 
   li {
     a {
@@ -93,13 +97,6 @@ const StyledMenu = styled.ul`
       font-weight: 500;
       padding: 10px 0px;
       transition: color 0.2s linear;
-    }
-
-    &.active {
-      & > a {
-        color: white !important;
-        font-weight: bold !important;
-      }
     }
 
     &:hover {

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
-import { TemplateItem } from '../../types';
+import { TemplateItem } from '../../../../types';
 
 interface Props {
   templateList: TemplateItem[];
@@ -11,7 +11,9 @@ export const TemplateList: FC<Props> = ({ templateList }) => {
     <ul>
       {templateList.map((template, index) => (
         <li key={index}>
-          <a href="#">{template.templateName}</a>
+          <NavLink activeClassName="active" to={`/calc/${template.id}`} exact>
+            {template.templateName}
+          </NavLink>
         </li>
       ))}
     </ul>

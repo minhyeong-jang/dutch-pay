@@ -12,6 +12,6 @@ export const routes: RouteProps[] = [
   {
     component: DutchPage,
     exact: true,
-    path: `/calc`,
+    path: `/calc/:id`,
   },
 ];
