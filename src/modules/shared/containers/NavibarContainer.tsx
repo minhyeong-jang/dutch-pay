@@ -1,36 +1,28 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { RootState } from '../../../redux';
+import { createTemplate, setTemplateList } from '../../../redux/template';
+import { TemplateItem } from '../../../types';
 import { Navibar } from '../components/Navibar';
-import { TemplateItem } from '../types';
 
 export const NavibarContainer: FC = () => {
-  const [templateList, setTemplateList] = useState<TemplateItem[]>([]);
+  const template = useSelector((state: RootState) => state.template);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const storageTemplate = localStorage.getItem('templateList');
     if (storageTemplate) {
       const storageTemplateList = JSON.parse(storageTemplate) as TemplateItem[];
-      setTemplateList(storageTemplateList);
+      dispatch(setTemplateList(storageTemplateList));
     }
   }, []);
 
   const addTemplate = () => {
-    const storageTemplate = localStorage.getItem('templateList');
-    if (!storageTemplate) return;
-
-    const storageTemplateList = JSON.parse(storageTemplate) as TemplateItem[];
-
-    const templateList: TemplateItem[] = [
-      ...storageTemplateList,
-      {
-        paymentList: [],
-        templateName: 'New Template',
-        userList: [],
-      },
-    ];
-    localStorage.setItem('templateList', JSON.stringify(templateList));
-    setTemplateList(templateList);
+    dispatch(createTemplate());
   };
 
-  return <Navibar templateList={templateList} onAddTemplate={addTemplate} />;
+  return (
+    <Navibar templateList={template.templateList} onAddTemplate={addTemplate} />
+  );
 };

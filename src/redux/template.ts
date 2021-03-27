@@ -1,25 +1,27 @@
 import { TemplateItem } from '../types';
 import { generateTemplate } from '../utils/template';
 
-const INSERT = 'template/INSERT' as const;
+const CREATE_TEMPLATE = 'template/CREATE_TEMPLATE' as const;
+const SET_TEMPLATE_LIST = 'template/SET_TEMPLATE_LIST';
 
-export const insert = () => ({
-  type: INSERT,
+export const createTemplate = () => ({
+  type: CREATE_TEMPLATE,
+});
+export const setTemplateList = (templateList: TemplateItem[]) => ({
+  payload: templateList,
+  type: SET_TEMPLATE_LIST,
 });
 
-// export const increaseBy = (diff: number) => ({
-//   payload: diff,
+type TemplateAction =
+  | ReturnType<typeof createTemplate>
+  | ReturnType<typeof setTemplateList>;
 
-//   type: INCREASE_BY,
-// });
-
-type TemplateAction = ReturnType<typeof insert>;
 type TemplateState = {
-  templates: TemplateItem[];
+  templateList: TemplateItem[];
 };
 
 const initialState: TemplateState = {
-  templates: [],
+  templateList: [],
 };
 
 function template(
@@ -27,10 +29,13 @@ function template(
   action: TemplateAction,
 ): TemplateState {
   switch (action.type) {
-    case INSERT:
-      return { templates: [...state.templates, generateTemplate()] };
-    // case DECREASE:
-    //   return { count: state.count - 1 };
+    case CREATE_TEMPLATE: {
+      const attachTemplateList = [...state.templateList, generateTemplate()];
+      localStorage.setItem('templateList', JSON.stringify(attachTemplateList));
+      return { templateList: attachTemplateList };
+    }
+    case SET_TEMPLATE_LIST:
+      return { templateList: action.payload };
     // case INCREASE_BY:
     //   return { count: state.count + action.payload };
     default:
