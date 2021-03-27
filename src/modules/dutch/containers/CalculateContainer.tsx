@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { PaymentItem, UserItem } from '../hooks';
+import { PaymentItem, UserItem } from '../../../types';
 
 interface Props {
   userList: UserItem[];

@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { RootState } from '../../../redux';
 import { updateSelectedId } from '../../../redux/template';
 import { ContentHeader } from '../../shared/components/Content';
-import { usePaymentList } from '../hooks';
 import { CalculateContainer } from './CalculateContainer';
 import { PaymentListContainer } from './PaymentListContainer';
 import { UserListContainer } from './UserListContainer';

@@ -54,7 +54,7 @@ type TemplateState = {
 
 const initialState: TemplateState = {
   selectedId: '',
-  templateList: [generatePaymentItem()],
+  templateList: [generateTemplate()],
 };
 
 function template(

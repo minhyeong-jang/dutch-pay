@@ -2,7 +2,7 @@ import { Select } from 'antd';
 import { CustomTagProps } from 'rc-select/lib/interface/generator';
 import React, { FC } from 'react';
 
-import { UserItem } from '../../hooks';
+import { UserItem } from '../../../../types';
 import { SelectUserListTag } from './SelectUserListTag';
 
 interface Props {
