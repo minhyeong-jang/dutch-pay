@@ -1,12 +1,18 @@
-import React, { FC, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { FC, useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { RootState } from '../../../redux';
-import { usePaymentList, useUserList } from '../hooks';
+import {
+  updateSelectedId,
+  updateTemplateUserList,
+} from '../../../redux/template';
+import { UserItem } from '../../../types/user';
+import { ContentHeader } from '../../shared/components/Content';
+import { usePaymentList } from '../hooks';
 import { CalculateContainer } from './CalculateContainer';
 import { PaymentListContainer } from './PaymentListContainer';
-import { TemplateContainer } from './TemplateContainer';
 import { UserListContainer } from './UserListContainer';
 
 interface Props {
@@ -14,7 +20,17 @@ interface Props {
 }
 export const DutchContainer: FC<Props> = ({ templateId }) => {
   const template = useSelector((state: RootState) => state.template);
-  const { userList, addUser, removeUser, setUserList } = useUserList();
+  const dispatch = useDispatch();
+  const selectedTemplate = useMemo(() => {
+    const filterTemplate = template.templateList.filter(
+      (item) => item.id === templateId,
+    );
+
+    if (filterTemplate.length) {
+      return filterTemplate[0];
+    }
+  }, [template, templateId]);
+
   const {
     paymentList,
     addPayment,
@@ -26,33 +42,60 @@ export const DutchContainer: FC<Props> = ({ templateId }) => {
   } = usePaymentList();
 
   useEffect(() => {
-    const filterTemplate = template.templateList.filter(
-      (item) => item.id === templateId,
-    );
-    if (filterTemplate.length) {
-      setPaymentList(filterTemplate[0].paymentList);
-      setUserList(filterTemplate[0].userList);
-    }
+    dispatch(updateSelectedId({ templateId }));
   }, [templateId]);
 
-  useEffect(() => {
-    // const templateList: TemplateItem[] = [
-    //   {
-    //     paymentList,
-    //     templateName: 'Template 5',
-    //     userList,
-    //   },
-    // ];
-    // localStorage.setItem('templateList', JSON.stringify(templateList));
-  }, [userList, paymentList]);
+  if (!selectedTemplate) {
+    return null;
+  }
 
+  const createUser = (userItem: UserItem) => {
+    dispatch(
+      updateTemplateUserList({
+        userList: [...selectedTemplate.userList, userItem],
+      }),
+    );
+  };
+  const removeUser = (userName: string) => {
+    const filterList = selectedTemplate.userList.filter(
+      (user) => user.userName !== userName,
+    );
+    dispatch(
+      updateTemplateUserList({
+        userList: filterList,
+      }),
+    );
+  };
+
+  // useEffect(() => {
+  //   const filterTemplate = template.templateList.filter(
+  //     (item) => item.id === templateId,
+  //   );
+  //   if (filterTemplate.length) {
+  //     setPaymentList(filterTemplate[0].paymentList);
+  //     setUserList(filterTemplate[0].userList);
+  //   }
+  // }, [templateId]);
+
+  // useEffect(() => {
+  //   dispatch(
+  //     updateTemplateList({
+  //       id: templateId,
+  //       paymentList,
+  //       templateName,
+  //       userList,
+  //     }),
+  //   );
+  // }, [userList, paymentList]);
+
+  console.log('selected : ', selectedTemplate);
   return (
     <StyledContainer>
-      <TemplateContainer />
+      <ContentHeader>{selectedTemplate.templateName}</ContentHeader>
       <UserListContainer
-        addUser={addUser}
+        addUser={createUser}
         removeUser={removeUser}
-        userList={userList}
+        userList={selectedTemplate.userList}
       />
       <PaymentListContainer
         addPayment={addPayment}
@@ -61,9 +104,12 @@ export const DutchContainer: FC<Props> = ({ templateId }) => {
         updatePayerName={updatePayerName}
         updatePaymentPrice={updatePaymentPrice}
         updateTitle={updateTitle}
-        userList={userList}
+        userList={selectedTemplate.userList}
       />
-      <CalculateContainer paymentList={paymentList} userList={userList} />
+      <CalculateContainer
+        paymentList={paymentList}
+        userList={selectedTemplate.userList}
+      />
     </StyledContainer>
   );
 };

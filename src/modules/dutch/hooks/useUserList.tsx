@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 
 export interface UserItem {
   userName: string;
@@ -8,8 +8,11 @@ export interface AddUser {
   userName: string;
   tagColor: string;
 }
-
-export const useUserList = () => {
+interface Props {
+  templateId: string;
+  dispatch: Dispatch<any>;
+}
+export const useUserList = ({ templateId, dispatch }: Props) => {
   const [userList, setUserList] = useState<UserItem[]>([]);
 
   const addUser = ({ userName, tagColor }: AddUser) => {
