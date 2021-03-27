@@ -1,24 +1,37 @@
 import React, { FC } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+import { updateTemplateUserList } from '../../../redux/template';
+import { UserItem } from '../../../types/user';
 import { StepHeader } from '../components/Layout';
 import { SelectUserList, tagColors } from '../components/User';
-import { AddUser, UserItem } from '../hooks';
 
 interface Props {
   userList: UserItem[];
-  addUser(obj: AddUser): void;
-  removeUser(userName: string): void;
 }
 
-export const UserListContainer: FC<Props> = ({
-  userList,
-  addUser,
-  removeUser,
-}) => {
+export const UserListContainer: FC<Props> = ({ userList }) => {
+  const dispatch = useDispatch();
+
+  const createUser = (userItem: UserItem) => {
+    dispatch(
+      updateTemplateUserList({
+        userList: [...userList, userItem],
+      }),
+    );
+  };
+  const removeUser = (userName: string) => {
+    const filterList = userList.filter((user) => user.userName !== userName);
+    dispatch(
+      updateTemplateUserList({
+        userList: filterList,
+      }),
+    );
+  };
   const changeSelect = (value: string[]) => {
     if (value.length > userList.length) {
-      addUser({
+      createUser({
         tagColor: tagColors[Math.floor(Math.random() * tagColors.length)],
         userName: value[value.length - 1],
       });

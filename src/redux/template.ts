@@ -1,11 +1,10 @@
-import { UserItem } from '../modules/dutch/hooks';
-import { TemplateItem } from '../types';
-import { generateTemplate } from '../utils/template';
+import { PaymentItem, TemplateItem, UserItem } from '../types';
+import { generatePaymentItem, generateTemplate } from '../utils';
 
 const CREATE_TEMPLATE = 'template/CREATE_TEMPLATE' as const;
 const SET_TEMPLATE_LIST = 'template/SET_TEMPLATE_LIST' as const;
-const UPDATE_TEMPLATE_LIST = 'template/UPDATE_TEMPLATE_LIST' as const;
 const UPDATE_TEMPLATE_USER_LIST = 'template/UPDATE_TEMPLATE_USER_LIST' as const;
+const UPDATE_TEMPLATE_PAYMENT_LIST = 'template/UPDATE_TEMPLATE_PAYMENT_LIST' as const;
 const UPDATE_SELECTED_ID = 'template/UPDATE_SELECTED_ID' as const;
 
 export const createTemplate = () => ({
@@ -31,16 +30,22 @@ export const updateTemplateUserList = (payload: UpdateTemplateUserList) => ({
   type: UPDATE_TEMPLATE_USER_LIST,
 });
 
-export const updateTemplateList = (payload: TemplateItem) => ({
+interface UPDATE_TEMPLATE_PAYMENT_LIST {
+  paymentList: PaymentItem[];
+}
+export const updateTemplatePaymentList = (
+  payload: UPDATE_TEMPLATE_PAYMENT_LIST,
+) => ({
   payload,
-  type: UPDATE_TEMPLATE_LIST,
+  type: UPDATE_TEMPLATE_PAYMENT_LIST,
 });
+
 type TemplateAction =
-  | ReturnType<typeof updateTemplateUserList>
-  | ReturnType<typeof updateSelectedId>
   | ReturnType<typeof createTemplate>
   | ReturnType<typeof setTemplateList>
-  | ReturnType<typeof updateTemplateList>;
+  | ReturnType<typeof updateSelectedId>
+  | ReturnType<typeof updateTemplateUserList>
+  | ReturnType<typeof updateTemplatePaymentList>;
 
 type TemplateState = {
   selectedId: string;
@@ -49,7 +54,7 @@ type TemplateState = {
 
 const initialState: TemplateState = {
   selectedId: '',
-  templateList: [],
+  templateList: [generatePaymentItem()],
 };
 
 function template(
@@ -74,24 +79,35 @@ function template(
       if (targetIndex === -1) {
         return state;
       }
-
       const copyTemplateList = [...state.templateList];
       copyTemplateList[targetIndex].userList = action.payload.userList;
       localStorage.setItem('templateList', JSON.stringify(copyTemplateList));
       return { ...state, templateList: copyTemplateList };
     }
-    case UPDATE_TEMPLATE_LIST: {
+    case UPDATE_TEMPLATE_PAYMENT_LIST: {
       const targetIndex = state.templateList.findIndex(
-        (item) => item.id === action.payload.id,
+        (item) => item.id === state.selectedId,
       );
       if (targetIndex === -1) {
         return state;
       }
-
-      Object.assign(state.templateList[targetIndex], action.payload);
-      localStorage.setItem('templateList', JSON.stringify(state.templateList));
-      return { ...state, templateList: state.templateList };
+      const copyTemplateList = [...state.templateList];
+      copyTemplateList[targetIndex].paymentList = action.payload.paymentList;
+      localStorage.setItem('templateList', JSON.stringify(copyTemplateList));
+      return { ...state, templateList: copyTemplateList };
     }
+    // case UPDATE_TEMPLATE_LIST: {
+    //   const targetIndex = state.templateList.findIndex(
+    //     (item) => item.id === action.payload.id,
+    //   );
+    //   if (targetIndex === -1) {
+    //     return state;
+    //   }
+
+    //   Object.assign(state.templateList[targetIndex], action.payload);
+    //   localStorage.setItem('templateList', JSON.stringify(state.templateList));
+    //   return { ...state, templateList: state.templateList };
+    // }
     default:
       return state;
   }

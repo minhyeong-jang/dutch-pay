@@ -1,7 +1,8 @@
 import { TemplateItem } from '../types';
+import { uuidv4 } from './utils';
 
 export const generateTemplate = (): TemplateItem => ({
-  id: (+new Date() + Math.random() * 100).toString(32),
+  id: uuidv4(),
   paymentList: [],
   templateName: 'New Template',
   userList: [],
