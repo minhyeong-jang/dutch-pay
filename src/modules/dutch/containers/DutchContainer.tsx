@@ -1,18 +1,19 @@
 import React, { FC, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { PaymentItem, usePaymentList, UserItem, useUserList } from '../hooks';
+import { RootState } from '../../../redux';
+import { usePaymentList, useUserList } from '../hooks';
 import { CalculateContainer } from './CalculateContainer';
 import { PaymentListContainer } from './PaymentListContainer';
 import { TemplateContainer } from './TemplateContainer';
 import { UserListContainer } from './UserListContainer';
 
-interface TemplateItem {
-  templateName: string;
-  userList: UserItem[];
-  paymentList: PaymentItem[];
+interface Props {
+  templateId: string;
 }
-export const DutchContainer: FC = () => {
+export const DutchContainer: FC<Props> = ({ templateId }) => {
+  const template = useSelector((state: RootState) => state.template);
   const { userList, addUser, removeUser, setUserList } = useUserList();
   const {
     paymentList,
@@ -25,26 +26,24 @@ export const DutchContainer: FC = () => {
   } = usePaymentList();
 
   useEffect(() => {
-    const storageTemplate = localStorage.getItem('templateList');
-    if (storageTemplate) {
-      const templateList = JSON.parse(storageTemplate) as TemplateItem[];
-
-      if (templateList.length) {
-        setUserList(templateList[0].userList);
-        setPaymentList(templateList[0].paymentList);
-      }
+    const filterTemplate = template.templateList.filter(
+      (item) => item.id === templateId,
+    );
+    if (filterTemplate.length) {
+      setPaymentList(filterTemplate[0].paymentList);
+      setUserList(filterTemplate[0].userList);
     }
-  }, []);
+  }, [templateId]);
 
   useEffect(() => {
-    const templateList: TemplateItem[] = [
-      {
-        paymentList,
-        templateName: 'Template 5',
-        userList,
-      },
-    ];
-    localStorage.setItem('templateList', JSON.stringify(templateList));
+    // const templateList: TemplateItem[] = [
+    //   {
+    //     paymentList,
+    //     templateName: 'Template 5',
+    //     userList,
+    //   },
+    // ];
+    // localStorage.setItem('templateList', JSON.stringify(templateList));
   }, [userList, paymentList]);
 
   return (
