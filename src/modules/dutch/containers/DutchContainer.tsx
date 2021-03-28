@@ -5,9 +5,9 @@ import styled from 'styled-components';
 
 import { RootState } from '../../../redux';
 import { updateSelectedId } from '../../../redux/template';
-import { ContentHeader } from '../../shared/components/Content';
 import { CalculateContainer } from './CalculateContainer';
 import { PaymentListContainer } from './PaymentListContainer';
+import { TemplateContainer } from './TemplateContainer';
 import { UserListContainer } from './UserListContainer';
 
 interface Props {
@@ -34,10 +34,9 @@ export const DutchContainer: FC<Props> = ({ templateId }) => {
     return null;
   }
 
-  console.log('selected : ', selectedTemplate);
   return (
     <StyledContainer>
-      <ContentHeader>{selectedTemplate.templateName}</ContentHeader>
+      <TemplateContainer templateName={selectedTemplate.templateName} />
       <UserListContainer userList={selectedTemplate.userList} />
       <PaymentListContainer
         paymentList={selectedTemplate.paymentList}
