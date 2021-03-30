@@ -2,7 +2,10 @@ import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { updateTemplateUserList } from '../../../redux/template';
+import {
+  deleteTemplateUser,
+  updateTemplateUserList,
+} from '../../../redux/template';
 import { UserItem } from '../../../types/user';
 import { StepHeader } from '../components/Layout';
 import { SelectUserList, tagColors } from '../components/User';
@@ -22,12 +25,7 @@ export const UserListContainer: FC<Props> = ({ userList }) => {
     );
   };
   const removeUser = (userName: string) => {
-    const filterList = userList.filter((user) => user.userName !== userName);
-    dispatch(
-      updateTemplateUserList({
-        userList: filterList,
-      }),
-    );
+    dispatch(deleteTemplateUser({ userName }));
   };
   const changeSelect = (value: string[]) => {
     if (value.length > userList.length) {
