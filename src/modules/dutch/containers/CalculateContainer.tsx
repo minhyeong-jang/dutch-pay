@@ -89,21 +89,19 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
       />
 
       {Object.keys(calculateList).map((payer, index) => {
-        const { paymentTotal, sendList } = calculateList[payer];
-        const tossTotal = Object.keys(sendList).reduce(
-          (sum, key) => sum + Math.floor(sendList[key] || 0),
-          0,
+        const { sendList } = calculateList[payer];
+        return (
+          <StyledTossUl key={index}>
+            {Object.keys(sendList).map((participant, index) =>
+              sendList[participant] ? (
+                <StyledTossLi key={index}>
+                  {payer} -&gt; {participant} :&nbsp;
+                  {Math.floor(sendList[participant]).toLocaleString()}원
+                </StyledTossLi>
+              ) : null,
+            )}
+          </StyledTossUl>
         );
-        <StyledTossUl>
-          {Object.keys(sendList).map((participant, index) =>
-            sendList[participant] ? (
-              <StyledTossLi key={index}>
-                {payer} -&gt; {participant} :&nbsp;
-                {Math.floor(sendList[participant]).toLocaleString()}원
-              </StyledTossLi>
-            ) : null,
-          )}
-        </StyledTossUl>;
       })}
       {Object.keys(allTossList).length > 0 ? (
         <>
