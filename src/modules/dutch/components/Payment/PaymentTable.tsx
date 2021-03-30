@@ -102,6 +102,7 @@ export const PaymentTable: FC<Props> = ({
         columns={columns}
         dataSource={paymentList}
         footer={Footer}
+        pagination={false}
         rowKey={(record) => record.id}
       />
     </StyledContainer>
@@ -110,6 +111,11 @@ export const PaymentTable: FC<Props> = ({
 const StyledContainer = styled.div`
   table {
     table-layout: fixed;
+  }
+  .ant-table {
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    overflow: hidden;
   }
   .ant-table-footer {
     padding: 0;

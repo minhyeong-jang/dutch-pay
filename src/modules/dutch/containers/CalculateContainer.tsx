@@ -1,34 +1,28 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { PaymentItem, UserItem } from '../../../types';
-import { TotalPayment } from '../components/Calculate';
+import {
+  CalculateItem,
+  CalculateTossItem,
+  PaymentItem,
+  UserItem,
+} from '../../../types';
+import { PersonalCalculate, TotalPayment } from '../components/Calculate';
 import { StepHeader } from '../components/Layout';
 
 interface Props {
   userList: UserItem[];
   paymentList: PaymentItem[];
 }
-interface CalculateObj {
-  [key: string]: {
-    paymentTotal: number;
-    tossList: {
-      [key: string]: number;
-    };
-  };
-}
-interface TossObj {
-  [key: string]: number;
-}
 
 export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
-  const [calculateList, setCalculateList] = useState<CalculateObj>({});
-  const [allTossList, setAllTossList] = useState<TossObj>({});
+  const [calculateList, setCalculateList] = useState<CalculateItem>({});
+  const [allTossList, setAllTossList] = useState<CalculateTossItem>({});
 
   useEffect(() => {
     if (!userList.length || !paymentList.length) return;
 
-    const calculateList: CalculateObj = {};
+    const calculateList: CalculateItem = {};
     const tossList = userList.reduce(
       (prev, curr) => ({ ...prev, [curr.userName]: 0 }),
       {},
@@ -67,7 +61,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
   }, [userList, paymentList]);
 
   useEffect(() => {
-    const allTossList: TossObj = { totalPrice: 0 };
+    const allTossList: CalculateTossItem = { totalPrice: 0 };
 
     userList.map((user) => {
       Object.keys(calculateList).map((payer) => {
@@ -81,6 +75,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
       });
     });
 
+    console.log(allTossList);
     setAllTossList(allTossList);
   }, [calculateList]);
 
@@ -88,44 +83,11 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
     <StyledSection>
       <StepHeader description="송금정보 확인" title="Step3" />
       <TotalPayment paymentList={paymentList} />
-      <StyledUl>
-        {Object.keys(calculateList).map((payer, index) => {
-          const { paymentTotal, tossList } = calculateList[payer];
-          const tossTotal = Object.keys(tossList).reduce(
-            (sum, key) => sum + Math.floor(tossList[key] || 0),
-            0,
-          );
+      <PersonalCalculate
+        allTossList={allTossList}
+        calculateList={calculateList}
+      />
 
-          return (
-            <StyledLi key={index}>
-              <StyledPayerInfo>
-                <StyledPlayer>{payer}</StyledPlayer>
-                <StyledPayment>
-                  결제 금액 : {paymentTotal.toLocaleString()}원 / 송금 금액 :{' '}
-                  {tossTotal.toLocaleString()}원 / 총 여행 경비 :{' '}
-                  {(
-                    paymentTotal +
-                    tossTotal -
-                    (allTossList[payer] || 0)
-                  ).toLocaleString()}
-                  원
-                </StyledPayment>
-              </StyledPayerInfo>
-
-              <StyledTossUl>
-                {Object.keys(tossList).map((participant, index) =>
-                  tossList[participant] ? (
-                    <StyledTossLi key={index}>
-                      {payer} -&gt; {participant} :&nbsp;
-                      {Math.floor(tossList[participant]).toLocaleString()}원
-                    </StyledTossLi>
-                  ) : null,
-                )}
-              </StyledTossUl>
-            </StyledLi>
-          );
-        })}
-      </StyledUl>
       {Object.keys(allTossList).length > 0 ? (
         <>
           <StyledTitle>
@@ -197,34 +159,10 @@ const StyledTitle = styled.div`
   color: #222;
   font-weight: bold;
 `;
-const StyledPayerInfo = styled.div`
-  margin-bottom: 10px;
-`;
-const StyledPlayer = styled.span`
-  font-weight: bold;
-  font-size: 17px;
-`;
-const StyledPayment = styled.span`
-  margin-left: 5px;
-  font-size: 14px;
-  color: #646464;
-`;
 const StyledDesc = styled.div`
   font-size: 13px;
   color: #646464;
   margin: 10px 0px;
-`;
-const StyledUl = styled.ul`
-  padding: 0;
-`;
-const StyledLi = styled.li`
-  padding: 10px 10px;
-  border-bottom: 1px solid #dedede;
-  list-style: none;
-
-  &:last-child {
-    border-bottom: none;
-  }
 `;
 const StyledTossUl = styled.ul`
   padding-left: 20px;

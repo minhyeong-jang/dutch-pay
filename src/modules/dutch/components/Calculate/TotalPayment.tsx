@@ -1,4 +1,4 @@
-import React, { FC, memo, useMemo } from 'react';
+import React, { FC, memo } from 'react';
 import styled from 'styled-components';
 
 import { PaymentItem } from '../../../../types';
@@ -13,7 +13,7 @@ const TotalPaymentComponent: FC<Props> = ({ paymentList }) => {
   );
   return (
     <StyledContainer>
-      이번 모임에서는
+      이번 모임은
       <StyledPayment>{allPaymentTotal.toLocaleString()}</StyledPayment>원을
       사용했어요!
     </StyledContainer>
