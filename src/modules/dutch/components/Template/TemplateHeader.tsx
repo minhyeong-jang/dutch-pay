@@ -17,6 +17,7 @@ interface Props {
   setEditTemplateName(value: string): void;
   setIsEdit(value: boolean): void;
   onSave(): void;
+  onCancel(): void;
   onDelete(): void;
 }
 export const TemplateHeader: FC<Props> = ({
@@ -26,6 +27,7 @@ export const TemplateHeader: FC<Props> = ({
   setEditTemplateName,
   setIsEdit,
   onSave,
+  onCancel,
   onDelete,
 }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +54,7 @@ export const TemplateHeader: FC<Props> = ({
         {isEdit ? (
           <>
             <CheckOutlined onClick={() => onSave()} />
-            <CloseOutlined onClick={() => setIsEdit(false)} />
+            <CloseOutlined onClick={() => onCancel()} />
             <DeleteOutlined onClick={() => onDelete()} />
           </>
         ) : (
