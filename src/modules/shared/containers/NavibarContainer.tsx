@@ -15,6 +15,8 @@ export const NavibarContainer: FC = () => {
     if (storageTemplate) {
       const storageTemplateList = JSON.parse(storageTemplate) as TemplateItem[];
       dispatch(setTemplateList(storageTemplateList));
+    } else {
+      addTemplate();
     }
   }, []);
 

@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { PaymentItem, UserItem } from '../../hooks';
+import { PaymentItem, UserItem } from '../../../../types';
 import { SelectUser, SelectUserList } from '../User';
 
 interface Props {
@@ -102,7 +102,8 @@ export const PaymentTable: FC<Props> = ({
         columns={columns}
         dataSource={paymentList}
         footer={Footer}
-        rowKey={(record) => record.key}
+        pagination={false}
+        rowKey={(record) => record.id}
       />
     </StyledContainer>
   );
@@ -110,6 +111,11 @@ export const PaymentTable: FC<Props> = ({
 const StyledContainer = styled.div`
   table {
     table-layout: fixed;
+  }
+  .ant-table {
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    overflow: hidden;
   }
   .ant-table-footer {
     padding: 0;
@@ -132,7 +138,4 @@ const StyledInput = styled.input`
   padding: 5px 10px;
   border-radius: 5px;
   width: 100%;
-`;
-const StyledButton = styled.button`
-  padding: 5px 10px;
 `;

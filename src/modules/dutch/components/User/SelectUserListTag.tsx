@@ -14,7 +14,6 @@ export const tagColors = [
   'magenta',
   'volcano',
   'gold',
-  'lime',
   'success',
   'processing',
   'error',

@@ -1,7 +1,7 @@
 import { Select } from 'antd';
 import React, { FC } from 'react';
 
-import { UserItem } from '../../hooks';
+import { UserItem } from '../../../../types';
 
 interface Props {
   userList: UserItem[];

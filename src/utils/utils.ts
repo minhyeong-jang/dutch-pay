@@ -9,3 +9,15 @@ export const uuidv4 = () => {
 export const formatNumber = (value: string): number => {
   return parseInt(value.replace(/[^0-9]/g, ''));
 };
+
+/**
+ * Number 값을 가진 Object의 합을 return
+ * @param obj
+ * @returns number
+ */
+export const sumObjValue = (obj: { [key: string]: number }): number => {
+  return Object.keys(obj).reduce(
+    (sum, key) => sum + Math.floor(obj[key] || 0),
+    0,
+  );
+};

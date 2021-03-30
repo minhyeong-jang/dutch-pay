@@ -1,8 +1,8 @@
 import { Select } from 'antd';
-import { CustomTagProps } from 'rc-select/lib/interface/generator';
 import React, { FC } from 'react';
 
-import { UserItem } from '../../hooks';
+import { UserItem } from '../../../../types';
+import { getTagColor } from '../../../../utils';
 import { SelectUserListTag } from './SelectUserListTag';
 
 interface Props {
@@ -19,16 +19,6 @@ export const SelectUserList: FC<Props> = ({
   placeholder,
   changeSelect,
 }) => {
-  const getTagColor = (customTag: CustomTagProps) => {
-    const filteredUser = userList.filter(
-      (user) => user.userName === customTag.value,
-    );
-    if (filteredUser.length) {
-      return filteredUser[0].tagColor;
-    }
-    return null;
-  };
-
   return (
     <Select
       mode={mode}
@@ -43,7 +33,7 @@ export const SelectUserList: FC<Props> = ({
       tagRender={(customTag) =>
         SelectUserListTag({
           ...customTag,
-          tagColor: getTagColor(customTag),
+          tagColor: getTagColor(userList, customTag?.value as string),
         })
       }
       value={value}

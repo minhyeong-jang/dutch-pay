@@ -1,4 +1,5 @@
-import { PaymentItem, UserItem } from '../modules/dutch/hooks';
+import { PaymentItem } from './payment';
+import { UserItem } from './user';
 
 export interface TemplateItem {
   id: string;
