@@ -2,6 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { PaymentItem, UserItem } from '../../../types';
+import { TotalPayment } from '../components/Calculate';
+import { StepHeader } from '../components/Layout';
 
 interface Props {
   userList: UserItem[];
@@ -21,7 +23,6 @@ interface TossObj {
 
 export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
   const [calculateList, setCalculateList] = useState<CalculateObj>({});
-  const [allPaymentTotal, setAllPaymentTotal] = useState(0);
   const [allTossList, setAllTossList] = useState<TossObj>({});
 
   useEffect(() => {
@@ -66,14 +67,6 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
   }, [userList, paymentList]);
 
   useEffect(() => {
-    const allPaymentTotal = paymentList.reduce(
-      (prev, curr) => prev + curr.paymentPrice,
-      0,
-    );
-    setAllPaymentTotal(allPaymentTotal);
-  }, [paymentList]);
-
-  useEffect(() => {
     const allTossList: TossObj = { totalPrice: 0 };
 
     userList.map((user) => {
@@ -93,16 +86,8 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
 
   return (
     <StyledSection>
-      <StyledTitle>
-        결제 정보&nbsp;
-        <StyledPayment>
-          {allPaymentTotal.toLocaleString()} / {userList.length} =&nbsp;
-          {(allPaymentTotal / userList.length).toLocaleString()}원
-        </StyledPayment>
-      </StyledTitle>
-      <StyledDesc>
-        * 모든 결제를 더치페이 하지 않기 때문에 오차가 있을 수 있습니다.
-      </StyledDesc>
+      <StepHeader description="송금정보 확인" title="Step3" />
+      <TotalPayment paymentList={paymentList} />
       <StyledUl>
         {Object.keys(calculateList).map((payer, index) => {
           const { paymentTotal, tossList } = calculateList[payer];

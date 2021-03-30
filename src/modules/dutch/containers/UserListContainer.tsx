@@ -48,7 +48,7 @@ export const UserListContainer: FC<Props> = ({ userList }) => {
       <StepHeader description="참가자 입력" title="Step1" />
       <SelectUserList
         changeSelect={changeSelect}
-        placeholder="Please Select User"
+        placeholder="참가자 입력 & 선택"
         userList={userList}
         value={userList.map((user) => user.userName)}
       />
@@ -67,6 +67,7 @@ const StyledSection = styled.section`
     }
     .ant-select-selector {
       padding: 10px 15px;
+      min-height: 54px;
     }
     .ant-tag {
       margin-right: 6px;
