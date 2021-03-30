@@ -23,14 +23,14 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
     if (!userList.length || !paymentList.length) return;
 
     const calculateList: CalculateItem = {};
-    const tossList = userList.reduce(
+    const sendList = userList.reduce(
       (prev, curr) => ({ ...prev, [curr.userName]: 0 }),
       {},
     );
     userList.map((user) => {
       calculateList[user.userName] = {
         paymentTotal: 0,
-        tossList: { ...tossList },
+        sendList: { ...sendList },
       };
     });
 
@@ -48,12 +48,12 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
         if (partName === payerName) return;
         const participantInfo = calculateList[partName];
 
-        const differencePrice = payerInfo.tossList[partName] - perPersonPayment;
+        const differencePrice = payerInfo.sendList[partName] - perPersonPayment;
         if (differencePrice >= 0) {
-          payerInfo.tossList[partName] = differencePrice;
+          payerInfo.sendList[partName] = differencePrice;
         } else {
-          payerInfo.tossList[partName] = 0;
-          participantInfo.tossList[payerName] += -differencePrice;
+          payerInfo.sendList[partName] = 0;
+          participantInfo.sendList[payerName] += -differencePrice;
         }
       });
     });
@@ -66,7 +66,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
     userList.map((user) => {
       Object.keys(calculateList).map((payer) => {
         const floorToss = Math.floor(
-          calculateList[payer].tossList[user.userName],
+          calculateList[payer].sendList[user.userName],
         );
         allTossList['totalPrice'] += floorToss;
         allTossList[user.userName] = allTossList[user.userName]
@@ -75,7 +75,6 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
       });
     });
 
-    console.log(allTossList);
     setAllTossList(allTossList);
   }, [calculateList]);
 
@@ -86,8 +85,26 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
       <PersonalCalculate
         allTossList={allTossList}
         calculateList={calculateList}
+        userList={userList}
       />
 
+      {Object.keys(calculateList).map((payer, index) => {
+        const { paymentTotal, sendList } = calculateList[payer];
+        const tossTotal = Object.keys(sendList).reduce(
+          (sum, key) => sum + Math.floor(sendList[key] || 0),
+          0,
+        );
+        <StyledTossUl>
+          {Object.keys(sendList).map((participant, index) =>
+            sendList[participant] ? (
+              <StyledTossLi key={index}>
+                {payer} -&gt; {participant} :&nbsp;
+                {Math.floor(sendList[participant]).toLocaleString()}원
+              </StyledTossLi>
+            ) : null,
+          )}
+        </StyledTossUl>;
+      })}
       {Object.keys(allTossList).length > 0 ? (
         <>
           <StyledTitle>
@@ -97,9 +114,9 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
           <StyledGiveMe>
             <StyledTossUl>
               {Object.keys(calculateList).map((payer, index) => {
-                const { paymentTotal, tossList } = calculateList[payer];
-                const tossTotal = Object.keys(tossList).reduce(
-                  (sum, key) => sum + Math.floor(tossList[key] || 0),
+                const { paymentTotal, sendList } = calculateList[payer];
+                const tossTotal = Object.keys(sendList).reduce(
+                  (sum, key) => sum + Math.floor(sendList[key] || 0),
                   0,
                 );
                 return (
@@ -143,7 +160,6 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
 const StyledSection = styled.section`
   ${({ theme }) => theme.layout.section};
 `;
-
 const StyledGiveMe = styled.div`
   color: #222;
   border-top: 1px solid #dedede;
