@@ -2,18 +2,22 @@ import { Tag } from 'antd';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { CalculateItem, CalculateTossItem, UserItem } from '../../../../types';
+import {
+  CalculateGetPriceItem,
+  CalculateItem,
+  UserItem,
+} from '../../../../types';
 import { getTagColor, sumObjValue } from '../../../../utils';
 
 interface Props {
   userList: UserItem[];
   calculateList: CalculateItem;
-  allTossList: CalculateTossItem;
+  calculateGetPriceList: CalculateGetPriceItem;
 }
 export const PersonalCalculate: FC<Props> = ({
   userList,
   calculateList,
-  allTossList,
+  calculateGetPriceList,
 }) => {
   return (
     <StyledContainer>
@@ -26,15 +30,15 @@ export const PersonalCalculate: FC<Props> = ({
           <StyledPaymentTitle>받을 금액</StyledPaymentTitle>
         </StyledPriceWrap>
 
-        {Object.keys(calculateList).map((payer) => (
-          <>
+        {Object.keys(calculateList).map((payer, index) => (
+          <React.Fragment key={index}>
             <StyledTag color={getTagColor(userList, payer)}>{payer}</StyledTag>
             <StyledPriceWrap>
               <StyledPayment>
                 {(
                   calculateList[payer].paymentTotal +
                   sumObjValue(calculateList[payer].sendList) -
-                  (allTossList[payer] || 0)
+                  (calculateGetPriceList[payer] || 0)
                 ).toLocaleString()}
                 원
               </StyledPayment>
@@ -45,10 +49,10 @@ export const PersonalCalculate: FC<Props> = ({
                 {sumObjValue(calculateList[payer].sendList).toLocaleString()}원
               </StyledPayment>
               <StyledPayment>
-                {(allTossList[payer] || 0).toLocaleString()}원
+                {(calculateGetPriceList[payer] || 0).toLocaleString()}원
               </StyledPayment>
             </StyledPriceWrap>
-          </>
+          </React.Fragment>
         ))}
       </StyledGrid>
     </StyledContainer>

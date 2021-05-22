@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import { UserItem } from '../../../../types';
 
 interface Props {
+  className?: string;
   userList: UserItem[];
   value: string;
   placeholder: string;
@@ -12,6 +13,7 @@ interface Props {
 
 const { Option } = Select;
 export const SelectUser: FC<Props> = ({
+  className,
   placeholder,
   value,
   userList,
@@ -19,8 +21,8 @@ export const SelectUser: FC<Props> = ({
 }) => {
   return (
     <Select
+      className={className}
       placeholder={placeholder}
-      style={{ width: '100%' }}
       value={value}
       onChange={onChange}
     >
