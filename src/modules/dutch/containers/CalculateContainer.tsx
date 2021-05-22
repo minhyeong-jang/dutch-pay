@@ -7,17 +7,21 @@ import {
   PaymentItem,
   UserItem,
 } from '../../../types';
-import { PersonalCalculate, TotalPayment } from '../components/Calculate';
+import {
+  CalculateTab,
+  PersonalCalculate,
+  TotalPayment,
+} from '../components/Calculate';
 import { StepHeader } from '../components/Layout';
 
 interface Props {
   userList: UserItem[];
   paymentList: PaymentItem[];
 }
-
 export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
   const [calculateList, setCalculateList] = useState<CalculateItem>({});
   const [allTossList, setAllTossList] = useState<CalculateTossItem>({});
+  const [selectedTab, setSelectedTab] = useState('personal');
 
   useEffect(() => {
     if (!userList.length || !paymentList.length) return;
@@ -87,6 +91,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
         calculateList={calculateList}
         userList={userList}
       />
+      <CalculateTab selectedTab={selectedTab} onChange={setSelectedTab} />
 
       {Object.keys(calculateList).map((payer, index) => {
         const { sendList } = calculateList[payer];
@@ -181,7 +186,6 @@ const StyledDesc = styled.div`
 const StyledTossUl = styled.ul`
   padding-left: 20px;
 `;
-
 const StyledTossLi = styled.li`
   margin-bottom: 5px;
   font-size: 15px;
@@ -193,7 +197,6 @@ const StyledTotalPrice = styled.span`
   display: inline-block;
   text-align: right;
 `;
-
 const StyledTossPayer = styled.span`
   display: inline-block;
   width: 50px;

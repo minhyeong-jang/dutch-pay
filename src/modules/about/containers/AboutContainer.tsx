@@ -47,6 +47,11 @@ const markdown = `
 
 ## Release Note
 
+- March 30, 2021
+  - 템플릿 저장/수정/삭제 추가
+  - 참여자 삭제 오류 수정
+  - UI 개선
+  - 기타 코드 개선
 - March 27, 2021
   - 템플릿 리스트 적용
 - March 26, 2021
