@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "/dutch-pay/static/js/main.26c3a98d.chunk.js",
-    "main.js.map": "/dutch-pay/static/js/main.26c3a98d.chunk.js.map",
+    "main.js": "/dutch-pay/static/js/main.a4c1b782.chunk.js",
+    "main.js.map": "/dutch-pay/static/js/main.a4c1b782.chunk.js.map",
     "runtime-main.js": "/dutch-pay/static/js/runtime-main.f9fe2835.js",
     "runtime-main.js.map": "/dutch-pay/static/js/runtime-main.f9fe2835.js.map",
     "static/css/2.ea9b1cc9.chunk.css": "/dutch-pay/static/css/2.ea9b1cc9.chunk.css",
-    "static/js/2.1f922170.chunk.js": "/dutch-pay/static/js/2.1f922170.chunk.js",
-    "static/js/2.1f922170.chunk.js.map": "/dutch-pay/static/js/2.1f922170.chunk.js.map",
+    "static/js/2.2ff3acf2.chunk.js": "/dutch-pay/static/js/2.2ff3acf2.chunk.js",
+    "static/js/2.2ff3acf2.chunk.js.map": "/dutch-pay/static/js/2.2ff3acf2.chunk.js.map",
     "index.html": "/dutch-pay/index.html",
     "static/css/2.ea9b1cc9.chunk.css.map": "/dutch-pay/static/css/2.ea9b1cc9.chunk.css.map",
-    "static/js/2.1f922170.chunk.js.LICENSE.txt": "/dutch-pay/static/js/2.1f922170.chunk.js.LICENSE.txt"
+    "static/js/2.2ff3acf2.chunk.js.LICENSE.txt": "/dutch-pay/static/js/2.2ff3acf2.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f9fe2835.js",
     "static/css/2.ea9b1cc9.chunk.css",
-    "static/js/2.1f922170.chunk.js",
-    "static/js/main.26c3a98d.chunk.js"
+    "static/js/2.2ff3acf2.chunk.js",
+    "static/js/main.a4c1b782.chunk.js"
   ]
 }
