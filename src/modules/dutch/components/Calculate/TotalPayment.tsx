@@ -1,20 +1,14 @@
 import React, { FC, memo } from 'react';
 import styled from 'styled-components';
 
-import { PaymentItem } from '../../../../types';
-
 interface Props {
-  paymentList: PaymentItem[];
+  paymentTotal: number;
 }
-const TotalPaymentComponent: FC<Props> = ({ paymentList }) => {
-  const allPaymentTotal = paymentList.reduce(
-    (prev, curr) => prev + curr.paymentPrice,
-    0,
-  );
+const TotalPaymentComponent: FC<Props> = ({ paymentTotal }) => {
   return (
     <StyledContainer>
       이번 모임은
-      <StyledPayment>{allPaymentTotal.toLocaleString()}</StyledPayment>원을
+      <StyledPayment>{paymentTotal.toLocaleString()}</StyledPayment>원을
       사용했어요!
     </StyledContainer>
   );

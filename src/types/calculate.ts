@@ -7,6 +7,6 @@ export interface CalculateItem {
 export interface SendList {
   [key: string]: number;
 }
-export interface CalculateTossItem {
+export interface CalculateGetPriceItem {
   [key: string]: number;
 }
