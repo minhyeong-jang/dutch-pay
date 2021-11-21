@@ -4,14 +4,12 @@ import { useParams } from 'react-router';
 import { DutchContainer } from '../containers';
 import { DutchPageTemplate } from './templates';
 
-const DutchPage: FC = () => {
-  const { id = '' } = useParams();
-
+const SharedPage: FC = () => {
   return (
     <DutchPageTemplate>
-      <DutchContainer templateId={id} />
+      {/* <DutchContainer templateId={id} /> */}
     </DutchPageTemplate>
   );
 };
 
-export default DutchPage;
+export default SharedPage;

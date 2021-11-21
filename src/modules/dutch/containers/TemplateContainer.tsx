@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { RootState } from '../../../redux';
 import { updateTemplateList } from '../../../redux/template';
@@ -11,7 +11,7 @@ interface Props {
   templateName: string;
 }
 export const TemplateContainer: FC<Props> = ({ templateName }) => {
-  const history = useHistory();
+  const navigation = useNavigate();
   const template = useSelector((state: RootState) => state.template);
   const dispatch = useDispatch();
   const [editTemplateName, setEditTemplateName] = useState(templateName);
@@ -34,7 +34,7 @@ export const TemplateContainer: FC<Props> = ({ templateName }) => {
       (item) => item.id !== template.selectedId,
     );
     dispatch(updateTemplateList({ templateList: items }));
-    history.push(`/calc/${items[items.length - 1].id}`);
+    navigation(`/calc/${items[items.length - 1].id}`);
   };
   const onSave = () => {
     const items = [...template.templateList];
