@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import { useParams } from 'react-router';
 
-import { DutchContainer } from '../containers';
+import { SharedContainer } from '../containers/Shared';
 import { DutchPageTemplate } from './templates';
 
 const SharedPage: FC = () => {
   return (
     <DutchPageTemplate>
+      <SharedContainer />
       {/* <DutchContainer templateId={id} /> */}
     </DutchPageTemplate>
   );
