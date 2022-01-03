@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { RootState } from '../../../redux';
 import { updateSelectedId } from '../../../redux/template';
+import { AdsenseSection } from '../../shared/anlaytics';
 import { CalculateContainer } from './CalculateContainer';
 import { PaymentListContainer } from './PaymentListContainer';
 import { TemplateContainer } from './TemplateContainer';
@@ -37,6 +38,7 @@ export const DutchContainer: FC<Props> = ({ templateId }) => {
   return (
     <StyledContainer>
       <TemplateContainer templateName={selectedTemplate.templateName} />
+      <AdsenseSection slotNumber={8775838139} />
       <UserListContainer userList={selectedTemplate.userList} />
       <PaymentListContainer
         paymentList={selectedTemplate.paymentList}
@@ -46,6 +48,7 @@ export const DutchContainer: FC<Props> = ({ templateId }) => {
         paymentList={selectedTemplate.paymentList}
         userList={selectedTemplate.userList}
       />
+      <AdsenseSection slotNumber={3718968486} />
     </StyledContainer>
   );
 };

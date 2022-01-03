@@ -92,8 +92,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
       </StyledSection>
     );
   }
-  console.log(calculateList);
-  console.log(calculateGetPriceList);
+
   return (
     <StyledSection>
       <StepHeader description="정산결과 확인" title="Step3" />

@@ -16,22 +16,20 @@ export const Navibar: React.FC<Props> = ({ templateList, onAddTemplate }) => {
       <StyledFixed>
         <StyledInfo>
           <StyledPageName to="/">Dutch Pay</StyledPageName>
-          <StyledAuthorName
-            href="https://minhyeong-jang.github.io/"
-            target="_blank"
-          >
-            Minhyeong Jang
-          </StyledAuthorName>
+          <StyledAuthorName>온라인 더치페이 계산기</StyledAuthorName>
         </StyledInfo>
         <StyledMenu>
           <li>
-            <NavLink activeClassName="active" to="/" exact>
-              Hello Dutch Pay
+            <NavLink
+              className={({ isActive }) => (isActive ? 'active' : '')}
+              to="/"
+            >
+              온라인 더치페이란?
             </NavLink>
           </li>
           <li>
             <NavLink
-              activeClassName="active"
+              className={location.pathname.includes('/calc') ? 'active' : ''}
               to={`/calc/${templateList.length ? templateList[0].id : 'null'}`}
             >
               Let&#39;s Start Dutch Pay!
@@ -67,8 +65,11 @@ const StyledPageName = styled(Link)`
   font-size: 17px;
   line-height: 21px;
   color: white;
+  &:hover {
+    color: rgb(220, 220, 220);
+  }
 `;
-const StyledAuthorName = styled.a`
+const StyledAuthorName = styled.div`
   display: block;
   font-size: 14px;
   color: #aaa;

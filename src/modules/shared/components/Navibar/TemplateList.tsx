@@ -11,7 +11,10 @@ export const TemplateList: FC<Props> = ({ templateList }) => {
     <ul>
       {templateList.map((template, index) => (
         <li key={index}>
-          <NavLink activeClassName="active" to={`/calc/${template.id}`} exact>
+          <NavLink
+            className={({ isActive }) => (isActive ? 'active' : '')}
+            to={`/calc/${template.id}`}
+          >
             {template.templateName}
           </NavLink>
         </li>
