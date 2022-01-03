@@ -39,18 +39,19 @@ export const ManagerSendTab: FC<Props> = ({
     <StyledContainer>
       <StyledDesc>
         <b>일괄 송금이란?</b>
-        <br />한 사람이 모든 송금 금액을 받아 결제자들에게 분할하는 방식입니다.
+        <br />
+        대표 한 명이 모든 송금 금액을 받아 결제자들에게 분할하는 방식입니다.
         <br />
         효율적으로 정산하여 각자 송금하는 방식보다 송금 횟수가 줄어듭니다.
       </StyledDesc>
-      <StyledTitle>담당자 선택</StyledTitle>
+      <StyledTitle>1. 대표자 선택</StyledTitle>
       <StyledSelectUser
-        placeholder="담당자"
+        placeholder="대표자"
         userList={userList}
         value={selectedUser}
         onChange={(value) => setSelectedUser(value)}
       />
-      <StyledTitle>담당자에게 송금하기</StyledTitle>
+      <StyledTitle>2. 대표자에게 송금하기</StyledTitle>
       <StyledDesc>
         참가자들은 아래 금액만큼 <b>{selectedUser}</b>님에게 송금해주세요.
         <br />
@@ -69,12 +70,12 @@ export const ManagerSendTab: FC<Props> = ({
         ))}
       </StyledSendList>
 
-      <StyledTitle>결제자에게 송금하기</StyledTitle>
+      <StyledTitle>3. 결제자에게 송금하기</StyledTitle>
       <StyledSendList>
         {Object.keys(calculateGetPriceList).map((payer, index) =>
           payer !== 'totalPrice' && calculateGetPriceList[payer] !== 0 ? (
             <StyledTossLi key={index}>
-              {payer}(이)가
+              {payer}님이
               <StyledTotalPrice>
                 {calculateGetPriceList[payer].toLocaleString()}
               </StyledTotalPrice>
@@ -100,7 +101,7 @@ const StyledTitle = styled.div`
   font-size: 20px;
   color: ${({ theme }) => theme.color.githubColor};
   font-weight: bold;
-  margin: 30px 0 10px;
+  margin: 50px 0 15px;
 `;
 const StyledSelectUser = styled(SelectUser)`
   width: 200px;
