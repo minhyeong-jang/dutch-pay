@@ -47,7 +47,7 @@ export const PaymentTable: FC<Props> = ({
       dataIndex: 'paymentPrice',
       render: (paymentPrice: number, record: PaymentItem, index: number) => (
         <StyledInput
-          value={paymentPrice.toLocaleString()}
+          value={paymentPrice?.toLocaleString() || 0}
           onChange={(e) => updatePaymentPrice(e.target.value, index)}
         />
       ),
