@@ -8,7 +8,7 @@ import { message } from 'antd';
 import React, { ChangeEvent, FC } from 'react';
 import styled from 'styled-components';
 
-import { ContentHeader } from '../../../shared/components/Content';
+import { ContentHeader } from '../../../shared/components/Content-copy';
 
 interface Props {
   templateName: string;
