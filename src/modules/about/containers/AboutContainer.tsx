@@ -1,7 +1,6 @@
+import { ContentHeader, ContentWrap } from 'modules/shared/components/Content';
 import React, { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
-
-import { ContentHeader, ContentWrap } from '../../shared/components/Content';
 
 const markdown = `
 # 우리 더치페이 하자!
