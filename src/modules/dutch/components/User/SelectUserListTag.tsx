@@ -1,5 +1,5 @@
 import { Tag as AntdTag } from 'antd';
-import { CustomTagProps } from 'rc-select/lib/interface/generator';
+import { CustomTagProps } from 'rc-select/lib/BaseSelect';
 import React from 'react';
 
 export const tagColors = [

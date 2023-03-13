@@ -7,7 +7,8 @@ const UPDATE_TEMPLATE_LIST = 'template/UPDATE_TEMPLATE_LIST' as const;
 const UPDATE_SELECTED_ID = 'template/UPDATE_SELECTED_ID' as const;
 const DELETE_TEMPLATE_USER = 'template/DELETE_TEMPLATE_USER' as const;
 const UPDATE_TEMPLATE_USER_LIST = 'template/UPDATE_TEMPLATE_USER_LIST' as const;
-const UPDATE_TEMPLATE_PAYMENT_LIST = 'template/UPDATE_TEMPLATE_PAYMENT_LIST' as const;
+const UPDATE_TEMPLATE_PAYMENT_LIST =
+  'template/UPDATE_TEMPLATE_PAYMENT_LIST' as const;
 
 export const createTemplate = () => ({
   type: CREATE_TEMPLATE,

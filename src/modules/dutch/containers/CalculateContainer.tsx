@@ -20,10 +20,8 @@ interface Props {
 }
 export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
   const [calculateList, setCalculateList] = useState<CalculateItem>({});
-  const [
-    calculateGetPriceList,
-    setcalculateGetPriceList,
-  ] = useState<CalculateGetPriceItem>({});
+  const [calculateGetPriceList, setCalculateGetPriceList] =
+    useState<CalculateGetPriceItem>({});
   const paymentTotal = useMemo(
     () => paymentList.reduce((prev, curr) => prev + curr.paymentPrice, 0),
     [paymentList],
@@ -81,7 +79,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
       });
     });
 
-    setcalculateGetPriceList(sendList);
+    setCalculateGetPriceList(sendList);
   }, [calculateList]);
 
   if (!paymentTotal) {
