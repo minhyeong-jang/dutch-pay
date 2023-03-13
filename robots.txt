@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://minhyeong-jang.github.io/dutch-pay/#/sitemap.xml
