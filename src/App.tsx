@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css';
 
 import React, { Suspense } from 'react';
-import { HashRouter, Route, Routes, useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { Analytics } from './modules/shared/anlaytics';
@@ -17,13 +17,11 @@ function App() {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Analytics />
-        {/* <HashRouter> */}
         <Suspense
           fallback={<div style={{ minHeight: '100vh' }}>Loading...</div>}
         >
           {routing}
         </Suspense>
-        {/* </HashRouter> */}
       </ThemeProvider>
     </>
   );

@@ -20,17 +20,8 @@ module.exports = {
     },
   },
   settings: {
-    'react': {
+    react: {
       version: 'detect',
-    },
-    'import/resolver': {
-      alias: {
-        map: [
-          ['modules', './src/modules'],
-          ['shared', './src/shared'],
-        ],
-        extensions: ['.ts', '.js', '.jsx', '.tsx', '.json'],
-      },
     },
   },
   overrides: [
