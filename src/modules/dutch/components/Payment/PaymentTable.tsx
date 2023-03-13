@@ -60,7 +60,7 @@ export const PaymentTable: FC<Props> = ({
       dataIndex: 'payerName',
       key: 'payerName',
       render: (payerName: string, record: PaymentItem, index: number) => (
-        <SelectUser
+        <StyledSelectUser
           placeholder="결제자"
           userList={userList}
           value={payerName}
@@ -137,5 +137,8 @@ const StyledInput = styled.input`
   border: 1px solid ${({ theme }) => theme.color.borderColor};
   padding: 5px 10px;
   border-radius: 5px;
+  width: 100%;
+`;
+const StyledSelectUser = styled(SelectUser)`
   width: 100%;
 `;
