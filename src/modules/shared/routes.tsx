@@ -1,13 +1,15 @@
+import AboutPage from 'modules/about/pages/AboutPage';
+import DutchPage from 'modules/dutch/pages/DutchPage';
 import React from 'react';
 import { RouteObject } from 'react-router';
 
-import { LazyAboutPage } from '../about/pages';
-import { LazyDutchPage, LazySamplePage, LazySharedPage } from '../dutch/pages';
+// import { LazyAboutPage } from '../about/pages';
+import { LazySamplePage, LazySharedPage } from '../dutch/pages';
 import { RootPage } from '../dutch/pages/RootPage';
 
 export const routes: RouteObject[] = [
   {
-    element: <LazyAboutPage />,
+    element: <AboutPage />,
     path: `/`,
   },
   {
@@ -21,7 +23,7 @@ export const routes: RouteObject[] = [
         path: `shared`,
       },
       {
-        element: <LazyDutchPage />,
+        element: <DutchPage />,
         path: `:id`,
       },
       {
