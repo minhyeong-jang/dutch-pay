@@ -38,7 +38,7 @@ export const DutchContainer: FC<Props> = ({ templateId }) => {
   return (
     <StyledContainer>
       <TemplateContainer templateName={selectedTemplate.templateName} />
-      <AdsenseSection slotNumber={8775838139} />
+      {/* <AdsenseSection slotNumber={8775838139} /> */}
       <UserListContainer userList={selectedTemplate.userList} />
       <PaymentListContainer
         paymentList={selectedTemplate.paymentList}
@@ -48,7 +48,7 @@ export const DutchContainer: FC<Props> = ({ templateId }) => {
         paymentList={selectedTemplate.paymentList}
         userList={selectedTemplate.userList}
       />
-      <AdsenseSection slotNumber={3718968486} />
+      {/* <AdsenseSection slotNumber={3718968486} /> */}
     </StyledContainer>
   );
 };
