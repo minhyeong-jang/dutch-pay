@@ -1,30 +1,41 @@
 import 'antd/dist/antd.css';
 
 import React, { Suspense } from 'react';
-import { useRoutes } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
 
 import { Analytics } from './modules/shared/anlaytics';
-import { routes } from './modules/shared/routes';
+import { convertRouteItem } from './modules/shared/routes';
 import GlobalStyle from './styles/GlobalStyle';
 import { theme } from './styles/theme';
+import { ThemeProvider } from 'styled-components';
+import { Provider } from 'react-redux';
+import redux from './redux';
 
-function App() {
-  const routing = useRoutes(routes);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    convertRouteItem.map((route, index) => (
+      <Route key={index} path={route.path} element={<route.element />} />
+    )),
+  ),
+);
 
+const App = () => {
   return (
-    <>
-      <GlobalStyle />
+    <Provider store={redux}>
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Analytics />
-        <Suspense
-          fallback={<div style={{ minHeight: '100vh' }}>Loading...</div>}
-        >
-          {routing}
+        <Suspense fallback={<div>Loading...</div>}>
+          <RouterProvider router={router} />
         </Suspense>
       </ThemeProvider>
-    </>
+    </Provider>
   );
-}
+};
 
 export default App;

@@ -1,7 +1,10 @@
-import React, { FC } from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-export const ContentHeader: FC = ({ children, ...props }) => {
+interface ContentHeaderProps {
+  children: ReactNode
+}
+export const ContentHeader = ({ children, ...props }: ContentHeaderProps) => {
   return <StyledHeader {...props}>{children}</StyledHeader>;
 };
 const StyledHeader = styled.div`
