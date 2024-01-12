@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface ContentHeaderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 export const ContentHeader = ({ children, ...props }: ContentHeaderProps) => {
   return <StyledHeader {...props}>{children}</StyledHeader>;

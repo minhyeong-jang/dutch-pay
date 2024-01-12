@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { TemplateItem, UserItem } from '../types';
+import { PaymentItem, TemplateItem, UserItem } from '../types';
 import { generateTemplate } from '../utils';
 
 interface UpdateTemplateList {
@@ -21,7 +21,7 @@ interface UpdateTemplatePaymentList {
 interface TemplateState {
   selectedId: string;
   templateList: TemplateItem[];
-};
+}
 
 const initialState: TemplateState = {
   selectedId: '',
@@ -74,7 +74,10 @@ export const templateRedux = createSlice({
       localStorage.setItem('templateList', JSON.stringify(copyTemplateList));
       return { ...state, templateList: copyTemplateList };
     },
-    updateTemplateUserList: (state, action: PayloadAction<UpdateTemplateUserList>) => {
+    updateTemplateUserList: (
+      state,
+      action: PayloadAction<UpdateTemplateUserList>,
+    ) => {
       const targetIndex = state.templateList.findIndex(
         (item) => item.id === state.selectedId,
       );
@@ -86,14 +89,19 @@ export const templateRedux = createSlice({
       localStorage.setItem('templateList', JSON.stringify(copyTemplateList));
       return { ...state, templateList: copyTemplateList };
     },
-    updateTemplatePaymentList: (state, action: PayloadAction<UpdateTemplatePaymentList>) => {
+    updateTemplatePaymentList: (
+      state,
+      action: PayloadAction<UpdateTemplatePaymentList>,
+    ) => {
       const targetIndex = state.templateList.findIndex(
         (item) => item.id === state.selectedId,
       );
       if (targetIndex === -1) {
         return state;
       }
-      const copyTemplateList = JSON.parse(JSON.stringify(state.templateList));
+      const copyTemplateList = JSON.parse(
+        JSON.stringify(state.templateList),
+      ) as TemplateItem[];
       copyTemplateList[targetIndex].paymentList = action.payload.paymentList;
       localStorage.setItem('templateList', JSON.stringify(copyTemplateList));
       return { ...state, templateList: copyTemplateList };

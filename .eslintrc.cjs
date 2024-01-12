@@ -19,13 +19,13 @@ module.exports = {
   overrides: [
     {
       files: ['src/**/*'],
-      // extends: [
-      //   'eslint:recommended',
-      //   'plugin:react/recommended',
-      //   'plugin:@typescript-eslint/recommended',
-      //   'plugin:@typescript-eslint/recommended-requiring-type-checking',
-      //   'plugin:prettier/recommended',
-      // ],
+      extends: [
+        'eslint:recommended',
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:prettier/recommended',
+      ],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         project: './tsconfig.json',
@@ -64,22 +64,6 @@ module.exports = {
           { ignoreRestSiblings: true },
         ],
         'jsx-a11y/anchor-is-valid': 'off',
-        'react/jsx-sort-default-props': [
-          2,
-          {
-            ignoreCase: false,
-          },
-        ],
-        // 'react/jsx-sort-props': [
-        //   2,
-        //   {
-        //     callbacksLast: true,
-        //     shorthandLast: true,
-        //     ignoreCase: false,
-        //     noSortAlphabetically: false,
-        //     reservedFirst: true,
-        //   },
-        // ],
         'react/prop-types': 'off',
         'react/sort-prop-types': [
           2,
