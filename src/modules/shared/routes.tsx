@@ -1,5 +1,4 @@
-import React, { FC, LazyExoticComponent } from 'react';
-import { RouteObject } from 'react-router';
+import { FC, LazyExoticComponent } from 'react';
 
 import { LazyAboutPage } from '../about/pages';
 import { LazyDutchPage, LazySamplePage, LazySharedPage } from '../dutch/pages';
@@ -29,15 +28,15 @@ export const routes: RouteMap = [
     children: [
       {
         element: LazySamplePage,
-        path: `sample`,
+        path: `/sample`,
       },
       {
         element: LazySharedPage,
-        path: `shared`,
+        path: `/shared`,
       },
       {
         element: LazyDutchPage,
-        path: `:id`,
+        path: `/:id`,
       },
       {
         element: RootPage,
