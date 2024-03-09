@@ -57,7 +57,9 @@ export const templateRedux = createSlice({
       if (targetIndex === -1) {
         return state;
       }
-      const copyTemplateList = [...state.templateList];
+      const copyTemplateList = JSON.parse(
+        JSON.stringify(state.templateList),
+      ) as TemplateItem[];
       const filterUserList = copyTemplateList[targetIndex].userList.filter(
         (user) => user.userName !== action.payload.userName,
       );
@@ -78,14 +80,14 @@ export const templateRedux = createSlice({
       state,
       action: PayloadAction<UpdateTemplateUserList>,
     ) => {
-      const targetIndex = state.templateList.findIndex(
-        (item) => item.id === state.selectedId,
+      const copyTemplateList = [...state.templateList].map((item) =>
+        item.id === state.selectedId
+          ? {
+              ...item,
+              userList: action.payload.userList,
+            }
+          : item,
       );
-      if (targetIndex === -1) {
-        return state;
-      }
-      const copyTemplateList = [...state.templateList];
-      copyTemplateList[targetIndex].userList = action.payload.userList;
       localStorage.setItem('templateList', JSON.stringify(copyTemplateList));
       return { ...state, templateList: copyTemplateList };
     },
@@ -93,16 +95,14 @@ export const templateRedux = createSlice({
       state,
       action: PayloadAction<UpdateTemplatePaymentList>,
     ) => {
-      const targetIndex = state.templateList.findIndex(
-        (item) => item.id === state.selectedId,
+      const copyTemplateList = [...state.templateList].map((item) =>
+        item.id === state.selectedId
+          ? {
+              ...item,
+              paymentList: action.payload.paymentList,
+            }
+          : item,
       );
-      if (targetIndex === -1) {
-        return state;
-      }
-      const copyTemplateList = JSON.parse(
-        JSON.stringify(state.templateList),
-      ) as TemplateItem[];
-      copyTemplateList[targetIndex].paymentList = action.payload.paymentList;
       localStorage.setItem('templateList', JSON.stringify(copyTemplateList));
       return { ...state, templateList: copyTemplateList };
     },

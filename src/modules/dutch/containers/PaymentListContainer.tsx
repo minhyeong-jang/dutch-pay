@@ -19,27 +19,30 @@ export const PaymentListContainer: FC<Props> = ({ userList, paymentList }) => {
   const addPayment = () => {
     dispatch(
       updateTemplatePaymentList({
-        paymentList: [...paymentList, generatePaymentItem()],
+        paymentList: [
+          ...(JSON.parse(JSON.stringify(paymentList)) as PaymentItem[]),
+          generatePaymentItem(),
+        ],
       }),
     );
   };
   const updateTitle = (value: string, index: number) => {
-    const items = [...paymentList];
+    const items = JSON.parse(JSON.stringify(paymentList)) as PaymentItem[];
     items[index]['title'] = value;
     dispatch(updateTemplatePaymentList({ paymentList: items }));
   };
   const updatePaymentPrice = (value: string, index: number) => {
-    const items = [...paymentList];
+    const items = JSON.parse(JSON.stringify(paymentList)) as PaymentItem[];
     items[index]['paymentPrice'] = formatNumber(value);
     dispatch(updateTemplatePaymentList({ paymentList: items }));
   };
   const updatePayerName = (selectedUser: string, index: number) => {
-    const items = [...paymentList];
+    const items = JSON.parse(JSON.stringify(paymentList)) as PaymentItem[];
     items[index]['payerName'] = selectedUser;
     dispatch(updateTemplatePaymentList({ paymentList: items }));
   };
   const updateParticipants = (value: string[], index: number) => {
-    const items = [...paymentList];
+    const items = JSON.parse(JSON.stringify(paymentList)) as PaymentItem[];
     items[index]['participants'] = value;
     dispatch(updateTemplatePaymentList({ paymentList: items }));
   };
