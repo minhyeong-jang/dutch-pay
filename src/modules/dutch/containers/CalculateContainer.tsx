@@ -36,6 +36,7 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
     userList.map((user) => {
       calculateList[user.userName] = {
         paymentTotal: 0,
+        tossTotal: 0,
         sendList: { ...sendList },
       };
     });
@@ -47,7 +48,6 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
       const payerInfo = calculateList[payerName];
 
       payerInfo.paymentTotal += paymentPrice;
-
       participants.map((partName) => {
         if (partName === payerName) return;
         const participantInfo = calculateList[partName];
@@ -60,6 +60,14 @@ export const CalculateContainer: FC<Props> = ({ userList, paymentList }) => {
           participantInfo.sendList[payerName] += -differencePrice;
         }
       });
+    });
+    Object.keys(calculateList).forEach((payerName) => {
+      const tossTotal = Object.keys(calculateList[payerName].sendList).reduce(
+        (sum, key) =>
+          sum + Math.floor(calculateList[payerName].sendList[key] || 0),
+        0,
+      );
+      calculateList[payerName].tossTotal = tossTotal;
     });
     setCalculateList(calculateList);
   }, [userList, paymentList]);

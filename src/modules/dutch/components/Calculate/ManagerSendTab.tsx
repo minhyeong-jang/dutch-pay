@@ -35,6 +35,7 @@ export const ManagerSendTab: FC<Props> = ({
   if (!Object.keys(calculateGetPriceList).length) {
     return null;
   }
+
   return (
     <StyledContainer>
       <StyledDesc>
@@ -54,9 +55,9 @@ export const ManagerSendTab: FC<Props> = ({
       <StyledTitle>2. 대표자에게 송금하기</StyledTitle>
       <StyledDesc>
         참가자들은 아래 금액만큼 <b>{selectedUser}</b>님에게 송금해주세요.
-        <br />
+        {/* <br />
         전체 송금 금액 : {calculateGetPriceList['totalPrice'].toLocaleString()}
-        원
+        원 */}
       </StyledDesc>
       <StyledSendList>
         {Object.keys(calculateList).map((payer, index) => (
@@ -65,7 +66,11 @@ export const ManagerSendTab: FC<Props> = ({
             color={getTagColor(userList, payer)}
             isHide={payer === selectedUser}
             payer={payer}
-            sendList={calculateList[payer].sendList}
+            tossTotal={
+              calculateGetPriceList[payer] > calculateList[payer]?.tossTotal
+                ? 0
+                : calculateList[payer]?.tossTotal - calculateGetPriceList[payer]
+            }
           />
         ))}
       </StyledSendList>
@@ -73,14 +78,18 @@ export const ManagerSendTab: FC<Props> = ({
       <StyledTitle>3. 결제자에게 송금하기</StyledTitle>
       <StyledSendList>
         {Object.keys(calculateGetPriceList).map((payer, index) =>
-          payer !== 'totalPrice' && calculateGetPriceList[payer] !== 0 ? (
-            <StyledTossLi key={index}>
-              {payer}님이
-              <StyledTotalPrice>
-                {calculateGetPriceList[payer].toLocaleString()}
-              </StyledTotalPrice>
-              &nbsp;원을 요청해요!
-            </StyledTossLi>
+          payer !== 'totalPrice' &&
+          calculateGetPriceList[payer] !== 0 &&
+          calculateGetPriceList[payer] > calculateList[payer]?.tossTotal ? (
+            <ManagerGetPriceItem
+              key={index}
+              payer={payer}
+              color={getTagColor(userList, payer)}
+              isHide={payer === selectedUser}
+              tossTotal={
+                calculateGetPriceList[payer] - calculateList[payer]?.tossTotal
+              }
+            />
           ) : null,
         )}
       </StyledSendList>

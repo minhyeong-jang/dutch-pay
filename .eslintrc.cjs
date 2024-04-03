@@ -1,10 +1,6 @@
 module.exports = {
-  extends: [
-    'eslint-config-prettier',
-    'eslint:recommended',
-    'plugin:prettier/recommended',
-  ],
-  plugins: ['eslint-plugin-prettier', 'prettier'],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  plugins: ['prettier'],
   env: {
     es2020: true,
     browser: true,
@@ -13,11 +9,7 @@ module.exports = {
   },
   parserOptions: {
     sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-      ecmaVersion: 2018,
-      sourceType: 'module',
-    },
+    ecmaVersion: 'latest',
   },
   settings: {
     react: {
@@ -34,21 +26,16 @@ module.exports = {
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:prettier/recommended',
       ],
-
       parser: '@typescript-eslint/parser',
       parserOptions: {
         project: './tsconfig.json',
       },
-
-      plugins: ['simple-import-sort', 'sort-keys-fix'],
       rules: {
         'no-alert': 'off',
         'no-console': 'warn',
         'no-debugger': 'warn',
         'no-void': 'error',
         'no-unused-vars': 'off',
-        'simple-import-sort/imports': 'error',
-        'simple-import-sort/exports': 'error',
         'react/display-name': 'off',
         'no-empty-function': 'warn',
         '@typescript-eslint/camelcase': 'off',
@@ -76,31 +63,7 @@ module.exports = {
           'warn',
           { ignoreRestSiblings: true },
         ],
-
         'jsx-a11y/anchor-is-valid': 'off',
-
-        'sort-keys-fix/sort-keys-fix': [
-          2,
-          'asc',
-          { caseSensitive: true, natural: true },
-        ],
-
-        'react/jsx-sort-default-props': [
-          2,
-          {
-            ignoreCase: false,
-          },
-        ],
-        'react/jsx-sort-props': [
-          2,
-          {
-            callbacksLast: true,
-            shorthandLast: true,
-            ignoreCase: false,
-            noSortAlphabetically: false,
-            reservedFirst: true,
-          },
-        ],
         'react/prop-types': 'off',
         'react/sort-prop-types': [
           2,
@@ -117,12 +80,4 @@ module.exports = {
       },
     },
   ],
-  rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        parser: 'typescript',
-      },
-    ],
-  },
 };
