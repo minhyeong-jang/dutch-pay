@@ -1,4 +1,4 @@
-import{v as n,w as p,r as c,s as a,j as t,N as l,L as x,m as u,x as h,y as m}from"./index-4H725Usa.js";function d(e){e===void 0&&(e=n);var o=e===n?p:function(){return c.useContext(e)};return function(){var i=o(),r=i.store;return r}}var g=d();function f(e){e===void 0&&(e=n);var o=e===n?g:d(e);return function(){var i=o();return i.dispatch}}var v=f();const b=({onClick:e})=>t.jsx(j,{children:t.jsx(y,{onClick:()=>e(),children:"+ Add Template"})}),j=a.li`
+import{v as n,w as p,r as c,s as a,j as t,N as l,L as x,m as u,x as h,y as m}from"./index-sCmQ2Qts.js";function d(e){e===void 0&&(e=n);var o=e===n?p:function(){return c.useContext(e)};return function(){var i=o(),r=i.store;return r}}var g=d();function f(e){e===void 0&&(e=n);var o=e===n?g:d(e);return function(){var i=o();return i.dispatch}}var v=f();const b=({onClick:e})=>t.jsx(j,{children:t.jsx(y,{onClick:()=>e(),children:"+ Add Template"})}),j=a.li`
   padding-left: 12px;
 `,y=a.button`
   width: 100%;
