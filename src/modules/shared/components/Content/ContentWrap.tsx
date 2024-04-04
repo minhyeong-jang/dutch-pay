@@ -1,7 +1,10 @@
-import React, { FC } from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-export const ContentWrap: FC = ({ children }) => {
+interface ContentWrapProps {
+  children: ReactNode;
+}
+export const ContentWrap = ({ children }: ContentWrapProps) => {
   return (
     <StyledContainer>
       <StyledReponsiveContent>{children}</StyledReponsiveContent>

@@ -37,15 +37,16 @@ export const TemplateContainer: FC<Props> = ({ templateName }) => {
     navigation(`/calc/${items[items.length - 1].id}`);
   };
   const onSave = () => {
-    const items = [...template.templateList];
-    const selectedTemplate = items.findIndex(
-      (item) => item.id === template.selectedId,
+    const items = [...template.templateList].map((item) =>
+      item.id === template.selectedId
+        ? {
+            ...item,
+            templateName: editTemplateName,
+          }
+        : item,
     );
-    if (selectedTemplate !== -1) {
-      items[selectedTemplate].templateName = editTemplateName;
-      dispatch(updateTemplateList({ templateList: items }));
-      setIsEdit(false);
-    }
+    dispatch(updateTemplateList({ templateList: items }));
+    setIsEdit(false);
   };
   return (
     <TemplateHeader

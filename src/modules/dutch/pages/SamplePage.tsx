@@ -1,15 +1,9 @@
-import React, { FC } from 'react';
-import { useParams } from 'react-router';
+import React from 'react';
 
-import { DutchContainer } from '../containers';
 import { DutchPageTemplate } from './templates';
 
-const SamplePage: FC = () => {
-  return (
-    <DutchPageTemplate>
-      {/* <DutchContainer templateId={id} /> */}
-    </DutchPageTemplate>
-  );
+const SamplePage = () => {
+  return <DutchPageTemplate>test</DutchPageTemplate>;
 };
 
 export default SamplePage;

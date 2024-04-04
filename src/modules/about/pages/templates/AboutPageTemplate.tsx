@@ -1,9 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { NavibarContainer } from '../../../shared/containers';
 
-export const AboutPageTemplate: FC = ({ children }) => {
+interface AboutPageTemplateProps {
+  children: ReactNode;
+}
+export const AboutPageTemplate = ({ children }: AboutPageTemplateProps) => {
   return (
     <StyledTemplate>
       <NavibarContainer />

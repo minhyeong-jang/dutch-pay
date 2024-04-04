@@ -1,28 +1,22 @@
 import { Tag } from 'antd';
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { SendList } from '../../../../types';
-
 interface Props {
-  sendList: SendList;
+  // sendList: SendList;
   payer: string;
   color: string;
-  isHide: boolean;
+  isHide?: boolean;
+  tossTotal: number;
 }
 export const ManagerGetPriceItem: FC<Props> = ({
-  sendList,
+  // sendList,
   color,
   isHide,
   payer,
+  tossTotal,
 }) => {
   if (isHide) return null;
-  const tossTotal = useMemo(() => {
-    return Object.keys(sendList).reduce(
-      (sum, key) => sum + Math.floor(sendList[key] || 0),
-      0,
-    );
-  }, [sendList]);
 
   if (tossTotal === 0) return null;
 

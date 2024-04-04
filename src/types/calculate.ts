@@ -1,6 +1,7 @@
 export interface CalculateItem {
   [key: string]: {
     paymentTotal: number;
+    tossTotal: number;
     sendList: SendList;
   };
 }
