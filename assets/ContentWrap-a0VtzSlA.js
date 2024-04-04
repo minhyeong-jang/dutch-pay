@@ -1,4 +1,4 @@
-import{s as t,j as e}from"./index-zrO4CWkk.js";const l=({children:o,...i})=>e.jsx(n,{...i,children:o}),n=t.div`
+import{s as t,j as e}from"./index-I2TEKTUE.js";const l=({children:o,...i})=>e.jsx(n,{...i,children:o}),n=t.div`
   display: flex;
   margin: 8px 0px 20px;
   font-size: 22px;
