@@ -1,9 +1,10 @@
 /** 서비스 브랜딩 (서비스명 변경 시 여기만 수정) */
 export const BRAND = {
-  name: "CalPayment",
-  tagline: "복잡한 정산, 1분 만에",
-  domain: "calpayment.kr",
-  url: "https://calpayment.kr",
+  name: "나란",
+  tagline: "복잡한 정산도 1분 만에",
+  slogan: "돈 얘기, 나란이 대신할게",
+  domain: "naran.im",
+  url: "https://naran.im",
 } as const;
 
 /** 참가자 태그 색상 팔레트 (10색, 순환) */
@@ -30,5 +31,5 @@ export const APP_CONFIG = {
 
 /** localStorage 키 */
 export const STORAGE_KEYS = {
-  templates: "calpayment:templates",
+  templates: "naran:templates",
 } as const;
