@@ -1,0 +1,114 @@
+"use client";
+
+import { useMemo } from "react";
+
+import { calculateSettlement, calculateReceiveSummary } from "@dutch/core";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { getSettlementInput } from "~/lib/store";
+import type { LocalTemplate } from "~/lib/store";
+
+import { SettlementDetail } from "./settlement-detail";
+import { SettlementSummary } from "./settlement-summary";
+import { ShareButton } from "./share-button";
+
+interface SettlementViewProps {
+  template: LocalTemplate;
+}
+
+export function SettlementView({ template }: SettlementViewProps) {
+  const { participantNames, payments } = useMemo(
+    () => getSettlementInput(template),
+    [template],
+  );
+
+  const settlement = useMemo(
+    () => calculateSettlement(participantNames, payments),
+    [participantNames, payments],
+  );
+
+  const receiveSummary = useMemo(
+    () => calculateReceiveSummary(participantNames, settlement),
+    [participantNames, settlement],
+  );
+
+  const totalAmount = receiveSummary.totalPrice ?? 0;
+  const participantMap = useMemo(
+    () => new Map(template.participants.map((p) => [p.name, p.tagColor])),
+    [template.participants],
+  );
+
+  // 결제 내역이 없는 경우
+  if (payments.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
+        <p className="text-lg font-medium text-muted-foreground">
+          결제 내역을 먼저 추가해주세요
+        </p>
+        <p className="text-sm text-muted-foreground/70">
+          결제를 추가하면 정산 결과가 여기에 표시됩니다
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* 요약 카드 */}
+      <SettlementSummary
+        totalAmount={totalAmount}
+        participantCount={template.participants.length}
+        paymentCount={template.payments.length}
+      />
+
+      {/* 공유 버튼 */}
+      <ShareButton template={template} />
+
+      {/* 탭: 각자 송금 / 일괄 송금 */}
+      <Tabs defaultValue="individual">
+        <TabsList className="w-full">
+          <TabsTrigger value="individual" className="flex-1">
+            각자 송금
+          </TabsTrigger>
+          <TabsTrigger value="batch" className="flex-1">
+            일괄 송금
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="individual">
+          <div className="flex flex-col gap-3 pt-2">
+            {participantNames.map((name) => {
+              const entry = settlement[name];
+              if (!entry) return null;
+
+              const receiveTotal =
+                typeof receiveSummary[name] === "number"
+                  ? receiveSummary[name]
+                  : 0;
+
+              return (
+                <SettlementDetail
+                  key={name}
+                  name={name}
+                  tagColor={participantMap.get(name) ?? "#64748B"}
+                  paymentTotal={entry.paymentTotal}
+                  tossTotal={entry.tossTotal}
+                  receiveTotal={receiveTotal}
+                  sendList={entry.sendList}
+                />
+              );
+            })}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="batch">
+          <div className="flex flex-col items-center justify-center gap-2 py-12 text-center">
+            <p className="text-muted-foreground">준비 중인 기능이에요</p>
+            <p className="text-sm text-muted-foreground/70">
+              한 명에게 모아서 송금하는 기능을 곧 제공할 예정이에요
+            </p>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
