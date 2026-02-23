@@ -4,9 +4,10 @@ import { Copy, Share2 } from "lucide-react";
 import { toast } from "sonner";
 
 import {
-  calculateSettlement,
-  type SettlementResult,
+  calculateSettlement
+  
 } from "@dutch/core";
+import type {SettlementResult} from "@dutch/core";
 import { Button } from "~/components/ui/button";
 import { formatKRW } from "~/lib/format";
 import { getSettlementInput } from "~/lib/store";
@@ -40,7 +41,7 @@ function buildSettlementText(template: LocalTemplate): string {
     if (!entry) continue;
 
     for (const [receiverName, amount] of Object.entries(entry.sendList)) {
-      const floored = Math.floor(amount as number);
+      const floored = Math.floor(amount);
       if (floored <= 0) continue;
       lines.push(`${senderName} → ${receiverName}: ${formatKRW(floored)}`);
     }

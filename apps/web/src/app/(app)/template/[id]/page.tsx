@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { ParticipantList } from "~/components/participant/participant-list";
 import { PaymentList } from "~/components/payment/payment-list";
 import { PaymentDrawer } from "~/components/payment/payment-drawer";
+import { SettlementView } from "~/components/settlement/settlement-view";
 
 export default function TemplatePage() {
   const { id } = useParams<{ id: string }>();
@@ -84,9 +85,7 @@ export default function TemplatePage() {
         </TabsContent>
 
         <TabsContent value="settlement" className="mt-4">
-          <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
-            <p className="text-muted-foreground">정산 결과가 여기에 표시됩니다</p>
-          </div>
+          <SettlementView template={template} />
         </TabsContent>
       </Tabs>
 

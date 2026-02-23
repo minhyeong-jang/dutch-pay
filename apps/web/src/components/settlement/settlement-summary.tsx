@@ -18,7 +18,7 @@ export function SettlementSummary({
     <Card className="border-0 bg-primary text-primary-foreground shadow-md">
       <CardContent className="flex flex-col items-center gap-1 py-6">
         <p className="text-sm font-medium opacity-90">총 사용 금액</p>
-        <p className="text-3xl font-bold">{formatKRW(totalAmount)}</p>
+        <p className="text-3xl font-bold tabular-nums">{formatKRW(totalAmount)}</p>
         <p className="mt-1 text-sm opacity-80">
           {participantCount}명 참여 · {paymentCount}건 결제
         </p>

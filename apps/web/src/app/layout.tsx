@@ -3,6 +3,7 @@ import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
 import { Toaster } from "~/components/ui/sonner";
+import { BRAND } from "~/lib/constants";
 
 import "~/app/styles.css";
 
@@ -19,18 +20,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://calpayment.kr"),
+  metadataBase: new URL(BRAND.url),
   title: {
-    default: "CalPayment - 복잡한 정산, 1분 만에",
-    template: "%s | CalPayment",
+    default: `${BRAND.name} - ${BRAND.tagline}`,
+    template: `%s | ${BRAND.name}`,
   },
-  description:
-    "여러 명이 각각 결제한 복수 건을 교차 정산. 토스로 못 하는 복잡한 정산, 1분 만에.",
+  description: `여러 명이 각각 결제한 복수 건을 교차 정산. 토스로 못 하는 ${BRAND.tagline}.`,
   openGraph: {
-    title: "CalPayment - 복잡한 정산, 1분 만에",
+    title: `${BRAND.name} - ${BRAND.tagline}`,
     description: "여행, 회식, 동호회 정산을 간단하게",
-    url: "https://calpayment.kr",
-    siteName: "CalPayment",
+    url: BRAND.url,
+    siteName: BRAND.name,
     type: "website",
   },
 };

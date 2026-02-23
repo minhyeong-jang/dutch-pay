@@ -39,7 +39,7 @@ export function PaymentCard({
         <CardContent className="flex items-center justify-between">
           <div className="flex flex-col gap-1">
             <p className="text-sm font-medium">{payment.title}</p>
-            <p className="text-base font-semibold">{formatKRW(payment.amount)}</p>
+            <p className="text-base font-semibold tabular-nums">{formatKRW(payment.amount)}</p>
             <div className="flex items-center gap-2">
               {payer && (
                 <div className="flex items-center gap-1 text-xs">

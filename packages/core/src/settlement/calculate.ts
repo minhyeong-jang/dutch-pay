@@ -42,7 +42,7 @@ export function calculateSettlement(
       const participantInfo = result[partName];
       if (!participantInfo) continue;
 
-      const difference = payerInfo.sendList[partName]! - perPerson;
+      const difference = (payerInfo.sendList[partName] ?? 0) - perPerson;
       if (difference >= 0) {
         payerInfo.sendList[partName] = difference;
       } else {
@@ -55,7 +55,8 @@ export function calculateSettlement(
 
   // tossTotal 계산 (원 단위 내림)
   for (const name of Object.keys(result)) {
-    const entry = result[name]!;
+    const entry = result[name];
+    if (!entry) continue;
     entry.tossTotal = Object.values(entry.sendList).reduce(
       (sum, val) => sum + Math.floor(val || 0),
       0,
@@ -81,7 +82,7 @@ export function calculateReceiveSummary(
   for (const name of participantNames) {
     let total = 0;
     for (const payerName of Object.keys(settlement)) {
-      total += Math.floor(settlement[payerName]!.sendList[name] ?? 0);
+      total += Math.floor(settlement[payerName]?.sendList[name] ?? 0);
     }
     summary.totalPrice = (summary.totalPrice ?? 0) + total;
     summary[name] = total;

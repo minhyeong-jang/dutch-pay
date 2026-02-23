@@ -60,7 +60,7 @@ export function SettlementDetail({
                 </div>
 
                 {/* 결제 금액 / 보내야 할 금액 */}
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm tabular-nums">
                   {paymentTotal > 0 && (
                     <span className="text-muted-foreground">
                       결제 금액: {formatKRW(paymentTotal)}
@@ -105,7 +105,7 @@ export function SettlementDetail({
                         {receiver}
                       </span>
                       에게{" "}
-                      <span className="font-medium text-destructive">
+                      <span className="font-medium text-destructive tabular-nums">
                         {formatKRW(Math.floor(amount))}
                       </span>
                     </span>

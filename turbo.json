@@ -46,6 +46,7 @@
     }
   },
   "globalEnv": [
+    "PORT",
     "POSTGRES_URL",
     "NEXT_PUBLIC_SUPABASE_URL",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY",
@@ -54,6 +55,7 @@
   "globalPassThroughEnv": [
     "NODE_ENV",
     "CI",
+    "PORT",
     "VERCEL",
     "VERCEL_ENV",
     "VERCEL_URL",

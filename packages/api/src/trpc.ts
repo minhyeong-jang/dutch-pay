@@ -12,7 +12,7 @@ import { db } from "@dutch/db/client";
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: {
+export const createTRPCContext = (opts: {
   headers: Headers;
   user: User | null;
 }) => {

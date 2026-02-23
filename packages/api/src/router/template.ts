@@ -1,7 +1,7 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod/v4";
 
-import { desc, eq } from "@dutch/db";
+import { and, desc, eq } from "@dutch/db";
 import { templates } from "@dutch/db/schema";
 
 import { protectedProcedure, publicProcedure } from "../trpc";
@@ -42,10 +42,32 @@ export const templateRouter = {
         .returning();
     }),
 
-  /** 모임 삭제 */
+  /** 모임 이름 수정 */
+  update: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        name: z.string().min(1).max(50),
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.db
+        .update(templates)
+        .set({ name: input.name })
+        .where(
+          and(eq(templates.id, input.id), eq(templates.userId, ctx.user.id)),
+        )
+        .returning();
+    }),
+
+  /** 모임 삭제 (소유자 검증) */
   delete: protectedProcedure
     .input(z.string().uuid())
     .mutation(({ ctx, input }) => {
-      return ctx.db.delete(templates).where(eq(templates.id, input));
+      return ctx.db
+        .delete(templates)
+        .where(
+          and(eq(templates.id, input), eq(templates.userId, ctx.user.id)),
+        );
     }),
 } satisfies TRPCRouterRecord;

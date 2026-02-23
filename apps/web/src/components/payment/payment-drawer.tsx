@@ -52,7 +52,6 @@ export function PaymentDrawer({
           <AddPaymentForm
             participants={participants}
             onSubmit={onSubmit}
-            onClose={() => onOpenChange(false)}
           />
         </DialogContent>
       </Dialog>
@@ -72,7 +71,6 @@ export function PaymentDrawer({
           <AddPaymentForm
             participants={participants}
             onSubmit={onSubmit}
-            onClose={() => onOpenChange(false)}
           />
         </ScrollArea>
       </DrawerContent>

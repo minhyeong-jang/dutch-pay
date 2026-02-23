@@ -9,7 +9,7 @@ import { Button } from "~/components/ui/button";
 
 const navItems = [
   { href: "/dashboard", label: "홈", icon: Home, primary: false },
-  { href: "/dashboard/new", label: "새 모임", icon: Plus, primary: true },
+  { href: "/template/new", label: "새 모임", icon: Plus, primary: true },
   { href: "/settings", label: "설정", icon: Settings, primary: false },
 ] as const;
 

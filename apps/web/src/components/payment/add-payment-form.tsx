@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { CheckIcon } from "lucide-react";
+import { useMemo, useState } from "react";
 
 import type { LocalParticipant } from "~/lib/store";
 import { formatNumber } from "~/lib/format";
-import { cn } from "~/lib/utils";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
+import { ChipSelect  } from "~/components/ui/chip-select";
+import type {ChipItem} from "~/components/ui/chip-select";
 
 interface AddPaymentFormProps {
   participants: LocalParticipant[];
@@ -18,7 +18,7 @@ interface AddPaymentFormProps {
     payerId: string;
     participantIds: string[];
   }) => void;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 const QUICK_AMOUNTS = [
@@ -31,7 +31,6 @@ const QUICK_AMOUNTS = [
 export function AddPaymentForm({
   participants,
   onSubmit,
-  onClose,
 }: AddPaymentFormProps) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
@@ -48,6 +47,16 @@ export function AddPaymentForm({
     amount > 0 &&
     payerId !== "" &&
     participantIds.length > 0;
+
+  const chipItems: ChipItem[] = useMemo(
+    () =>
+      participants.map((p) => ({
+        id: p.id,
+        label: p.name,
+        color: p.tagColor,
+      })),
+    [participants],
+  );
 
   function handleAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
     const raw = e.target.value.replace(/[^0-9]/g, "");
@@ -132,79 +141,28 @@ export function AddPaymentForm({
       {/* 결제자 */}
       <div className="flex flex-col gap-1.5">
         <Label>결제자</Label>
-        <div className="flex flex-wrap gap-2">
-          {participants.map((p) => {
-            const isSelected = payerId === p.id;
-            return (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => setPayerId(p.id)}
-                className={cn(
-                  "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors",
-                  isSelected
-                    ? "border-primary bg-primary/10 text-primary font-medium"
-                    : "border-border hover:bg-accent text-muted-foreground",
-                )}
-              >
-                <span
-                  className="size-2.5 shrink-0 rounded-full"
-                  style={{ backgroundColor: p.tagColor }}
-                />
-                {p.name}
-              </button>
-            );
-          })}
-        </div>
+        <ChipSelect
+          mode="single"
+          items={chipItems}
+          value={payerId}
+          onChange={setPayerId}
+          showColorDot
+        />
       </div>
 
       {/* 참여자 */}
       <div className="flex flex-col gap-1.5">
-        <div className="flex items-center justify-between">
-          <Label>참여자</Label>
-          <button
-            type="button"
-            onClick={toggleAll}
-            className="text-muted-foreground hover:text-foreground flex items-center gap-1.5 text-xs transition-colors"
-          >
-            <span
-              className={cn(
-                "flex size-4 items-center justify-center rounded border transition-colors",
-                allSelected
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-input",
-              )}
-            >
-              {allSelected && <CheckIcon className="size-3" />}
-            </span>
-            전체 선택
-          </button>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {participants.map((p) => {
-            const isSelected = participantIds.includes(p.id);
-            return (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => toggleParticipant(p.id)}
-                className={cn(
-                  "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors",
-                  isSelected
-                    ? "border-primary bg-primary/10 text-primary font-medium"
-                    : "border-border hover:bg-accent text-muted-foreground",
-                )}
-              >
-                <span
-                  className="size-2.5 shrink-0 rounded-full"
-                  style={{ backgroundColor: p.tagColor }}
-                />
-                {p.name}
-                {isSelected && <CheckIcon className="size-3" />}
-              </button>
-            );
-          })}
-        </div>
+        <Label>참여자</Label>
+        <ChipSelect
+          mode="multi"
+          items={chipItems}
+          value={participantIds}
+          onChange={toggleParticipant}
+          onSelectAll={toggleAll}
+          showSelectAll
+          showColorDot
+          showCheck
+        />
       </div>
 
       {/* 제출 */}

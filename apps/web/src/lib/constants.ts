@@ -1,3 +1,11 @@
+/** 서비스 브랜딩 (서비스명 변경 시 여기만 수정) */
+export const BRAND = {
+  name: "CalPayment",
+  tagline: "복잡한 정산, 1분 만에",
+  domain: "calpayment.kr",
+  url: "https://calpayment.kr",
+} as const;
+
 /** 참가자 태그 색상 팔레트 (10색, 순환) */
 export const TAG_COLORS = [
   "#0D9488", // Teal
