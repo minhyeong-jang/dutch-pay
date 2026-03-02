@@ -2,6 +2,8 @@ export type { Participant, Payment, Template } from "./types";
 export {
   calculateSettlement,
   calculateReceiveSummary,
+  countDirectTransfers,
+  countOptimizedTransfers,
 } from "./settlement";
 export type {
   SettlementEntry,

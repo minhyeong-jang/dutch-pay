@@ -1,4 +1,9 @@
-export { calculateSettlement, calculateReceiveSummary } from "./calculate";
+export {
+  calculateSettlement,
+  calculateReceiveSummary,
+  countDirectTransfers,
+  countOptimizedTransfers,
+} from "./calculate";
 export type {
   PaymentInput,
   ReceiveSummary,

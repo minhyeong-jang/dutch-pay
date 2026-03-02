@@ -29,6 +29,12 @@ export const APP_CONFIG = {
   maxPaymentTitleLength: 100,
 } as const;
 
+/** 앱 스토어 링크 (null이면 Coming Soon) */
+export const APP_STORE = {
+  ios: null as string | null,
+  android: null as string | null,
+} as const;
+
 /** localStorage 키 */
 export const STORAGE_KEYS = {
   templates: "naran:templates",

@@ -67,6 +67,30 @@ export function calculateSettlement(
 }
 
 /**
+ * 최적화 없이 건별로 따로 보냈을 때의 송금 횟수를 계산합니다.
+ * 각 결제건마다 결제자를 제외한 참가자 수만큼 송금이 필요합니다.
+ */
+export function countDirectTransfers(payments: PaymentInput[]): number {
+  return payments.reduce(
+    (sum, p) => sum + Math.max(0, p.participantNames.length - 1),
+    0,
+  );
+}
+
+/**
+ * 정산 최적화 후 실제 필요한 송금 횟수를 계산합니다.
+ */
+export function countOptimizedTransfers(settlement: SettlementResult): number {
+  let count = 0;
+  for (const entry of Object.values(settlement)) {
+    for (const amount of Object.values(entry.sendList)) {
+      if (Math.floor(amount) > 0) count++;
+    }
+  }
+  return count;
+}
+
+/**
  * 각 참가자가 받아야 할 금액을 계산합니다.
  *
  * @param participantNames - 참가자 이름 목록
