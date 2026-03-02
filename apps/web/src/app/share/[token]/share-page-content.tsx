@@ -7,6 +7,8 @@ import { ArrowRight, ChevronDown, Copy, Link2, Search } from "lucide-react";
 import {
   calculateSettlement,
   calculateReceiveSummary,
+  countDirectTransfers,
+  countOptimizedTransfers,
 } from "@dutch/core";
 import { Button } from "~/components/ui/button";
 import type { ChipItem } from "~/components/ui/chip-select";
@@ -130,6 +132,13 @@ export function SharePageContent({ data }: SharePageContentProps) {
               {template.participants.length}명 참여 ·{" "}
               {template.payments.length}건 결제
             </p>
+            {countDirectTransfers(payments) >
+              countOptimizedTransfers(settlement) && (
+              <p className="mt-2 rounded-full bg-primary-foreground/15 px-3 py-1 text-xs font-medium">
+                건별로 보내면 {countDirectTransfers(payments)}번 → 나란이
+                정리하면 {countOptimizedTransfers(settlement)}번이면 끝
+              </p>
+            )}
             <p className="text-xs opacity-60">
               {formatDate(template.createdAt)}
             </p>

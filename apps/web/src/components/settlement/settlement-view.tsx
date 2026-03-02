@@ -2,7 +2,12 @@
 
 import { useMemo } from "react";
 
-import { calculateSettlement, calculateReceiveSummary } from "@dutch/core";
+import {
+  calculateSettlement,
+  calculateReceiveSummary,
+  countDirectTransfers,
+  countOptimizedTransfers,
+} from "@dutch/core";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { getSettlementInput } from "~/lib/store";
 import type { LocalTemplate } from "~/lib/store";
@@ -58,6 +63,8 @@ export function SettlementView({ template }: SettlementViewProps) {
         totalAmount={totalAmount}
         participantCount={template.participants.length}
         paymentCount={template.payments.length}
+        directTransferCount={countDirectTransfers(payments)}
+        optimizedTransferCount={countOptimizedTransfers(settlement)}
       />
 
       {/* 공유 버튼 */}
