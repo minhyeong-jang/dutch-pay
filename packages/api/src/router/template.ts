@@ -4,7 +4,7 @@ import { z } from "zod/v4";
 import { and, desc, eq } from "@dutch/db";
 import { templates } from "@dutch/db/schema";
 
-import { protectedProcedure, publicProcedure } from "../trpc";
+import { protectedProcedure } from "../trpc";
 
 export const templateRouter = {
   /** 내 모임 목록 조회 */
@@ -12,15 +12,16 @@ export const templateRouter = {
     return ctx.db.query.templates.findMany({
       where: eq(templates.userId, ctx.user.id),
       orderBy: desc(templates.createdAt),
+      with: { participants: true, payments: true },
     });
   }),
 
   /** 모임 상세 (참가자 + 결제내역 포함) */
-  byId: publicProcedure
+  byId: protectedProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(({ ctx, input }) => {
       return ctx.db.query.templates.findFirst({
-        where: eq(templates.id, input.id),
+        where: and(eq(templates.id, input.id), eq(templates.userId, ctx.user.id)),
         with: {
           participants: true,
           payments: {
