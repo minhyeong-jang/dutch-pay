@@ -34,8 +34,3 @@ export const APP_STORE = {
   ios: null as string | null,
   android: null as string | null,
 } as const;
-
-/** localStorage 키 */
-export const STORAGE_KEYS = {
-  templates: "naran:templates",
-} as const;
