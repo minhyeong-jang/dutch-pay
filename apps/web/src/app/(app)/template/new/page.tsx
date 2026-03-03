@@ -7,7 +7,8 @@ import { toast } from "sonner";
 
 import { cn } from "~/lib/utils";
 import { TAG_COLORS } from "~/lib/constants";
-import { createTemplate, addParticipant } from "~/lib/store";
+import { useTRPC } from "~/trpc/react";
+import { useMutation } from "@tanstack/react-query";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
@@ -118,6 +119,9 @@ function ParticipantTag({
 
 export default function NewTemplatePage() {
   const router = useRouter();
+  const trpc = useTRPC();
+  const createMutation = useMutation(trpc.template.create.mutationOptions());
+  const addParticipantMutation = useMutation(trpc.participant.create.mutationOptions());
 
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
@@ -194,21 +198,27 @@ export default function NewTemplatePage() {
 
   // ─── Step 3: Confirm & Create ──────────────────────
 
-  function handleCreate(redirectTo: "template" | "dashboard") {
+  async function handleCreate(redirectTo: "template" | "dashboard") {
     if (isCreating) return;
     setIsCreating(true);
 
     try {
-      const template = createTemplate(name.trim());
+      const [template] = await createMutation.mutateAsync({ name: name.trim() });
 
-      for (const p of participants) {
-        addParticipant(template.id, p.name);
-      }
+      if (template) {
+        for (const p of participants) {
+          await addParticipantMutation.mutateAsync({
+            templateId: template.id,
+            name: p.name,
+            tagColor: p.tagColor,
+          });
+        }
 
-      if (redirectTo === "dashboard") {
-        router.push("/dashboard");
-      } else {
-        router.push(`/template/${template.id}`);
+        if (redirectTo === "dashboard") {
+          router.push("/dashboard");
+        } else {
+          router.push(`/template/${template.id}`);
+        }
       }
     } catch {
       toast.error("모임 생성에 실패했어요");

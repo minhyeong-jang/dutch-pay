@@ -1,6 +1,6 @@
 "use client";
 
-import type { LocalParticipant } from "~/lib/store";
+import type { Participant } from "~/lib/types";
 import { useMediaQuery } from "~/hooks/use-media-query";
 import {
   Dialog,
@@ -22,7 +22,7 @@ import { AddPaymentForm } from "~/components/payment/add-payment-form";
 interface PaymentDrawerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  participants: LocalParticipant[];
+  participants: Participant[];
   onSubmit: (data: {
     title: string;
     amount: number;

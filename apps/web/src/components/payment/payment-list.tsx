@@ -2,12 +2,12 @@
 
 import { ReceiptIcon } from "lucide-react";
 
-import type { LocalParticipant, LocalPayment } from "~/lib/store";
+import type { Participant, Payment } from "~/lib/types";
 import { PaymentCard } from "~/components/payment/payment-card";
 
 interface PaymentListProps {
-  payments: LocalPayment[];
-  participants: LocalParticipant[];
+  payments: Payment[];
+  participants: Participant[];
   onDelete: (id: string) => void;
 }
 

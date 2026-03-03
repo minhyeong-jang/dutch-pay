@@ -5,20 +5,32 @@ import { toast } from "sonner";
 
 import {
   calculateSettlement
-  
+
 } from "@dutch/core";
 import type {SettlementResult} from "@dutch/core";
 import { Button } from "~/components/ui/button";
 import { formatKRW } from "~/lib/format";
-import { getSettlementInput } from "~/lib/store";
-import type { LocalTemplate } from "~/lib/store";
+import type { Template } from "~/lib/types";
 
 interface ShareButtonProps {
-  template: LocalTemplate;
+  template: Template;
 }
 
-function buildSettlementText(template: LocalTemplate): string {
-  const { participantNames, payments } = getSettlementInput(template);
+function buildSettlementText(template: Template): string {
+  const participantNames = template.participants.map((p) => p.name);
+
+  const payments = template.payments
+    .filter((p) => p.payerId && p.participants.length > 0 && p.amount > 0)
+    .map((p) => {
+      const payer = template.participants.find((pt) => pt.id === p.payerId);
+      return {
+        amount: p.amount,
+        payerName: payer?.name ?? "",
+        participantNames: p.participants
+          .map((pp) => template.participants.find((pt) => pt.id === pp.participantId)?.name)
+          .filter((n): n is string => !!n),
+      };
+    });
 
   if (participantNames.length === 0 || payments.length === 0) {
     return "";

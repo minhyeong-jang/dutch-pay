@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Trash2Icon, UsersIcon } from "lucide-react";
 
-import type { LocalParticipant, LocalPayment } from "~/lib/store";
+import type { Participant, Payment } from "~/lib/types";
 import { formatKRW } from "~/lib/format";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
@@ -19,8 +19,8 @@ import {
 } from "~/components/ui/alert-dialog";
 
 interface PaymentCardProps {
-  payment: LocalPayment;
-  participants: LocalParticipant[];
+  payment: Payment;
+  participants: Participant[];
   onDelete: (id: string) => void;
 }
 
@@ -52,7 +52,7 @@ export function PaymentCard({
               )}
               <div className="text-muted-foreground flex items-center gap-1 text-xs">
                 <UsersIcon className="size-3" />
-                <span>{payment.participantIds.length}명</span>
+                <span>{payment.participants.length}명</span>
               </div>
             </div>
           </div>

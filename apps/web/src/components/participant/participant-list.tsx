@@ -2,12 +2,12 @@
 
 import { XIcon } from "lucide-react";
 
-import type { LocalParticipant } from "~/lib/store";
+import type { Participant } from "~/lib/types";
 import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area";
 import { AddParticipantForm } from "~/components/participant/add-participant-form";
 
 interface ParticipantListProps {
-  participants: LocalParticipant[];
+  participants: Participant[];
   onAdd: (name: string) => void;
   onRemove: (id: string) => void;
 }

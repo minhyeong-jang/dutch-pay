@@ -8,22 +8,38 @@ import {
   countDirectTransfers,
   countOptimizedTransfers,
 } from "@dutch/core";
+import type { Template } from "~/lib/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { getSettlementInput } from "~/lib/store";
-import type { LocalTemplate } from "~/lib/store";
 
 import { SettlementDetail } from "./settlement-detail";
 import { SettlementSummary } from "./settlement-summary";
 import { ShareButton } from "./share-button";
 
 interface SettlementViewProps {
-  template: LocalTemplate;
+  template: Template;
 }
 
 export function SettlementView({ template }: SettlementViewProps) {
-  const { participantNames, payments } = useMemo(
-    () => getSettlementInput(template),
-    [template],
+  const participantNames = useMemo(
+    () => template.participants.map((p) => p.name),
+    [template.participants],
+  );
+
+  const payments = useMemo(
+    () =>
+      template.payments
+        .filter((p) => p.payerId && p.participants.length > 0 && p.amount > 0)
+        .map((p) => {
+          const payer = template.participants.find((pt) => pt.id === p.payerId);
+          return {
+            amount: p.amount,
+            payerName: payer?.name ?? "",
+            participantNames: p.participants
+              .map((pp) => template.participants.find((pt) => pt.id === pp.participantId)?.name)
+              .filter((n): n is string => !!n),
+          };
+        }),
+    [template.payments, template.participants],
   );
 
   const settlement = useMemo(

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
 
-import type { LocalTemplate } from "~/lib/store";
+import type { TemplateListItem } from "~/lib/types";
 import { formatKRW } from "~/lib/format";
 import { formatRelativeDate } from "~/lib/format";
 import {
@@ -18,7 +18,7 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 
 interface TemplateCardProps {
-  template: LocalTemplate;
+  template: TemplateListItem;
   onDelete: (id: string) => void;
 }
 
@@ -39,7 +39,7 @@ export function TemplateCard({ template, onDelete }: TemplateCardProps) {
       <CardHeader>
         <CardTitle className="text-lg">{template.name}</CardTitle>
         <CardDescription>
-          {formatRelativeDate(template.updatedAt)} · {participantCount}명
+          {formatRelativeDate(template.updatedAt ?? template.createdAt ?? new Date())} · {participantCount}명
         </CardDescription>
         <CardAction>
           <Button

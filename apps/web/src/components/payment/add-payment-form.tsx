@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import type { LocalParticipant } from "~/lib/store";
+import type { Participant } from "~/lib/types";
 import { formatNumber } from "~/lib/format";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
@@ -11,7 +11,7 @@ import { ChipSelect  } from "~/components/ui/chip-select";
 import type {ChipItem} from "~/components/ui/chip-select";
 
 interface AddPaymentFormProps {
-  participants: LocalParticipant[];
+  participants: Participant[];
   onSubmit: (data: {
     title: string;
     amount: number;
