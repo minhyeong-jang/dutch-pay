@@ -44,7 +44,7 @@
 ## 3. 프로젝트 구조
 
 ```
-dutch-pay/
+naran/
 ├── apps/
 │   ├── web/                  # Next.js 15 웹 애플리케이션
 │   │   ├── src/

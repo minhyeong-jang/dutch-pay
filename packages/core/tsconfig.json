@@ -1,5 +1,5 @@
 {
-  "extends": "@dutch/tsconfig/compiled-package.json",
+  "extends": "@naran/tsconfig/compiled-package.json",
   "include": ["src"],
   "exclude": ["node_modules"]
 }

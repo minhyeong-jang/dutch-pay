@@ -1,5 +1,5 @@
 {
-  "extends": ["@dutch/tsconfig/base.json"],
+  "extends": ["@naran/tsconfig/base.json"],
   "compilerOptions": {
     "jsx": "react-native",
     "checkJs": false,

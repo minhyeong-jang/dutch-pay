@@ -1,5 +1,5 @@
 {
-  "name": "@dutch/api",
+  "name": "@naran/api",
   "private": true,
   "type": "module",
   "exports": {
@@ -18,8 +18,8 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@dutch/core": "workspace:*",
-    "@dutch/db": "workspace:*",
+    "@naran/core": "workspace:*",
+    "@naran/db": "workspace:*",
     "@supabase/ssr": "^0.6.0",
     "@supabase/supabase-js": "^2.49.0",
     "@trpc/server": "catalog:",
@@ -27,13 +27,13 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@dutch/eslint-config": "workspace:*",
-    "@dutch/prettier-config": "workspace:*",
-    "@dutch/tsconfig": "workspace:*",
+    "@naran/eslint-config": "workspace:*",
+    "@naran/prettier-config": "workspace:*",
+    "@naran/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@dutch/prettier-config"
+  "prettier": "@naran/prettier-config"
 }

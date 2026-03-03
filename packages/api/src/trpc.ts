@@ -3,7 +3,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { z, ZodError } from "zod/v4";
 
-import { db } from "@dutch/db/client";
+import { db } from "@naran/db/client";
 
 /**
  * 1. CONTEXT

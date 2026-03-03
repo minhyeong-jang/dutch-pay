@@ -201,7 +201,7 @@ Backend가 발견한 현재 API 문제점:
 | 항목 | 선택 | 비고 |
 |------|------|------|
 | UI 프레임워크 | shadcn/ui (apps/web 직접 설치) | packages/ui 공유 안 함 |
-| 폼 관리 | React Hook Form + @hookform/resolvers/zod | @dutch/core validators 연결 |
+| 폼 관리 | React Hook Form + @hookform/resolvers/zod | @naran/core validators 연결 |
 | 애니메이션 | framer-motion (motion) | CSS transitions 병행 |
 | 상태 관리 | React Query (tRPC) + URL params | Redux 없음 |
 | 폰트 | Pretendard Variable (self-hosted) | ~300KB subset woff2 |

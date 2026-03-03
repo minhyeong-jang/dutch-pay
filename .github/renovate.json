@@ -3,7 +3,7 @@
   "extends": ["config:base"],
   "packageRules": [
     {
-      "matchPackagePatterns": ["^@dutch/"],
+      "matchPackagePatterns": ["^@naran/"],
       "enabled": false
     }
   ],

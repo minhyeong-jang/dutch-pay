@@ -65,7 +65,7 @@ importers:
 
   .:
     devDependencies:
-      '@dutch/prettier-config':
+      '@naran/prettier-config':
         specifier: workspace:*
         version: link:tooling/prettier
       '@turbo/gen':
@@ -174,19 +174,19 @@ importers:
         specifier: 2.2.3
         version: 2.2.3
     devDependencies:
-      '@dutch/api':
+      '@naran/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@dutch/eslint-config':
+      '@naran/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@dutch/prettier-config':
+      '@naran/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@dutch/tailwind-config':
+      '@naran/tailwind-config':
         specifier: workspace:*
         version: link:../../tooling/tailwind
-      '@dutch/tsconfig':
+      '@naran/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@types/react':
@@ -207,18 +207,18 @@ importers:
 
   apps/web:
     dependencies:
-      '@dutch/api':
-        specifier: workspace:*
-        version: link:../../packages/api
-      '@dutch/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@dutch/db':
-        specifier: workspace:*
-        version: link:../../packages/db
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.71.2(react@19.1.4))
+      '@naran/api':
+        specifier: workspace:*
+        version: link:../../packages/api
+      '@naran/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@naran/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@supabase/ssr':
         specifier: ^0.6.0
         version: 0.6.1(@supabase/supabase-js@2.97.0)
@@ -286,16 +286,16 @@ importers:
         specifier: 'catalog:'
         version: 4.3.6
     devDependencies:
-      '@dutch/eslint-config':
+      '@naran/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@dutch/prettier-config':
+      '@naran/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@dutch/tailwind-config':
+      '@naran/tailwind-config':
         specifier: workspace:*
         version: link:../../tooling/tailwind
-      '@dutch/tsconfig':
+      '@naran/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@types/node':
@@ -328,10 +328,10 @@ importers:
 
   packages/api:
     dependencies:
-      '@dutch/core':
+      '@naran/core':
         specifier: workspace:*
         version: link:../core
-      '@dutch/db':
+      '@naran/db':
         specifier: workspace:*
         version: link:../db
       '@supabase/ssr':
@@ -350,13 +350,13 @@ importers:
         specifier: 'catalog:'
         version: 4.3.6
     devDependencies:
-      '@dutch/eslint-config':
+      '@naran/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@dutch/prettier-config':
+      '@naran/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@dutch/tsconfig':
+      '@naran/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@types/node':
@@ -378,13 +378,13 @@ importers:
         specifier: 'catalog:'
         version: 4.3.6
     devDependencies:
-      '@dutch/eslint-config':
+      '@naran/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@dutch/prettier-config':
+      '@naran/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@dutch/tsconfig':
+      '@naran/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       eslint:
@@ -412,13 +412,13 @@ importers:
         specifier: 'catalog:'
         version: 4.3.6
     devDependencies:
-      '@dutch/eslint-config':
+      '@naran/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@dutch/prettier-config':
+      '@naran/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@dutch/tsconfig':
+      '@naran/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@types/node':
@@ -467,10 +467,10 @@ importers:
         specifier: ^8.46.2
         version: 8.56.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
     devDependencies:
-      '@dutch/prettier-config':
+      '@naran/prettier-config':
         specifier: workspace:*
         version: link:../prettier
-      '@dutch/tsconfig':
+      '@naran/tsconfig':
         specifier: workspace:*
         version: link:../typescript
       '@types/node':
@@ -500,7 +500,7 @@ importers:
         specifier: ^0.7.1
         version: 0.7.2(@ianvs/prettier-plugin-sort-imports@4.7.1(prettier@3.8.1))(prettier@3.8.1)
     devDependencies:
-      '@dutch/tsconfig':
+      '@naran/tsconfig':
         specifier: workspace:*
         version: link:../typescript
       '@types/node':
@@ -522,13 +522,13 @@ importers:
         specifier: 'catalog:'
         version: 4.2.0
     devDependencies:
-      '@dutch/eslint-config':
+      '@naran/eslint-config':
         specifier: workspace:*
         version: link:../eslint
-      '@dutch/prettier-config':
+      '@naran/prettier-config':
         specifier: workspace:*
         version: link:../prettier
-      '@dutch/tsconfig':
+      '@naran/tsconfig':
         specifier: workspace:*
         version: link:../typescript
       '@types/node':

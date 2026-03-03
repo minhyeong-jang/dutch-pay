@@ -1019,7 +1019,7 @@ These mutations should use optimistic updates for perceived speed:
 | `payment.delete` | Remove payment card, recalculate settlement client-side |
 | Participant add/remove | Update participant list immediately |
 
-The `@dutch/core/settlement` package contains pure functions (`calculateSettlement`, `calculateReceiveSummary`) that can run client-side for instant settlement recalculation during optimistic updates.
+The `@naran/core/settlement` package contains pure functions (`calculateSettlement`, `calculateReceiveSummary`) that can run client-side for instant settlement recalculation during optimistic updates.
 
 #### 7.3 Cache Invalidation Strategy
 
@@ -1093,7 +1093,7 @@ const queryClient = new QueryClient({
 
 #### 8.1 Core Calculation: Yes, It Can Work Offline
 
-The `@dutch/core/settlement` package is already a pure function library with zero server dependencies. The frontend can:
+The `@naran/core/settlement` package is already a pure function library with zero server dependencies. The frontend can:
 
 1. Accept participant and payment inputs client-side
 2. Run `calculateSettlement()` and `calculateReceiveSummary()` entirely in the browser
@@ -1229,7 +1229,7 @@ Supabase Realtime (PostgreSQL `LISTEN/NOTIFY` via WebSockets) is the right tool 
 
 1. **Add `updatedAt` to responses**: The `templates.updatedAt` field exists in the schema but ensure it's included in query results for cache busting.
 
-2. **Consistent ID referencing**: The `paymentRouter` uses `participantId` (UUID references to the DB), but the validators in `@dutch/core` use `payerName` (string). This inconsistency will cause confusion. The API layer should use UUIDs; the core settlement functions use names. The mapping between them (already done in `settlementRouter`) is correct but should be documented.
+2. **Consistent ID referencing**: The `paymentRouter` uses `participantId` (UUID references to the DB), but the validators in `@naran/core` use `payerName` (string). This inconsistency will cause confusion. The API layer should use UUIDs; the core settlement functions use names. The mapping between them (already done in `settlementRouter`) is correct but should be documented.
 
 3. **Amount validation**: The `payments.amount` is `integer()` (Drizzle) and `z.number().int().positive()` (Zod), but there's no upper bound. Add `.max(100_000_000)` (1 billion won) to prevent integer overflow edge cases.
 
@@ -1256,7 +1256,7 @@ This allows any website to make requests to the API. For the web app, this shoul
 // Recommended
 const ALLOWED_ORIGINS = [
   'https://calpayment.kr',
-  'https://dutch-pay.vercel.app',
+  'https://naran.vercel.app',
   process.env.NODE_ENV === 'development' && 'http://localhost:3000',
 ].filter(Boolean);
 

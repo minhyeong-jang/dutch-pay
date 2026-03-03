@@ -7,7 +7,7 @@ import {
   calculateReceiveSummary,
   countDirectTransfers,
   countOptimizedTransfers,
-} from "@dutch/core";
+} from "@naran/core";
 import type { Template } from "~/lib/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 

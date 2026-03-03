@@ -9,7 +9,7 @@ import {
   calculateReceiveSummary,
   countDirectTransfers,
   countOptimizedTransfers,
-} from "@dutch/core";
+} from "@naran/core";
 import { Button } from "~/components/ui/button";
 import type { ChipItem } from "~/components/ui/chip-select";
 import { ChipSelect } from "~/components/ui/chip-select";

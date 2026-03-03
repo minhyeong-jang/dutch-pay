@@ -6,7 +6,7 @@ import {
   calculateSettlement,
   countDirectTransfers,
   type PaymentInput,
-} from "@dutch/core/settlement";
+} from "@naran/core/settlement";
 
 import { Button } from "~/components/ui/button";
 import {

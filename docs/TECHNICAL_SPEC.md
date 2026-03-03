@@ -12,9 +12,9 @@
 
 | Layer | Status | Details |
 |-------|--------|---------|
-| Monorepo infra | Done | Turborepo + pnpm workspaces, `@dutch/*` namespacing |
+| Monorepo infra | Done | Turborepo + pnpm workspaces, `@naran/*` namespacing |
 | Next.js 16 shell | Done | App Router, React 19, root layout with `lang="ko"`, Geist fonts, TRPCReactProvider wrapping |
-| Tailwind CSS v4 | Done | CSS-first config via `@dutch/tailwind-config/theme`, oklch color tokens (light/dark), `tw-animate-css`, custom container utility |
+| Tailwind CSS v4 | Done | CSS-first config via `@naran/tailwind-config/theme`, oklch color tokens (light/dark), `tw-animate-css`, custom container utility |
 | tRPC v11 (server) | Done | `createTRPCOptionsProxy` with RSC prefetch pattern, `HydrateClient`, `prefetch()` helper |
 | tRPC v11 (client) | Done | `httpBatchStreamLink`, `TRPCReactProvider` with singleton QueryClient, 30s staleTime |
 | tRPC API route | Done | `/api/trpc/[trpc]/route.ts` with CORS headers, Supabase auth integration |
@@ -22,7 +22,7 @@
 | Supabase Auth | Done | Server client (cookies), browser client, middleware session refresh |
 | DB layer | Done | Drizzle ORM with full schema: templates, participants, payments, payment_participants, shared_links |
 | Core business logic | Done | `calculateSettlement()`, `calculateReceiveSummary()` as pure functions |
-| Zod validators | Done | `createTemplateSchema`, `paymentSchema`, `participantSchema` in `@dutch/core` |
+| Zod validators | Done | `createTemplateSchema`, `paymentSchema`, `participantSchema` in `@naran/core` |
 | Env validation | Done | `@t3-oss/env-nextjs` with typed server/client env vars |
 
 ### What's Missing for a Functional Web App
@@ -110,7 +110,7 @@ This file will be auto-generated at `apps/web/components.json`. Verify it matche
 }
 ```
 
-**Key point**: `tailwind.config` is empty string because Tailwind v4 is CSS-first. Our theme is already in `tooling/tailwind/theme.css` with all the oklch variables shadcn expects (`--primary`, `--secondary`, etc.). This is already imported via `@import "@dutch/tailwind-config/theme"` in `styles.css`. No extra config needed.
+**Key point**: `tailwind.config` is empty string because Tailwind v4 is CSS-first. Our theme is already in `tooling/tailwind/theme.css` with all the oklch variables shadcn expects (`--primary`, `--secondary`, etc.). This is already imported via `@import "@naran/tailwind-config/theme"` in `styles.css`. No extra config needed.
 
 ### Tailwind v4 Compatibility Notes
 
@@ -602,7 +602,7 @@ const deleteMutation = useMutation(
 **Decision: React Hook Form + Zod resolvers.**
 
 Justification:
-- We already have Zod schemas in `@dutch/core/validators` for all entities.
+- We already have Zod schemas in `@naran/core/validators` for all entities.
 - React Hook Form is the standard choice with shadcn/ui (their docs use it in all form examples).
 - It avoids unnecessary re-renders compared to controlled `useState` forms.
 - `@hookform/resolvers/zod` connects our existing schemas directly.
@@ -610,7 +610,7 @@ Justification:
 ```tsx
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { paymentSchema, type PaymentInput } from "@dutch/core";
+import { paymentSchema, type PaymentInput } from "@naran/core";
 
 const form = useForm<PaymentInput>({
   resolver: zodResolver(paymentSchema),
@@ -743,7 +743,7 @@ export const db = USE_MOCK
 
 - shadcn/ui components are copy-pasted source, not a library bundle. Tree-shaking is automatic.
 - Heavy components (`Command`, `Drawer`) are only imported in routes that use them. Next.js App Router code-splits per route automatically.
-- The `@dutch/core` settlement calculation is ~2KB. No splitting needed.
+- The `@naran/core` settlement calculation is ~2KB. No splitting needed.
 - `superjson` (used by tRPC) is ~4KB. Acceptable.
 - `react-hook-form` is ~9KB gzipped. Loaded only on pages with forms.
 - **Do NOT use `next/dynamic` lazily unless a component is >50KB.** The overhead of Suspense boundaries + loading states is not worth it for small components.
@@ -751,7 +751,7 @@ export const db = USE_MOCK
 ### Critical CSS
 
 - Tailwind v4 with Next.js handles CSS extraction automatically. No manual critical CSS needed.
-- The `@import` chain (`tailwindcss` -> `tw-animate-css` -> `@dutch/tailwind-config/theme`) is resolved at build time.
+- The `@import` chain (`tailwindcss` -> `tw-animate-css` -> `@naran/tailwind-config/theme`) is resolved at build time.
 - Unused CSS is purged by Tailwind's content detection.
 
 ### Additional Performance Measures

@@ -1,8 +1,8 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod/v4";
 
-import { and, desc, eq } from "@dutch/db";
-import { templates } from "@dutch/db/schema";
+import { and, desc, eq } from "@naran/db";
+import { templates } from "@naran/db/schema";
 
 import { protectedProcedure } from "../trpc";
 

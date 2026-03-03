@@ -1,5 +1,5 @@
 {
-  "name": "@dutch/mobile",
+  "name": "@naran/mobile",
   "private": true,
   "main": "index.ts",
   "scripts": {
@@ -45,16 +45,16 @@
     "superjson": "2.2.3"
   },
   "devDependencies": {
-    "@dutch/api": "workspace:*",
-    "@dutch/eslint-config": "workspace:*",
-    "@dutch/prettier-config": "workspace:*",
-    "@dutch/tailwind-config": "workspace:*",
-    "@dutch/tsconfig": "workspace:*",
+    "@naran/api": "workspace:*",
+    "@naran/eslint-config": "workspace:*",
+    "@naran/prettier-config": "workspace:*",
+    "@naran/tailwind-config": "workspace:*",
+    "@naran/tsconfig": "workspace:*",
     "@types/react": "catalog:react19",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@dutch/prettier-config"
+  "prettier": "@naran/prettier-config"
 }

@@ -6,8 +6,8 @@ import { toast } from "sonner";
 import {
   calculateSettlement
 
-} from "@dutch/core";
-import type {SettlementResult} from "@dutch/core";
+} from "@naran/core";
+import type {SettlementResult} from "@naran/core";
 import { Button } from "~/components/ui/button";
 import { formatKRW } from "~/lib/format";
 import type { Template } from "~/lib/types";

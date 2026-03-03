@@ -4,8 +4,8 @@ import { headers } from "next/headers";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 
-import type { AppRouter } from "@dutch/api";
-import { appRouter, createTRPCContext, createCallerFactory } from "@dutch/api";
+import type { AppRouter } from "@naran/api";
+import { appRouter, createTRPCContext, createCallerFactory } from "@naran/api";
 
 import { createClient } from "~/lib/supabase/server";
 import { createQueryClient } from "./query-client";

@@ -1,5 +1,5 @@
 {
-  "name": "@dutch/eslint-config",
+  "name": "@naran/eslint-config",
   "private": true,
   "type": "module",
   "exports": {
@@ -24,12 +24,12 @@
     "typescript-eslint": "^8.46.2"
   },
   "devDependencies": {
-    "@dutch/prettier-config": "workspace:*",
-    "@dutch/tsconfig": "workspace:*",
+    "@naran/prettier-config": "workspace:*",
+    "@naran/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@dutch/prettier-config"
+  "prettier": "@naran/prettier-config"
 }

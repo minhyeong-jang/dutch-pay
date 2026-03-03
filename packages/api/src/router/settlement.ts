@@ -4,9 +4,9 @@ import { z } from "zod/v4";
 import {
   calculateReceiveSummary,
   calculateSettlement,
-} from "@dutch/core/settlement";
-import { eq } from "@dutch/db";
-import { templates } from "@dutch/db/schema";
+} from "@naran/core/settlement";
+import { eq } from "@naran/db";
+import { templates } from "@naran/db/schema";
 
 import { publicProcedure } from "../trpc";
 

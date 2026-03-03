@@ -8,7 +8,7 @@ await jiti.import("./src/env");
 /** @type {import("next").NextConfig} */
 const config = {
   /** Enables hot reloading for local packages without a build step */
-  transpilePackages: ["@dutch/api", "@dutch/core", "@dutch/db"],
+  transpilePackages: ["@naran/api", "@naran/core", "@naran/db"],
 
   /** We already do linting and typechecking as separate tasks in CI */
   typescript: { ignoreBuildErrors: true },

@@ -1,6 +1,6 @@
 import { defineConfig } from "eslint/config";
 
-import { baseConfig } from "@dutch/eslint-config/base";
+import { baseConfig } from "@naran/eslint-config/base";
 
 export default defineConfig(
   {

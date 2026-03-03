@@ -1,5 +1,5 @@
 {
-  "name": "@dutch/tailwind-config",
+  "name": "@naran/tailwind-config",
   "private": true,
   "type": "module",
   "exports": {
@@ -19,13 +19,13 @@
     "tailwindcss": "catalog:"
   },
   "devDependencies": {
-    "@dutch/eslint-config": "workspace:*",
-    "@dutch/prettier-config": "workspace:*",
-    "@dutch/tsconfig": "workspace:*",
+    "@naran/eslint-config": "workspace:*",
+    "@naran/prettier-config": "workspace:*",
+    "@naran/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@dutch/prettier-config"
+  "prettier": "@naran/prettier-config"
 }
