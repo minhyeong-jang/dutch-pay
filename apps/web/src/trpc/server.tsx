@@ -5,7 +5,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 
 import type { AppRouter } from "@dutch/api";
-import { appRouter, createTRPCContext } from "@dutch/api";
+import { appRouter, createTRPCContext, createCallerFactory } from "@dutch/api";
 
 import { createClient } from "~/lib/supabase/server";
 import { createQueryClient } from "./query-client";
@@ -30,6 +30,15 @@ const createContext = cache(async () => {
 });
 
 const getQueryClient = cache(createQueryClient);
+
+/**
+ * Server-side caller for direct tRPC calls in Server Components.
+ * Usage: const caller = await createCaller(); await caller.sharedLink.resolve({ token });
+ */
+const _createCaller = createCallerFactory(appRouter);
+export async function createCaller() {
+  return _createCaller(await createContext());
+}
 
 export const trpc = createTRPCOptionsProxy<AppRouter>({
   router: appRouter,

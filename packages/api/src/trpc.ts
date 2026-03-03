@@ -43,6 +43,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
  * 3. ROUTER & PROCEDURE
  */
 export const createTRPCRouter = t.router;
+export const createCallerFactory = t.createCallerFactory;
 
 const timingMiddleware = t.middleware(async ({ next, path }) => {
   const start = Date.now();

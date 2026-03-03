@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { BRAND } from "~/lib/constants";
+import { createCaller } from "~/trpc/server";
 import { SharePageContent } from "./share-page-content";
-import { getMockShareData } from "./mock-data";
 
 interface SharePageProps {
   params: Promise<{ token: string }>;
@@ -13,35 +13,36 @@ export async function generateMetadata({
   params,
 }: SharePageProps): Promise<Metadata> {
   const { token } = await params;
-  // v1.0: mock data. 향후 sharedLink.resolve API 연동
-  const data = getMockShareData(token);
-
-  if (!data) {
+  try {
+    const caller = await createCaller();
+    const { template } = await caller.sharedLink.resolve({ token });
+    const totalAmount = template.payments.reduce(
+      (sum, p) => sum + p.amount,
+      0,
+    );
     return {
-      title: "정산 결과를 찾을 수 없습니다",
-    };
-  }
-
-  const { template, totalAmount, participantCount } = data;
-
-  return {
-    title: `${template.name} 정산 결과`,
-    description: `총 ${totalAmount.toLocaleString("ko-KR")}원 · ${participantCount}명 | 내 정산 금액 확인하기`,
-    openGraph: {
       title: `${template.name} 정산 결과`,
-      description: `총 ${totalAmount.toLocaleString("ko-KR")}원 · ${participantCount}명 | 내 정산 금액 확인하기`,
-      url: `${BRAND.url}/share/${token}`,
-      siteName: BRAND.name,
-      type: "website",
-    },
-  };
+      description: `총 ${totalAmount.toLocaleString("ko-KR")}원 · ${template.participants.length}명 | 내 정산 금액 확인하기`,
+      openGraph: {
+        title: `${template.name} 정산 결과`,
+        description: `총 ${totalAmount.toLocaleString("ko-KR")}원 · ${template.participants.length}명 | 내 정산 금액 확인하기`,
+        url: `${BRAND.url}/share/${token}`,
+        siteName: BRAND.name,
+        type: "website",
+      },
+    };
+  } catch {
+    return { title: "정산 결과를 찾을 수 없습니다" };
+  }
 }
 
 export default async function SharePage({ params }: SharePageProps) {
   const { token } = await params;
-  const data = getMockShareData(token);
-
-  if (!data) {
+  try {
+    const caller = await createCaller();
+    const data = await caller.sharedLink.resolve({ token });
+    return <SharePageContent data={data} />;
+  } catch {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-4">
         <p className="text-lg font-semibold text-foreground">
@@ -59,6 +60,4 @@ export default async function SharePage({ params }: SharePageProps) {
       </div>
     );
   }
-
-  return <SharePageContent data={data} />;
 }

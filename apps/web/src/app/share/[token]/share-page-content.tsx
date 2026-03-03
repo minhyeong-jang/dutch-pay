@@ -22,23 +22,61 @@ import {
 import { Separator } from "~/components/ui/separator";
 import { BRAND } from "~/lib/constants";
 import { formatKRW, formatDate } from "~/lib/format";
-import { getSettlementInput } from "~/lib/store";
 import { toast } from "sonner";
 
-import type { ShareData } from "./mock-data";
-
 interface SharePageContentProps {
-  data: ShareData;
+  data: {
+    template: {
+      id: string;
+      name: string;
+      participants: Array<{
+        id: string;
+        name: string;
+        tagColor: string;
+        [key: string]: unknown;
+      }>;
+      payments: Array<{
+        id: string;
+        title: string;
+        amount: number;
+        payerId: string | null;
+        payer: { name: string; tagColor: string; [key: string]: unknown } | null;
+        participants: Array<{
+          participantId: string;
+          participant: { name: string; [key: string]: unknown };
+        }>;
+        [key: string]: unknown;
+      }>;
+      createdAt: Date | null;
+      [key: string]: unknown;
+    };
+    isReadonly: boolean;
+    expiresAt: Date | null;
+  };
 }
 
 export function SharePageContent({ data }: SharePageContentProps) {
-  const { template, totalAmount } = data;
+  const { template } = data;
   const [selectedName, setSelectedName] = useState<string | null>(null);
 
-  const { participantNames, payments } = useMemo(
-    () => getSettlementInput(template),
-    [template],
+  const totalAmount = useMemo(
+    () => template.payments.reduce((sum, p) => sum + p.amount, 0),
+    [template.payments],
   );
+
+  const { participantNames, payments } = useMemo(() => {
+    const participantNames = template.participants.map((p) => p.name);
+    const payments = template.payments
+      .filter(
+        (p) => p.payerId && p.participants.length > 0 && p.amount > 0,
+      )
+      .map((p) => ({
+        amount: p.amount,
+        payerName: p.payer?.name ?? "",
+        participantNames: p.participants.map((pp) => pp.participant.name),
+      }));
+    return { participantNames, payments };
+  }, [template]);
 
   const settlement = useMemo(
     () => calculateSettlement(participantNames, payments),
@@ -232,33 +270,28 @@ export function SharePageContent({ data }: SharePageContentProps) {
           </CollapsibleTrigger>
           <CollapsibleContent>
             <div className="flex flex-col gap-2 pt-2">
-              {template.payments.map((payment) => {
-                const payer = template.participants.find(
-                  (p) => p.id === payment.payerId,
-                );
-                return (
-                  <div
-                    key={payment.id}
-                    className="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2 text-sm"
-                  >
-                    <div className="flex flex-col gap-0.5">
-                      <span className="font-medium">{payment.title}</span>
-                      {payer && (
-                        <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                          <span
-                            className="inline-block size-2 rounded-full"
-                            style={{ backgroundColor: payer.tagColor }}
-                          />
-                          {payer.name} 결제
-                        </span>
-                      )}
-                    </div>
-                    <span className="font-medium tabular-nums">
-                      {formatKRW(payment.amount)}
-                    </span>
+              {template.payments.map((payment) => (
+                <div
+                  key={payment.id}
+                  className="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2 text-sm"
+                >
+                  <div className="flex flex-col gap-0.5">
+                    <span className="font-medium">{payment.title}</span>
+                    {payment.payer && (
+                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <span
+                          className="inline-block size-2 rounded-full"
+                          style={{ backgroundColor: payment.payer.tagColor }}
+                        />
+                        {payment.payer.name} 결제
+                      </span>
+                    )}
                   </div>
-                );
-              })}
+                  <span className="font-medium tabular-nums">
+                    {formatKRW(payment.amount)}
+                  </span>
+                </div>
+              ))}
             </div>
           </CollapsibleContent>
         </Collapsible>
